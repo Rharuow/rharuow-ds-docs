@@ -1,14 +1,14 @@
 {
   "name": "rharuow-ds",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/rharuow-ds.cjs.js",
   "module": "dist/rharuow-ds.es.js",
-  "types": "dist/types/components/index.d.ts",
+  "types": "dist/types/src/components/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/rharuow-ds.es.js",
       "require": "./dist/rharuow-ds.cjs.js",
-      "types": "./dist/types/components/index.d.ts"
+      "types": "./dist/types/src/components/index.d.ts"
     }
   },
   "scripts": {
@@ -22,11 +22,13 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "react-hook-form": "^7.59.0"
+  },
   "dependencies": {
     "clsx": "^2.1.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-hook-form": "^7.59.0",
     "shadcn-ui": "^0.9.5"
   },
   "devDependencies": {
