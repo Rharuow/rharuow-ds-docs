@@ -1,0 +1,14 @@
+# Node
+node_modules/
+dist/
+storybook-static/
+*.log
+
+# VSCode
+.vscode/
+
+# Mac/Linux
+.DS_Store
+
+# Storybook cache
+node_modules/.cache/
