@@ -8,6 +8,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 export interface CustomProps {
+  name: string;
   label?: string;
   Icon?: React.ElementType;
   iconClassName?: string;
@@ -18,6 +19,7 @@ export interface CustomProps {
 const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
   (
     {
+      name,
       className,
       type = "text",
       label,
@@ -35,13 +37,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
 
     const form = useFormContext();
     const control = form?.control;
+    const register = form?.register;
     const valueWatch =
-      control && props.name
-        ? useWatch({ control, name: String(props.name) })
-        : undefined;
+      control && name ? useWatch({ control, name }) : undefined;
 
     const value = props.value ?? valueWatch ?? "";
-    const error = form?.formState?.errors?.[props.name as string]?.message;
+
+    const error = form?.formState?.errors?.[name as string]?.message;
 
     // Floating label: label sobe se input está focado ou tem valor
     const isFloating = focused || !!value;
@@ -49,31 +51,55 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
     return (
       <div className={cn("relative", containerClassName)}>
         <input
-          id={props.id || props.name}
+          id={props.id || name}
           type={type}
           className={cn(
-            "peer flex h-12 w-full border border-input rounded-md bg-transparent px-3 pt-6 pb-2 text-sm text-white placeholder-transparent transition focus:outline-none focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50",
+            "peer flex h-12 w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           onFocus={(event) => {
             setFocused(true);
             onFocus && onFocus(event);
           }}
-          onBlur={(event) => {
-            setFocused(false);
-            onBlur && onBlur(event);
-          }}
-          ref={ref}
+          // Merge register's ref with custom ref to avoid duplication
+          {...(form && name
+            ? (() => {
+                const registered = register(name);
+                const originalOnBlur = registered.onBlur;
+                return {
+                  ...registered,
+                  ref: (node: HTMLInputElement) => {
+                    if (typeof ref === "function") ref(node);
+                    else if (ref)
+                      (
+                        ref as React.RefObject<HTMLInputElement | null>
+                      ).current = node;
+                    if (registered.ref) registered.ref(node);
+                  },
+                  onBlur: (event: React.FocusEvent<HTMLInputElement>) => {
+                    setFocused(false);
+                    if (onBlur) onBlur(event);
+                    if (originalOnBlur) originalOnBlur(event);
+                  },
+                };
+              })()
+            : {
+                ref,
+                onBlur: (event: React.FocusEvent<HTMLInputElement>) => {
+                  setFocused(false);
+                  if (onBlur) onBlur(event);
+                },
+              })}
           {...props}
         />
         {label && (
           <label
-            htmlFor={props.id || props.name}
+            htmlFor={props.id || name}
             className={cn(
-              "absolute left-3 top-3 z-10 origin-[0] cursor-text select-none text-sm text-gray-400 transition-all duration-200",
+              "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm text-gray-400 transition-all duration-200",
               isFloating
-                ? "scale-90 -translate-y-3 text-xs text-blue-400"
-                : "scale-100 translate-y-0"
+                ? "top-0 scale-90 -translate-y-1 text-xs text-blue-400 p-1 rounded-full bg-white"
+                : "top-3 scale-100 translate-y-0.5"
             )}
           >
             {label}
