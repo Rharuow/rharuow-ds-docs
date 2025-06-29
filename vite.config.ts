@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-// import path from "path";
 
 export default defineConfig({
   plugins: [react()],
@@ -12,11 +11,12 @@ export default defineConfig({
       fileName: (format) => `rharuow-ds.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react", "react-dom", "react-hook-form"],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
+          "react-hook-form": "ReactHookForm",
         },
       },
     },
