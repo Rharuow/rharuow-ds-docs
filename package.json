@@ -9,11 +9,13 @@
       "import": "./dist/rharuow-ds.es.js",
       "require": "./dist/rharuow-ds.cjs.js",
       "types": "./dist/types/src/components/index.d.ts"
-    }
+    },
+    "./dist/styles.css": "./dist/styles.css"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "vite build && tsc --emitDeclarationOnly --declaration --declarationDir dist/types",
+    "build:css": "npx tailwindcss -i ./src/styles/ds.css -o ./dist/styles.css --minify",
+    "build": "vite build && tsc --emitDeclarationOnly --declaration --declarationDir dist/types && npm run build:css",
     "storybook": "storybook dev -p 6006",
     "deploy-storybook": "npx gh-pages -d storybook-static",
     "build-storybook": "storybook build"
@@ -36,9 +38,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
-    "autoprefixer": "^10.4.21",
     "gh-pages": "^6.3.0",
-    "postcss": "^8.5.6",
     "storybook": "^9.0.14",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.8.3"
