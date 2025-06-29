@@ -1,6 +1,6 @@
 {
   "name": "rharuow-ds",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/rharuow-ds.cjs.js",
   "module": "dist/rharuow-ds.es.js",
   "types": "dist/types/src/components/index.d.ts",
