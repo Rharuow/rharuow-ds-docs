@@ -6,19 +6,21 @@
   "types": "dist/types/src/components/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/src/components/index.d.ts",
       "import": "./dist/rharuow-ds.es.js",
-      "require": "./dist/rharuow-ds.cjs.js",
-      "types": "./dist/types/src/components/index.d.ts"
+      "require": "./dist/rharuow-ds.cjs.js"
     },
     "./dist/styles.css": "./dist/styles.css"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "npx tailwindcss -i ./src/styles/ds.css -o ./dist/styles.css --minify",
+    "build:css:watch": "npx tailwindcss -i ./src/styles/ds.css -o ./dist/styles.css --watch",
     "build": "vite build && tsc --emitDeclarationOnly --declaration --declarationDir dist/types && npm run build:css",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "npm run build:css && storybook dev -p 6006",
+    "storybook:dev": "npm run build:css && concurrently \"npm run build:css:watch\" \"storybook dev -p 6006\"",
     "deploy-storybook": "npx gh-pages -d storybook-static",
-    "build-storybook": "storybook build"
+    "build-storybook": "npm run build:css && storybook build"
   },
   "keywords": [],
   "author": "",
@@ -38,6 +40,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
+    "concurrently": "^9.2.0",
     "gh-pages": "^6.3.0",
     "storybook": "^9.0.14",
     "tailwindcss": "^3.4.3",
