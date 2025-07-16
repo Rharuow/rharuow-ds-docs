@@ -14,7 +14,7 @@ export interface SelectProps
   label?: string;
   options: SelectOption[];
   containerClassName?: string;
-  isCleareable?: boolean;
+  isClearable?: boolean;
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
@@ -25,6 +25,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       options,
       className,
       containerClassName,
+      isClearable,
       onFocus,
       onBlur,
       ...props
@@ -33,6 +34,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ) => {
     const [focused, setFocused] = React.useState(false);
     const [open, setOpen] = React.useState(false);
+    const componentRef = React.useRef<HTMLDivElement>(null);
 
     const form = useFormContext();
     const control = form?.control;
@@ -44,22 +46,44 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     // Floating label: label sobe se select está focado ou tem valor
     const isFloating = focused || !!value;
 
+    // Handle clicks outside component
+    React.useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          componentRef.current &&
+          !componentRef.current.contains(event.target as Node)
+        ) {
+          setOpen(false);
+          setFocused(false);
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
     // Dropdown open/close handlers
+    const handleContainerClick = () => {
+      setOpen((prev) => !prev);
+      setFocused(true);
+    };
+
     const handleFocus = (event: React.FocusEvent<HTMLDivElement>) => {
       setFocused(true);
-      setOpen(true);
       if (onFocus)
         onFocus(event as unknown as React.FocusEvent<HTMLSelectElement>);
     };
+
     const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-      setFocused(false);
-      setOpen(false);
+      // Não fechar imediatamente no blur, deixar o click outside handle isso
       if (onBlur)
         onBlur(event as unknown as React.FocusEvent<HTMLSelectElement>);
     };
 
     return (
-      <div className={cn("relative", containerClassName)}>
+      <div className={cn("relative", containerClassName)} ref={componentRef}>
         <div
           id={props.id || name}
           tabIndex={0}
@@ -67,20 +91,18 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           aria-haspopup="listbox"
           aria-expanded={open}
           className={cn(
-            "peer flex h-12 w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 pt-6 pb-2 text-sm transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
+            "peer flex items-center h-12 w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 py-3 text-sm transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
             className
           )}
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={handleContainerClick}
           onFocus={handleFocus}
           onBlur={handleBlur}
           ref={ref as unknown as React.RefObject<HTMLDivElement>}
         >
           <span className={cn("block truncate", !value && "text-gray-400")}>
-            {value
-              ? options.find((opt) => opt.value === value)?.label
-              : "Selecione..."}
+            {options.find((opt) => opt.value === value)?.label}
           </span>
-          {props.isCleareable && value && (
+          {isClearable && value && (
             <button
               type="button"
               tabIndex={-1}
@@ -96,6 +118,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                   props.onChange(event);
                 }
                 setOpen(false);
+                setFocused(false);
               }}
             >
               &#10005;
@@ -143,7 +166,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                   } as React.ChangeEvent<HTMLSelectElement>;
                   props.onChange(event);
                 }
-                setOpen(false);
+                setFocused(true);
               }}
             >
               {opt.label}
