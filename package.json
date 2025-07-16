@@ -20,7 +20,10 @@
     "storybook": "npm run build:css && storybook dev -p 6006",
     "storybook:dev": "npm run build:css && concurrently \"npm run build:css:watch\" \"storybook dev -p 6006\"",
     "deploy-storybook": "npx gh-pages -d storybook-static",
-    "build-storybook": "npm run build:css && storybook build"
+    "build-storybook": "npm run build:css && storybook build",
+    "release:patch": "npm version patch && git push --follow-tags",
+    "release:minor": "npm version minor && git push --follow-tags",
+    "release:major": "npm version major && git push --follow-tags"
   },
   "keywords": [],
   "author": "",
