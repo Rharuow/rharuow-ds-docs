@@ -100,7 +100,8 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref as unknown as React.RefObject<HTMLDivElement>}
         >
           <span className={cn("block truncate", !value && "text-gray-400")}>
-            {options.find((opt) => opt.value === value)?.label}
+            {options.find((opt) => opt.value === value)?.label ||
+              (!label && "Selecione...")}
           </span>
           {isClearable && value && (
             <button

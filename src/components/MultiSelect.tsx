@@ -126,54 +126,54 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
             className="flex flex-nowrap gap-1 items-center min-h-[1.5rem] w-full overflow-x-auto"
             style={{ scrollbarWidth: "none" }}
           >
-            {value && value.length > 0 ? (
-              options
-                .filter((opt) => value.includes(opt.value))
-                .map((opt) => (
-                  <span
-                    key={opt.value}
-                    className="flex items-center border border-blue-200 bg-blue-50 text-blue-700 rounded-2xl px-3 py-1 text-xs shadow-sm mr-1 gap-2"
-                    style={{ maxWidth: "140px" }}
-                  >
-                    <span className="truncate" title={opt.label}>
-                      {opt.label}
-                    </span>
-                    <button
-                      type="button"
-                      className="ml-1 text-blue-400 hover:text-red-500 focus:outline-none w-4 h-4 flex items-center justify-center rounded-full transition-colors duration-150"
-                      aria-label={`Remover ${opt.label}`}
-                      tabIndex={-1}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const newValue = value.filter((v) => v !== opt.value);
-                        if (form && name) form.setValue(name, newValue);
-                        if (props.onChange) {
-                          props.onChange({
-                            target: { value: newValue },
-                          } as any);
-                        }
-                      }}
+            {value && value.length > 0
+              ? options
+                  .filter((opt) => value.includes(opt.value))
+                  .map((opt) => (
+                    <span
+                      key={opt.value}
+                      className="flex items-center border border-blue-200 bg-blue-50 text-blue-700 rounded-2xl px-3 py-1 text-xs shadow-sm mr-1 gap-2"
+                      style={{ maxWidth: "140px" }}
                     >
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <span className="truncate" title={opt.label}>
+                        {opt.label}
+                      </span>
+                      <button
+                        type="button"
+                        className="ml-1 text-blue-400 hover:text-red-500 focus:outline-none w-4 h-4 flex items-center justify-center rounded-full transition-colors duration-150"
+                        aria-label={`Remover ${opt.label}`}
+                        tabIndex={-1}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const newValue = value.filter((v) => v !== opt.value);
+                          if (form && name) form.setValue(name, newValue);
+                          if (props.onChange) {
+                            props.onChange({
+                              target: { value: newValue },
+                            } as any);
+                          }
+                        }}
                       >
-                        <path
-                          d="M3 3L9 9M9 3L3 9"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </button>
-                  </span>
-                ))
-            ) : (
-              <span className="text-gray-400 text-sm">Selecione...</span>
-            )}
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M3 3L9 9M9 3L3 9"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  ))
+              : !label && (
+                  <span className="text-gray-400 text-sm">Selecione...</span>
+                )}
           </div>
           {isClearable && value && value.length > 0 && (
             <button
