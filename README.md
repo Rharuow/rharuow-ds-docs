@@ -131,6 +131,14 @@ Seletor com carregamento assíncrono de opções:
 ### 🎛️ **MultiSelect**
 Seletor múltiplo para escolha de várias opções.
 
+### 🔄🎛️ **MultiAsyncSelect**
+Seletor múltiplo com carregamento assíncrono:
+- ✅ Todas as funcionalidades do AsyncSelect
+- ✅ Seleção múltipla com tags visuais
+- ✅ Remoção individual de itens selecionados
+- ✅ Limite configurável de itens exibidos
+- ✅ Contador de itens extras (+X mais)
+
 ---
 
 ## Documentação
