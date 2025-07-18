@@ -39,45 +39,18 @@ const preview: Preview = {
       toolbar: {
         icon: 'circlehollow',
         items: [
-          { value: 'blue', title: '🔵 Blue (Default)', left: '🔵' },
-          { value: 'red', title: '🔴 Red', left: '🔴' },
-          { value: 'green', title: '🟢 Green', left: '🟢' },
-          { value: 'purple', title: '🟣 Purple', left: '🟣' },
-          { value: 'orange', title: '🟠 Orange', left: '🟠' },
-          { value: 'cyan', title: '🟦 Cyan', left: '🟦' },
-          { value: 'custom', title: '🎨 Custom', left: '🎨' },
+          { value: 'blue', title: '🔵 Blue' },
+          { value: 'red', title: '🔴 Red' },
+          { value: 'green', title: '🟢 Green' },
+          { value: 'purple', title: '🟣 Purple' },
         ],
         showName: true,
       },
-    },
-    primaryColor: {
-      name: 'Primary Color',
-      description: 'Custom primary color (when Custom theme is selected)',
-      defaultValue: '#2563eb',
-      toolbar: {
-        icon: 'paintbrush',
-        title: 'Primary Color',
-        showName: false,
-      },
-      control: { type: 'color' },
-    },
-    primaryHover: {
-      name: 'Primary Hover',
-      description: 'Custom primary hover color (when Custom theme is selected)',
-      defaultValue: '#dbeafe',
-      toolbar: {
-        icon: 'contrast',
-        title: 'Primary Hover Color',
-        showName: false,
-      },
-      control: { type: 'color' },
     },
   },
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme || 'blue';
-      const customPrimaryColor = context.globals.primaryColor || '#2563eb';
-      const customPrimaryHover = context.globals.primaryHover || '#dbeafe';
 
       // Theme presets
       const themeMap = {
@@ -85,9 +58,6 @@ const preview: Preview = {
         red: { primary: '#dc2626', hover: '#fecaca' },
         green: { primary: '#059669', hover: '#d1fae5' },
         purple: { primary: '#7c3aed', hover: '#e9d5ff' },
-        orange: { primary: '#ea580c', hover: '#fed7aa' },
-        cyan: { primary: '#0891b2', hover: '#cffafe' },
-        custom: { primary: customPrimaryColor, hover: customPrimaryHover },
       };
 
       const currentTheme = themeMap[theme as keyof typeof themeMap] || themeMap.blue;

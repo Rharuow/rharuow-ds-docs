@@ -53,8 +53,6 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     const valueWatch = control && name ? useWatch({ control, name }) : undefined;
     const value = props.value ?? valueWatch ?? "";
     const error = form?.formState?.errors?.[name as string]?.message;
-    const [focused, setFocused] = React.useState(false);
-    const isFloating = focused || !!value;
 
     const handleChange = (val: string) => {
       if (form && name) form.setValue(name, val);
@@ -69,10 +67,8 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
           <label
             htmlFor={name}
             className={cn(
-              "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm text-gray-400 transition-all duration-200",
-              isFloating
-                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary,#2563eb)] p-1 rounded-full bg-white"
-                : "top-3 scale-100 translate-y-0.5"
+              "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm transition-all duration-200",
+              "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary,#2563eb)] p-1 rounded-full bg-white"
             )}
           >
             {label}
@@ -86,8 +82,8 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
           )}
           aria-label={label}
           tabIndex={-1}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={onFocus}
+          onBlur={onBlur}
         >
           {options.map((opt) => (
             <button
