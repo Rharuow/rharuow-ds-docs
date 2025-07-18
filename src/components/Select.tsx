@@ -2,11 +2,7 @@
 import * as React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { cn } from "../lib/utils";
-
-export interface SelectOption {
-  label: string;
-  value: string;
-}
+import type { SelectOption } from "./types";
 
 export interface SelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
