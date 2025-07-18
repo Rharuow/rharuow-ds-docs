@@ -10,59 +10,99 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    backgrounds: {
+      default: 'light',
+      values: [
+        {
+          name: 'light',
+          value: '#ffffff',
+        },
+        {
+          name: 'gray',
+          value: '#f3f4f6',
+        },
+        {
+          name: 'dark',
+          value: '#1f2937',
+        },
+      ],
+    },
+    docs: {
+      toc: true,
+    },
   },
   globalTypes: {
-    primaryColor: {
-      name: 'Primary Color',
-      description: 'Theme primary color',
-      defaultValue: '#2563eb',
+    theme: {
+      name: 'Theme',
+      description: 'Global theme for components',
+      defaultValue: 'blue',
       toolbar: {
-        icon: 'paintbrush',
+        icon: 'circlehollow',
         items: [
-          { value: '#2563eb', title: 'Blue (Default)' },
-          { value: '#dc2626', title: 'Red' },
-          { value: '#059669', title: 'Green' },
-          { value: '#7c3aed', title: 'Purple' },
-          { value: '#ea580c', title: 'Orange' },
-          { value: '#0891b2', title: 'Cyan' },
+          { value: 'blue', title: '🔵 Blue (Default)', left: '🔵' },
+          { value: 'red', title: '🔴 Red', left: '🔴' },
+          { value: 'green', title: '🟢 Green', left: '🟢' },
+          { value: 'purple', title: '🟣 Purple', left: '🟣' },
+          { value: 'orange', title: '🟠 Orange', left: '🟠' },
+          { value: 'cyan', title: '🟦 Cyan', left: '🟦' },
+          { value: 'custom', title: '🎨 Custom', left: '🎨' },
         ],
         showName: true,
       },
     },
+    primaryColor: {
+      name: 'Primary Color',
+      description: 'Custom primary color (when Custom theme is selected)',
+      defaultValue: '#2563eb',
+      toolbar: {
+        icon: 'paintbrush',
+        title: 'Primary Color',
+        showName: false,
+      },
+      control: { type: 'color' },
+    },
     primaryHover: {
       name: 'Primary Hover',
-      description: 'Theme primary hover color',
+      description: 'Custom primary hover color (when Custom theme is selected)',
       defaultValue: '#dbeafe',
       toolbar: {
         icon: 'contrast',
-        items: [
-          { value: '#dbeafe', title: 'Blue Light (Default)' },
-          { value: '#fecaca', title: 'Red Light' },
-          { value: '#d1fae5', title: 'Green Light' },
-          { value: '#e9d5ff', title: 'Purple Light' },
-          { value: '#fed7aa', title: 'Orange Light' },
-          { value: '#cffafe', title: 'Cyan Light' },
-        ],
-        showName: true,
+        title: 'Primary Hover Color',
+        showName: false,
       },
+      control: { type: 'color' },
     },
   },
   decorators: [
     (Story, context) => {
-      const primaryColor = context.globals.primaryColor || '#2563eb';
-      const primaryHover = context.globals.primaryHover || '#dbeafe';
+      const theme = context.globals.theme || 'blue';
+      const customPrimaryColor = context.globals.primaryColor || '#2563eb';
+      const customPrimaryHover = context.globals.primaryHover || '#dbeafe';
+
+      // Theme presets
+      const themeMap = {
+        blue: { primary: '#2563eb', hover: '#dbeafe' },
+        red: { primary: '#dc2626', hover: '#fecaca' },
+        green: { primary: '#059669', hover: '#d1fae5' },
+        purple: { primary: '#7c3aed', hover: '#e9d5ff' },
+        orange: { primary: '#ea580c', hover: '#fed7aa' },
+        cyan: { primary: '#0891b2', hover: '#cffafe' },
+        custom: { primary: customPrimaryColor, hover: customPrimaryHover },
+      };
+
+      const currentTheme = themeMap[theme as keyof typeof themeMap] || themeMap.blue;
       
       // Apply CSS variables to the document root
       React.useEffect(() => {
-        document.documentElement.style.setProperty('--primary', primaryColor);
-        document.documentElement.style.setProperty('--primary-hover', primaryHover);
+        document.documentElement.style.setProperty('--primary', currentTheme.primary);
+        document.documentElement.style.setProperty('--primary-hover', currentTheme.hover);
         document.documentElement.style.setProperty('--primary-text', '#fff');
-      }, [primaryColor, primaryHover]);
+      }, [currentTheme.primary, currentTheme.hover]);
 
       return React.createElement('div', {
         style: {
-          '--primary': primaryColor,
-          '--primary-hover': primaryHover,
+          '--primary': currentTheme.primary,
+          '--primary-hover': currentTheme.hover,
           '--primary-text': '#fff',
         } as React.CSSProperties
       }, React.createElement(Story));
