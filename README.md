@@ -4,7 +4,12 @@ Design System em React com integração a React Hook Form, Tailwind CSS e shadcn
 
 ## 🚀 Instalação
 
-Adicione o pacote ao seu projeto:
+Adicione o pac## 📚 Documentação
+
+Acesse a documentação interativa dos componentes em:
+**[https://rharuow.github.io/rharuow-ds-docs/](https://rharuow.github.io/rharuow-ds-docs/)**
+
+---o seu projeto:
 
 ```bash
 npm install rharuow-ds
