@@ -1,6 +1,7 @@
 {
   "name": "rharuow-ds",
   "version": "1.0.9",
+  "description": "A modern React component library with Tailwind CSS and React Hook Form integration",
   "main": "dist/rharuow-ds.cjs.js",
   "module": "dist/rharuow-ds.es.js",
   "types": "dist/types/src/components/index.d.ts",
@@ -12,6 +13,27 @@
     },
     "./dist/styles.css": "./dist/styles.css"
   },
+  "homepage": "https://rharuow.github.io/rharuow-ds-docs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rharuow/rharuow-ds-docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rharuow/rharuow-ds-docs/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "design-system",
+    "tailwind",
+    "tailwindcss",
+    "react-hook-form",
+    "typescript",
+    "storybook"
+  ],
+  "author": "Rharuow",
+  "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "npx tailwindcss -i ./src/styles/ds.css -o ./dist/styles.css --minify",
@@ -22,14 +44,11 @@
     "build-storybook": "npm run build:css && storybook build",
     "deploy-storybook": "npx gh-pages -d storybook-static",
     "deploy-docs": "npm run build && npm run build-storybook && npm run deploy-storybook",
-    "release:patch": "npm version patch && git push --follow-tags",
-    "release:minor": "npm version minor && git push --follow-tags",
-    "release:major": "npm version major && git push --follow-tags"
+    "release:patch": "npm version patch && git push --follow-tags && git push origin --tags",
+    "release:minor": "npm version minor && git push --follow-tags && git push origin --tags",
+    "release:major": "npm version major && git push --follow-tags && git push origin --tags",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",

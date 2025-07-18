@@ -1,15 +1,31 @@
 # rharuow-ds
 
-Design System em React com integração a React Hook Form, Tailwind CSS e shadcn/ui.
+[![NPM Version](https://img.shields.io/npm/v/rharuow-ds)](https://www.npmjs.com/package/rharuow-ds)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://github.com/Rharuow/rharuow-ds-docs/workflows/CI/badge.svg)](https://github.com/Rharuow/rharuow-ds-docs/actions)
 
-## 🚀 Instalação
+Um Design System moderno em React com integração completa ao React Hook Form, estilizado com Tailwind CSS e baseado em shadcn/ui.
 
-Adicione o pac## 📚 Documentação
+## 🌟 Características
+
+- ⚛️ **React 18+** com TypeScript
+- � **Integração nativa** com React Hook Form
+- 🎨 **Customização via CSS Variables** - Mude o tema facilmente
+- 🎯 **Componentes acessíveis** (ARIA)
+- 📱 **Responsivo** por padrão
+- 🎭 **Animações suaves** e modernas
+- 📚 **Documentação interativa** com Storybook
+
+## 📚 Documentação
 
 Acesse a documentação interativa dos componentes em:
 **[https://rharuow.github.io/rharuow-ds-docs/](https://rharuow.github.io/rharuow-ds-docs/)**
 
----o seu projeto:
+---
+
+## 🚀 Instalação
+
+Adicione o pacote ao seu projeto:
 
 ```bash
 npm install rharuow-ds
@@ -138,6 +154,72 @@ Seletor múltiplo com carregamento assíncrono:
 - ✅ Remoção individual de itens selecionados
 - ✅ Limite configurável de itens exibidos
 - ✅ Contador de itens extras (+X mais)
+
+### 🎯 **RadioGroup**
+Radio buttons modernos e criativos:
+- ✅ Design de botões estilizados (não radio tradicional)
+- ✅ Ícones customizados opcionais
+- ✅ Layout horizontal ou vertical
+- ✅ Diferentes tamanhos (sm, md, lg)
+- ✅ Animações ao selecionar
+
+---
+
+## 🎨 Customização de Tema
+
+O rharuow-ds utiliza **CSS Variables** para permitir customização fácil do tema. Você pode modificar as cores primárias do design system definindo as seguintes variáveis CSS:
+
+### Variáveis Disponíveis
+
+```css
+:root {
+  --primary: #2563eb;        /* Cor primária principal */
+  --primary-hover: #dbeafe;  /* Cor para hover/background */
+  --primary-text: #fff;      /* Cor do texto em backgrounds primários */
+  --input-bg: #fff;          /* Background dos inputs */
+  --input-text: #222;        /* Cor do texto dos inputs */
+}
+```
+
+### Exemplo de Customização
+
+```css
+/* Tema vermelho */
+:root {
+  --primary: #dc2626;
+  --primary-hover: #fecaca;
+  --primary-text: #fff;
+}
+
+/* Tema verde */
+:root {
+  --primary: #059669;
+  --primary-hover: #d1fae5;
+  --primary-text: #fff;
+}
+
+/* Tema roxo */
+:root {
+  --primary: #7c3aed;
+  --primary-hover: #e9d5ff;
+  --primary-text: #fff;
+}
+```
+
+### No Storybook
+
+Na documentação do Storybook, você pode testar diferentes temas usando os controles na toolbar:
+- 🎨 **Primary Color**: Muda a cor principal
+- 🌈 **Primary Hover**: Muda a cor de hover/background
+
+---
+
+## 🛠️ Desenvolvimento
+- ✅ Ícones customizados opcionais
+- ✅ Três tamanhos: sm, md, lg
+- ✅ Layout horizontal ou vertical
+- ✅ Animações e estados visuais
+- ✅ Label flutuante integrada
 
 ---
 

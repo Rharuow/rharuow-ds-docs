@@ -98,7 +98,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
             className={cn(
               "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm text-gray-400 transition-all duration-200",
               isFloating
-                ? "top-0 scale-90 -translate-y-1 text-xs text-blue-400 p-1 rounded-full bg-white"
+                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary,#2563eb)] p-1 rounded-full bg-white"
                 : "top-3 scale-100 translate-y-0.5"
             )}
           >
