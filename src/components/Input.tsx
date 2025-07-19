@@ -82,7 +82,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
           type={inputType}
           className={cn(
             "peer flex h-12 w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50",
-            (inputType === "password" || Icon) ? "pr-12" : "", // espaço extra para qualquer ícone (password ou customizado)
+            (type === "password" || Icon) ? "pr-12" : "", // espaço extra para qualquer ícone (password ou customizado)
             className
           )}
           onFocus={(event) => {
@@ -135,7 +135,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
         )}
         
         {/* Ícone de senha (tem prioridade sobre ícone customizado) */}
-        {inputType === "password" && (
+        {type === "password" && (
           <button
             type="button"
             className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-[var(--primary,#2563eb)] transition-colors duration-200 focus:outline-none focus:text-[var(--primary,#2563eb)]"
@@ -148,7 +148,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
         )}
         
         {/* Ícone customizado (só aparece se NÃO for password e Icon for fornecido) */}
-        {Icon && inputType !== "password" && (
+        {Icon && type !== "password" && (
           <div
             className={cn(
               "absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-[var(--primary,#2563eb)] transition-colors duration-200",
