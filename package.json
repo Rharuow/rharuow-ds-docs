@@ -1,6 +1,6 @@
 {
   "name": "rharuow-ds",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A modern React component library with Tailwind CSS and React Hook Form integration",
   "main": "dist/rharuow-ds.cjs.js",
   "module": "dist/rharuow-ds.es.js",
