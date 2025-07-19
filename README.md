@@ -62,12 +62,13 @@ npm install react-hook-form
 2. **Use os componentes normalmente**
 
    ```tsx
-   import { Button, Input, Select, AsyncSelect } from "rharuow-ds";
+   import { Button, Input, Select, AsyncSelect, MultiSelect, RadioGroup } from "rharuow-ds";
 
    function App() {
      return (
        <div>
-         <Input label="E-mail" name="email" />
+         <Input label="E-mail" name="email" type="email" />
+         <Input label="Senha" name="password" type="password" />
          <Select 
            label="País" 
            name="country"
@@ -75,6 +76,15 @@ npm install react-hook-form
              { label: "Brasil", value: "br" },
              { label: "Estados Unidos", value: "us" }
            ]} 
+         />
+         <RadioGroup
+           label="Tamanho"
+           name="size"
+           options={[
+             { label: "Pequeno", value: "sm" },
+             { label: "Médio", value: "md" },
+             { label: "Grande", value: "lg" }
+           ]}
          />
          <Button variant="default">Enviar</Button>
        </div>
@@ -86,7 +96,7 @@ npm install react-hook-form
 
    ```tsx
    import { useForm, FormProvider } from "react-hook-form";
-   import { Input, Select, AsyncSelect } from "rharuow-ds";
+   import { Input, Select, AsyncSelect, MultiAsyncSelect, RadioGroup } from "rharuow-ds";
 
    function FormExample() {
      const methods = useForm();
@@ -96,7 +106,9 @@ npm install react-hook-form
        const countries = [
          { label: "Brasil", value: "br" },
          { label: "Argentina", value: "ar" },
-         { label: "Estados Unidos", value: "us" }
+         { label: "Estados Unidos", value: "us" },
+         { label: "Chile", value: "cl" },
+         { label: "Peru", value: "pe" }
        ];
        
        if (!search) return countries;
@@ -109,6 +121,9 @@ npm install react-hook-form
        <FormProvider {...methods}>
          <form onSubmit={methods.handleSubmit(console.log)}>
            <Input label="Nome" name="name" />
+           <Input label="E-mail" name="email" type="email" />
+           <Input label="Senha" name="password" type="password" />
+           
            <AsyncSelect 
              label="País" 
              name="country"
@@ -116,6 +131,26 @@ npm install react-hook-form
              searchable
              isClearable
            />
+           
+           <MultiAsyncSelect
+             label="Países favoritos"
+             name="favoriteCountries"
+             loadOptions={loadCountries}
+             searchable
+             isClearable
+             maxVisibleItems={2}
+           />
+           
+           <RadioGroup
+             label="Tamanho"
+             name="size"
+             options={[
+               { label: "Pequeno", value: "sm" },
+               { label: "Médio", value: "md" },
+               { label: "Grande", value: "lg" }
+             ]}
+           />
+           
            <Button type="submit">Enviar</Button>
          </form>
        </FormProvider>
@@ -131,7 +166,13 @@ npm install react-hook-form
 Botão customizável com diferentes variantes e tamanhos.
 
 ### 📝 **Input**
-Campo de texto com label flutuante e integração com React Hook Form.
+Campo de texto versátil com label flutuante e integração com React Hook Form:
+- ✅ Label flutuante animada
+- ✅ Suporte a múltiplos tipos (text, email, password, number, tel, url)
+- ✅ Funcionalidade de password com botão mostrar/ocultar
+- ✅ Ícones customizados opcionais
+- ✅ Estados de erro integrados
+- ✅ Totalmente acessível (ARIA)
 
 ### 📋 **Select**
 Seletor customizado com opções estáticas e suporte a busca.
