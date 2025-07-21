@@ -62,20 +62,29 @@ npm install react-hook-form
 2. **Use os componentes normalmente**
 
    ```tsx
-   import { Button, Input, Select, AsyncSelect, MultiSelect, RadioGroup } from "rharuow-ds";
+   import {
+     Button,
+     Input,
+     Textarea,
+     Select,
+     AsyncSelect,
+     MultiSelect,
+     RadioGroup,
+   } from "rharuow-ds";
 
    function App() {
      return (
        <div>
          <Input label="E-mail" name="email" type="email" />
          <Input label="Senha" name="password" type="password" />
-         <Select 
-           label="País" 
+         <Textarea label="Comentários" name="comments" rows={4} />
+         <Select
+           label="País"
            name="country"
            options={[
              { label: "Brasil", value: "br" },
-             { label: "Estados Unidos", value: "us" }
-           ]} 
+             { label: "Estados Unidos", value: "us" },
+           ]}
          />
          <RadioGroup
            label="Tamanho"
@@ -83,7 +92,7 @@ npm install react-hook-form
            options={[
              { label: "Pequeno", value: "sm" },
              { label: "Médio", value: "md" },
-             { label: "Grande", value: "lg" }
+             { label: "Grande", value: "lg" },
            ]}
          />
          <Button variant="default">Enviar</Button>
@@ -96,7 +105,14 @@ npm install react-hook-form
 
    ```tsx
    import { useForm, FormProvider } from "react-hook-form";
-   import { Input, Select, AsyncSelect, MultiAsyncSelect, RadioGroup } from "rharuow-ds";
+   import {
+     Input,
+     Textarea,
+     Select,
+     AsyncSelect,
+     MultiAsyncSelect,
+     RadioGroup,
+   } from "rharuow-ds";
 
    function FormExample() {
      const methods = useForm();
@@ -108,11 +124,11 @@ npm install react-hook-form
          { label: "Argentina", value: "ar" },
          { label: "Estados Unidos", value: "us" },
          { label: "Chile", value: "cl" },
-         { label: "Peru", value: "pe" }
+         { label: "Peru", value: "pe" },
        ];
-       
+
        if (!search) return countries;
-       return countries.filter(c => 
+       return countries.filter((c) =>
          c.label.toLowerCase().includes(search.toLowerCase())
        );
      };
@@ -123,15 +139,16 @@ npm install react-hook-form
            <Input label="Nome" name="name" />
            <Input label="E-mail" name="email" type="email" />
            <Input label="Senha" name="password" type="password" />
-           
-           <AsyncSelect 
-             label="País" 
+           <Textarea label="Observações" name="notes" rows={3} />
+
+           <AsyncSelect
+             label="País"
              name="country"
              loadOptions={loadCountries}
              searchable
              isClearable
            />
-           
+
            <MultiAsyncSelect
              label="Países favoritos"
              name="favoriteCountries"
@@ -140,17 +157,17 @@ npm install react-hook-form
              isClearable
              maxVisibleItems={2}
            />
-           
+
            <RadioGroup
              label="Tamanho"
              name="size"
              options={[
                { label: "Pequeno", value: "sm" },
                { label: "Médio", value: "md" },
-               { label: "Grande", value: "lg" }
+               { label: "Grande", value: "lg" },
              ]}
            />
-           
+
            <Button type="submit">Enviar</Button>
          </form>
        </FormProvider>
@@ -163,10 +180,13 @@ npm install react-hook-form
 ## Componentes Disponíveis
 
 ### 🎯 **Button**
+
 Botão customizável com diferentes variantes e tamanhos.
 
 ### 📝 **Input**
+
 Campo de texto versátil com label flutuante e integração com React Hook Form:
+
 - ✅ Label flutuante animada
 - ✅ Suporte a múltiplos tipos (text, email, password, number, tel, url)
 - ✅ Funcionalidade de password com botão mostrar/ocultar
@@ -174,11 +194,26 @@ Campo de texto versátil com label flutuante e integração com React Hook Form:
 - ✅ Estados de erro integrados
 - ✅ Totalmente acessível (ARIA)
 
-### 📋 **Select**
+### � **Textarea**
+
+Campo de texto multilinha com as mesmas funcionalidades do Input:
+
+- ✅ Label flutuante animada
+- ✅ Altura ajustável (propriedade `rows`)
+- ✅ Redimensionamento vertical permitido
+- ✅ Ícones customizados opcionais
+- ✅ Estados de erro integrados
+- ✅ Integração completa com React Hook Form
+- ✅ Mesma consistência visual do Input
+
+### �📋 **Select**
+
 Seletor customizado com opções estáticas e suporte a busca.
 
 ### 🔄 **AsyncSelect**
+
 Seletor com carregamento assíncrono de opções:
+
 - ✅ Carregamento de dados via API
 - ✅ Busca em tempo real (searchable)
 - ✅ Debounce configurável
@@ -186,10 +221,13 @@ Seletor com carregamento assíncrono de opções:
 - ✅ Integração completa com React Hook Form
 
 ### 🎛️ **MultiSelect**
+
 Seletor múltiplo para escolha de várias opções.
 
 ### 🔄🎛️ **MultiAsyncSelect**
+
 Seletor múltiplo com carregamento assíncrono:
+
 - ✅ Todas as funcionalidades do AsyncSelect
 - ✅ Seleção múltipla com tags visuais
 - ✅ Remoção individual de itens selecionados
@@ -197,7 +235,9 @@ Seletor múltiplo com carregamento assíncrono:
 - ✅ Contador de itens extras (+X mais)
 
 ### 🎯 **RadioGroup**
+
 Radio buttons modernos e criativos:
+
 - ✅ Design de botões estilizados (não radio tradicional)
 - ✅ Ícones customizados opcionais
 - ✅ Layout horizontal ou vertical
@@ -214,11 +254,11 @@ O rharuow-ds utiliza **CSS Variables** para permitir customização fácil do te
 
 ```css
 :root {
-  --primary: #2563eb;        /* Cor primária principal */
-  --primary-hover: #dbeafe;  /* Cor para hover/background */
-  --primary-text: #fff;      /* Cor do texto em backgrounds primários */
-  --input-bg: #fff;          /* Background dos inputs */
-  --input-text: #222;        /* Cor do texto dos inputs */
+  --primary: #2563eb; /* Cor primária principal */
+  --primary-hover: #dbeafe; /* Cor para hover/background */
+  --primary-text: #fff; /* Cor do texto em backgrounds primários */
+  --input-bg: #fff; /* Background dos inputs */
+  --input-text: #222; /* Cor do texto dos inputs */
 }
 ```
 
@@ -250,12 +290,14 @@ O rharuow-ds utiliza **CSS Variables** para permitir customização fácil do te
 ### No Storybook
 
 Na documentação do Storybook, você pode testar diferentes temas usando os controles na toolbar:
+
 - 🎨 **Primary Color**: Muda a cor principal
 - 🌈 **Primary Hover**: Muda a cor de hover/background
 
 ---
 
 ## 🛠️ Desenvolvimento
+
 - ✅ Ícones customizados opcionais
 - ✅ Três tamanhos: sm, md, lg
 - ✅ Layout horizontal ou vertical
