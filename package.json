@@ -1,6 +1,6 @@
 {
   "name": "rharuow-ds",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Modern React Design System with 7 components: Button, Input (with password support), Select, AsyncSelect, MultiSelect, MultiAsyncSelect, and RadioGroup. Full React Hook Form integration, Tailwind CSS styling, and CSS Variables for theme customization.",
   "main": "dist/rharuow-ds.cjs.js",
   "module": "dist/rharuow-ds.es.js",
