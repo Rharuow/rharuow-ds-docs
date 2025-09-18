@@ -1,7 +1,6 @@
 import "../dist/styles.css";
+import React from "react";
 import type { Preview } from "@storybook/react-vite";
-import { createElement, useEffect } from "react";
-import type { CSSProperties } from "react";
 
 const preview: Preview = {
   parameters: {
@@ -64,19 +63,19 @@ const preview: Preview = {
       const currentTheme = themeMap[theme as keyof typeof themeMap] || themeMap.blue;
       
       // Apply CSS variables to the document root
-      useEffect(() => {
+      React.useEffect(() => {
         document.documentElement.style.setProperty('--primary', currentTheme.primary);
         document.documentElement.style.setProperty('--primary-hover', currentTheme.hover);
         document.documentElement.style.setProperty('--primary-text', '#fff');
       }, [currentTheme.primary, currentTheme.hover]);
 
-      return createElement('div', {
+      return React.createElement('div', {
         style: {
           '--primary': currentTheme.primary,
           '--primary-hover': currentTheme.hover,
           '--primary-text': '#fff',
-        } as CSSProperties
-      }, createElement(Story));
+        } as React.CSSProperties
+      }, React.createElement(Story));
     },
   ],
 };

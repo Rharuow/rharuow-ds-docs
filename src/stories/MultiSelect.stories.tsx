@@ -1,9 +1,9 @@
+import React,{ useEffect } from "react";
 import { MultiSelect } from "../components/MultiSelect";
 import { useForm, FormProvider } from "react-hook-form";
 import { StoryFn } from "@storybook/react";
 import { MultiSelectProps } from "../components/MultiSelect";
 import { UseFormReturn } from "react-hook-form";
-import { useEffect } from "react";
 
 export default {
   title: "Components/MultiSelect",

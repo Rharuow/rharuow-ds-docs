@@ -11,7 +11,7 @@ const config: StorybookConfig = {
     "options": {}
   },
   viteFinal: async (config) => {
-    // Ensure automatic JSX runtime for Storybook as well
+    // Ensure classic JSX runtime for consistency with library build
     if (config.plugins) {
       config.plugins = config.plugins.map((plugin: any) => {
         if (plugin?.name === 'vite:react-babel') {
@@ -19,7 +19,7 @@ const config: StorybookConfig = {
             ...plugin,
             config: {
               ...plugin.config,
-              jsxRuntime: 'automatic'
+              jsxRuntime: 'classic'
             }
           };
         }
