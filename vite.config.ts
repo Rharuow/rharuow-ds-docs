@@ -2,7 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      jsxRuntime: "classic",
+      jsxImportSource: undefined,
+    }),
+  ],
   build: {
     lib: {
       entry: "src/components/index.ts",
@@ -20,8 +25,5 @@ export default defineConfig({
         },
       },
     },
-  },
-  css: {
-    postcss: "./postcss.config.js",
   },
 });
