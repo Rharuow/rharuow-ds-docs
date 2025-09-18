@@ -62,7 +62,7 @@ const preview: Preview = {
 
       const currentTheme = themeMap[theme as keyof typeof themeMap] || themeMap.blue;
       
-      // Apply CSS variables to the document root
+            // Apply CSS variables to the document root
       React.useEffect(() => {
         document.documentElement.style.setProperty('--primary', currentTheme.primary);
         document.documentElement.style.setProperty('--primary-hover', currentTheme.hover);
