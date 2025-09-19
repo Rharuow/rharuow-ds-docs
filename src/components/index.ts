@@ -8,3 +8,4 @@ export * from "./MultiSelect";
 export * from "./MultiAsyncSelect";
 export * from "./RadioGroup";
 export * from "./Card";
+export * from "./Table";

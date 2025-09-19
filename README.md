@@ -1,8 +1,35 @@
 # rharuo## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **9 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card)
-- 🔗 **Integração nativa** com React Hook Form
+- 🧩 **10 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table)
+- 🔗 **Integração n### 🃏 **Card**
+
+Componente flexível para exibir conteúdo organizado em seções:
+
+- ✅ **Estrutura modular**: Header, Body e Footer independentes
+- ✅ **Múltiplas variantes**: default, outlined, elevated, flat
+- ✅ **Tamanhos configuráveis**: sm, md, lg
+- ✅ **Suporte ao tema dark**: Variáveis CSS para light/dark mode
+- ✅ **Elementos semânticos**: Props `as` para acessibilidade (header, main, footer)
+- ✅ **Flexibilidade total**: Use apenas as seções necessárias
+- ✅ **Customização completa**: Padding, bordas arredondadas e estilos
+
+### 📊 **Table**
+
+Componente completo para exibição de dados tabulares:
+
+- ✅ **Estrutura modular**: Table, Header, Body, Footer, Row, Cell
+- ✅ **Múltiplas variantes**: default, striped, bordered
+- ✅ **Tamanhos configuráveis**: sm, md, lg  
+- ✅ **Responsividade**: Scroll horizontal automático
+- ✅ **Header fixo**: Para tabelas com muitos dados
+- ✅ **Suporte ao tema dark**: Variáveis CSS para light/dark mode
+- ✅ **Alinhamento de células**: left, center, right
+- ✅ **Colspan e rowspan**: Células que ocupam múltiplas colunas/linhas
+- ✅ **Elementos semânticos**: Props `as` para acessibilidade (th/td, thead/tbody/tfoot)
+- ✅ **Linhas interativas**: Hover e estados de seleção
+
+### 🎯 **Button**eact Hook Form
 - 🎨 **Customização via CSS Variables** - Mude o tema facilmente
 - 🎯 **Componentes acessíveis** (ARIA)
 - 📱 **Responsivo** por padrão
@@ -71,6 +98,7 @@ npm install react-hook-form
    ```tsx
    import {
      Card,
+     Table,
      Button,
      Input,
      Textarea,
@@ -96,6 +124,26 @@ npm install react-hook-form
              <Button>Ação Principal</Button>
            </Card.Footer>
          </Card>
+
+         {/* Exemplo da Table */}
+         <Table variant="striped" size="md">
+           <Table.Header>
+             <Table.Row>
+               <Table.Cell as="th">Nome</Table.Cell>
+               <Table.Cell as="th">Email</Table.Cell>
+               <Table.Cell as="th">Ações</Table.Cell>
+             </Table.Row>
+           </Table.Header>
+           <Table.Body>
+             <Table.Row>
+               <Table.Cell>João Silva</Table.Cell>
+               <Table.Cell>joao@email.com</Table.Cell>
+               <Table.Cell>
+                 <Button variant="outline">Editar</Button>
+               </Table.Cell>
+             </Table.Row>
+           </Table.Body>
+         </Table>
 
          {/* Outros componentes */}
          <Input label="E-mail" name="email" type="email" />
@@ -130,6 +178,7 @@ npm install react-hook-form
    import { useForm, FormProvider } from "react-hook-form";
    import {
      Card,
+     Table,
      Input,
      Textarea,
      Select,

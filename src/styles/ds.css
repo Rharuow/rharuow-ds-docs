@@ -14,6 +14,16 @@
   --card-header-border: #e5e7eb;
   --card-footer-border: #e5e7eb;
   
+  /* Table Variables - Light Theme */
+  --table-bg: #ffffff;
+  --table-border: #e5e7eb;
+  --table-text: #111827;
+  --table-header-bg: #f9fafb;
+  --table-row-odd: #ffffff;
+  --table-row-even: #f9fafb;
+  --table-row-hover: #f3f4f6;
+  --table-row-selected: #dbeafe;
+  
   /* Shadow Variables */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -30,6 +40,16 @@
   --card-footer-bg: rgba(31, 41, 55, 0.8);
   --card-header-border: #374151;
   --card-footer-border: #374151;
+  
+  /* Table Variables - Dark Theme */
+  --table-bg: #1f2937;
+  --table-border: #374151;
+  --table-text: #f9fafb;
+  --table-header-bg: #111827;
+  --table-row-odd: #1f2937;
+  --table-row-even: #111827;
+  --table-row-hover: #374151;
+  --table-row-selected: #1e40af;
   
   /* Shadow Variables - Dark */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
@@ -49,6 +69,16 @@
     --card-header-border: #374151;
     --card-footer-border: #374151;
     
+    /* Table Variables - Dark Theme (Auto) */
+    --table-bg: #1f2937;
+    --table-border: #374151;
+    --table-text: #f9fafb;
+    --table-header-bg: #111827;
+    --table-row-odd: #1f2937;
+    --table-row-even: #111827;
+    --table-row-hover: #374151;
+    --table-row-selected: #1e40af;
+    
     /* Shadow Variables - Dark (Auto) */
     --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
     --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
@@ -66,6 +96,16 @@
   --card-footer-bg: rgba(249, 250, 251, 0.5);
   --card-header-border: #e5e7eb;
   --card-footer-border: #e5e7eb;
+  
+  /* Table Variables - Light Theme (Forced) */
+  --table-bg: #ffffff;
+  --table-border: #e5e7eb;
+  --table-text: #111827;
+  --table-header-bg: #f9fafb;
+  --table-row-odd: #ffffff;
+  --table-row-even: #f9fafb;
+  --table-row-hover: #f3f4f6;
+  --table-row-selected: #dbeafe;
   
   /* Shadow Variables - Light (Forced) */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
