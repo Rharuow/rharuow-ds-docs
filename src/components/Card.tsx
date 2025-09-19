@@ -161,17 +161,19 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
   }
 );
 
-Card.displayName = "Card";
-
-// Compound Component Pattern - Anexar subcomponentes ao Card principal
-const CardComponent = Card as typeof Card & {
+// Definir o tipo do Card composto corretamente
+type CardComponent = typeof Card & {
   Header: typeof CardHeader;
   Body: typeof CardBody;
   Footer: typeof CardFooter;
 };
 
-CardComponent.Header = CardHeader;
-CardComponent.Body = CardBody;
-CardComponent.Footer = CardFooter;
+// Criar o Card composto usando Object.assign e casting
+const CompoundCard = Object.assign(Card, {
+  Header: CardHeader,
+  Body: CardBody,
+  Footer: CardFooter,
+}) as CardComponent;
 
-export { CardComponent as Card, CardHeader, CardBody, CardFooter };
+// Exportar componentes
+export { CompoundCard as Card, CardHeader, CardBody, CardFooter };
