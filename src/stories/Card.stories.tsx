@@ -10,7 +10,7 @@ const meta: Meta<typeof Card> = {
     layout: "centered",
     docs: {
       description: {
-        component: "Componente Card flexível com seções Header, Body e Footer. Suporta diferentes variantes, tamanhos e personalização completa via CSS Variables.",
+        component: "Componente Card flexível com seções Header, Body e Footer. Por padrão, o card cresce para ocupar toda a largura disponível. Use constrainWidth=true para aplicar limitações de tamanho. Suporta diferentes variantes e personalização completa via CSS Variables.",
       },
     },
   },
@@ -22,9 +22,13 @@ const meta: Meta<typeof Card> = {
       options: ["default", "outlined", "elevated", "flat"],
     },
     size: {
-      description: "Tamanho máximo do card",
+      description: "Tamanho máximo do card (aplicado apenas quando constrainWidth for true)",
       control: "select", 
       options: ["sm", "md", "lg"],
+    },
+    constrainWidth: {
+      description: "Aplicar limitação de largura máxima baseada no size",
+      control: "boolean",
     },
     padding: {
       description: "Padding interno do card (além do padding das seções)",
@@ -66,6 +70,7 @@ export const Default: Story = {
   args: {
     variant: "default",
     size: "md",
+    constrainWidth: false,
     padding: "none",
     rounded: "lg",
   },
@@ -246,39 +251,61 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div className="space-y-4">
-      <Card size="sm">
-        <Card.Header>
-          <h4 className="font-medium">Small (sm)</h4>
-        </Card.Header>
-        <Card.Body>
-          <p className="text-sm text-gray-600">Card pequeno - max-width: 384px</p>
-        </Card.Body>
-      </Card>
-      
-      <Card size="md">
-        <Card.Header>
-          <h4 className="font-medium">Medium (md)</h4>
-        </Card.Header>
-        <Card.Body>
-          <p className="text-sm text-gray-600">Card médio - max-width: 448px</p>
-        </Card.Body>
-      </Card>
-      
-      <Card size="lg">
-        <Card.Header>
-          <h4 className="font-medium">Large (lg)</h4>
-        </Card.Header>
-        <Card.Body>
-          <p className="text-sm text-gray-600">Card grande - max-width: 512px</p>
-        </Card.Body>
-      </Card>
+    <div className="space-y-6">
+      <div>
+        <h4 className="text-lg font-semibold mb-4">Cards sem limitação de largura (padrão)</h4>
+        <div className="space-y-4">
+          <Card size="sm" constrainWidth={false}>
+            <Card.Header>
+              <h4 className="font-medium">Card sem limitação</h4>
+            </Card.Header>
+            <Card.Body>
+              <p className="text-sm text-gray-600">
+                Este card cresce livremente para se adaptar ao conteúdo ou container pai, 
+                independente do size definido. Esta é a configuração padrão.
+              </p>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-lg font-semibold mb-4">Cards com limitação de largura (constrainWidth=true)</h4>
+        <div className="space-y-4">
+          <Card size="sm" constrainWidth={true}>
+            <Card.Header>
+              <h4 className="font-medium">Small (sm) - max-width: 384px</h4>
+            </Card.Header>
+            <Card.Body>
+              <p className="text-sm text-gray-600">Card pequeno com largura limitada</p>
+            </Card.Body>
+          </Card>
+          
+          <Card size="md" constrainWidth={true}>
+            <Card.Header>
+              <h4 className="font-medium">Medium (md) - max-width: 448px</h4>
+            </Card.Header>
+            <Card.Body>
+              <p className="text-sm text-gray-600">Card médio com largura limitada</p>
+            </Card.Body>
+          </Card>
+          
+          <Card size="lg" constrainWidth={true}>
+            <Card.Header>
+              <h4 className="font-medium">Large (lg) - max-width: 512px</h4>
+            </Card.Header>
+            <Card.Body>
+              <p className="text-sm text-gray-600">Card grande com largura limitada</p>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: "Diferentes tamanhos do Card: small, medium e large.",
+        story: "Demonstração do novo comportamento de sizing. Por padrão, cards crescem livremente. Use constrainWidth=true para aplicar limitações de largura baseadas no size.",
       },
     },
   },
@@ -553,6 +580,93 @@ export const ThemeComparison: Story = {
     docs: {
       description: {
         story: "Comparação lado a lado dos temas claro e escuro. Demonstra como o mesmo componente se adapta automaticamente usando variáveis CSS.",
+      },
+    },
+  },
+};
+
+export const FullWidthCards: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <h4 className="text-lg font-semibold">Cards ocupando largura total do container</h4>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Card variant="default">
+          <Card.Header>
+            <h4 className="font-medium">Card Responsivo 1</h4>
+          </Card.Header>
+          <Card.Body>
+            <p className="text-sm text-gray-600">
+              Este card se adapta automaticamente ao seu container em layouts responsivos.
+            </p>
+          </Card.Body>
+        </Card>
+        
+        <Card variant="outlined">
+          <Card.Header>
+            <h4 className="font-medium">Card Responsivo 2</h4>
+          </Card.Header>
+          <Card.Body>
+            <p className="text-sm text-gray-600">
+              Sem limitações de max-width, ideal para dashboards e layouts flexíveis.
+            </p>
+          </Card.Body>
+        </Card>
+        
+        <Card variant="elevated">
+          <Card.Header>
+            <h4 className="font-medium">Card Responsivo 3</h4>
+          </Card.Header>
+          <Card.Body>
+            <p className="text-sm text-gray-600">
+              Perfeito para conteúdo que deve se expandir conforme necessário.
+            </p>
+          </Card.Body>
+        </Card>
+      </div>
+
+      <div className="w-full">
+        <Card variant="default">
+          <Card.Header>
+            <h4 className="font-medium">Card de largura total</h4>
+            <p className="text-sm text-gray-500">Ocupa 100% da largura do container pai</p>
+          </Card.Header>
+          <Card.Body>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <h5 className="font-medium text-sm">Coluna 1</h5>
+                <p className="text-xs text-gray-600">
+                  Conteúdo da primeira coluna em um card que ocupa toda a largura disponível.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h5 className="font-medium text-sm">Coluna 2</h5>
+                <p className="text-xs text-gray-600">
+                  Conteúdo da segunda coluna, demonstrando como o card se expande.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h5 className="font-medium text-sm">Coluna 3</h5>
+                <p className="text-xs text-gray-600">
+                  Terceira coluna mostrando a flexibilidade do novo comportamento.
+                </p>
+              </div>
+            </div>
+          </Card.Body>
+          <Card.Footer>
+            <div className="flex justify-between items-center w-full">
+              <span className="text-sm text-gray-500">Total de itens: 3</span>
+              <Button>Ação Principal</Button>
+            </div>
+          </Card.Footer>
+        </Card>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Cards sem limitação de largura, ideais para layouts responsivos e dashboards. Os cards se adaptam automaticamente ao container pai.",
       },
     },
   },

@@ -30,6 +30,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'sm' | 'md' | 'lg';
   padding?: 'none' | 'sm' | 'md' | 'lg';
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  constrainWidth?: boolean; // Nova prop para controlar se deve aplicar max-width
 }
 
 // Card Header Component
@@ -110,6 +111,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     size = 'md',
     padding = 'none', // none pois cada seção tem seu próprio padding
     rounded = 'lg',
+    constrainWidth = false, // Por padrão, não aplicar max-width
     ...props 
   }, ref) => {
     
@@ -148,7 +150,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
           "flex flex-col", // Flex column para organizar header, body, footer
           "overflow-hidden", // Para manter os borders radius das seções
           variantClasses[variant],
-          sizeClasses[size],
+          constrainWidth && sizeClasses[size], // Aplicar max-width apenas se constrainWidth for true
           paddingClasses[padding],
           roundedClasses[rounded],
           className
