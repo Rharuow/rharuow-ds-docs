@@ -1,6 +1,13 @@
-# rharuow-ds
+# rharuo## 🌟 Características
 
-[![NPM Version](https://img.shields.io/npm/v/rharuow-ds)](https://www.npmjs.com/package/rharuow-ds)
+- ⚛️ **React 18+** com TypeScript
+- 🧩 **9 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card)
+- 🔗 **Integração nativa** com React Hook Form
+- 🎨 **Customização via CSS Variables** - Mude o tema facilmente
+- 🎯 **Componentes acessíveis** (ARIA)
+- 📱 **Responsivo** por padrão
+- 🎭 **Animações suaves** e modernas
+- 📚 **Documentação interativa** com StorybookNPM Version](https://img.shields.io/npm/v/rharuow-ds)](https://www.npmjs.com/package/rharuow-ds)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/Rharuow/rharuow-ds-docs/workflows/CI/badge.svg)](https://github.com/Rharuow/rharuow-ds-docs/actions)
 
@@ -63,6 +70,7 @@ npm install react-hook-form
 
    ```tsx
    import {
+     Card,
      Button,
      Input,
      Textarea,
@@ -75,6 +83,21 @@ npm install react-hook-form
    function App() {
      return (
        <div>
+         {/* Exemplo básico do Card */}
+         <Card variant="default">
+           <Card.Header>
+             <h3>Título do Card</h3>
+             <p>Subtítulo ou descrição</p>
+           </Card.Header>
+           <Card.Body>
+             <p>Conteúdo principal do card</p>
+           </Card.Body>
+           <Card.Footer>
+             <Button>Ação Principal</Button>
+           </Card.Footer>
+         </Card>
+
+         {/* Outros componentes */}
          <Input label="E-mail" name="email" type="email" />
          <Input label="Senha" name="password" type="password" />
          <Textarea label="Comentários" name="comments" rows={4} />
@@ -106,12 +129,14 @@ npm install react-hook-form
    ```tsx
    import { useForm, FormProvider } from "react-hook-form";
    import {
+     Card,
      Input,
      Textarea,
      Select,
      AsyncSelect,
      MultiAsyncSelect,
      RadioGroup,
+     Button,
    } from "rharuow-ds";
 
    function FormExample() {
@@ -134,43 +159,57 @@ npm install react-hook-form
      };
 
      return (
-       <FormProvider {...methods}>
-         <form onSubmit={methods.handleSubmit(console.log)}>
-           <Input label="Nome" name="name" />
-           <Input label="E-mail" name="email" type="email" />
-           <Input label="Senha" name="password" type="password" />
-           <Textarea label="Observações" name="notes" rows={3} />
+       <Card variant="default" size="lg">
+         <Card.Header>
+           <h2>Formulário de Cadastro</h2>
+           <p>Preencha os dados abaixo</p>
+         </Card.Header>
+         
+         <Card.Body>
+           <FormProvider {...methods}>
+             <form onSubmit={methods.handleSubmit(console.log)}>
+               <Input label="Nome" name="name" />
+               <Input label="E-mail" name="email" type="email" />
+               <Input label="Senha" name="password" type="password" />
+               <Textarea label="Observações" name="notes" rows={3} />
 
-           <AsyncSelect
-             label="País"
-             name="country"
-             loadOptions={loadCountries}
-             searchable
-             isClearable
-           />
+               <AsyncSelect
+                 label="País"
+                 name="country"
+                 loadOptions={loadCountries}
+                 searchable
+                 isClearable
+               />
 
-           <MultiAsyncSelect
-             label="Países favoritos"
-             name="favoriteCountries"
-             loadOptions={loadCountries}
-             searchable
-             isClearable
-             maxVisibleItems={2}
-           />
+               <MultiAsyncSelect
+                 label="Países favoritos"
+                 name="favoriteCountries"
+                 loadOptions={loadCountries}
+                 searchable
+                 isClearable
+                 maxVisibleItems={2}
+               />
 
-           <RadioGroup
-             label="Tamanho"
-             name="size"
-             options={[
-               { label: "Pequeno", value: "sm" },
-               { label: "Médio", value: "md" },
-               { label: "Grande", value: "lg" },
-             ]}
-           />
-
-           <Button type="submit">Enviar</Button>
-         </form>
-       </FormProvider>
+               <RadioGroup
+                 label="Tamanho"
+                 name="size"
+                 options={[
+                   { label: "Pequeno", value: "sm" },
+                   { label: "Médio", value: "md" },
+                   { label: "Grande", value: "lg" },
+                 ]}
+               />
+             </form>
+           </FormProvider>
+         </Card.Body>
+         
+         <Card.Footer>
+           <div className="flex space-x-2">
+             <Button variant="outline">Cancelar</Button>
+             <Button type="submit">Enviar</Button>
+           </div>
+         </Card.Footer>
+       </Card>
      );
    }
    ```
@@ -179,7 +218,19 @@ npm install react-hook-form
 
 ## Componentes Disponíveis
 
-### 🎯 **Button**
+### � **Card**
+
+Componente flexível para exibir conteúdo organizado em seções:
+
+- ✅ **Estrutura modular**: Header, Body e Footer independentes
+- ✅ **Múltiplas variantes**: default, outlined, elevated, flat
+- ✅ **Tamanhos configuráveis**: sm, md, lg
+- ✅ **Suporte ao tema dark**: Variáveis CSS para light/dark mode
+- ✅ **Elementos semânticos**: Props `as` para acessibilidade (header, main, footer)
+- ✅ **Flexibilidade total**: Use apenas as seções necessárias
+- ✅ **Customização completa**: Padding, bordas arredondadas e estilos
+
+### �🎯 **Button**
 
 Botão customizável com diferentes variantes e tamanhos.
 
