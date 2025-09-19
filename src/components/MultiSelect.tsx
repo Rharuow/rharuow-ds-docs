@@ -14,6 +14,10 @@ export interface MultiSelectProps
   options: MultiSelectOption[];
   containerClassName?: string;
   isClearable?: boolean;
+  searchable?: boolean;
+  filterPlaceholder?: string;
+  caseSensitive?: boolean;
+  filterFunction?: (option: MultiSelectOption, searchTerm: string) => boolean;
 }
 
 const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
@@ -25,6 +29,10 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
       className,
       containerClassName,
       isClearable,
+      searchable = false,
+      filterPlaceholder = "Digite para filtrar...",
+      caseSensitive = false,
+      filterFunction,
       onFocus,
       onBlur,
       ...props
@@ -33,12 +41,14 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
   ) => {
     const [focused, setFocused] = React.useState(false);
     const [open, setOpen] = React.useState(false);
+    const [inputValue, setInputValue] = React.useState("");
     const [dropdownPosition, setDropdownPosition] = React.useState({
       top: 0,
       left: 0,
       width: 0,
     });
     const componentRef = React.useRef<HTMLDivElement>(null);
+    const inputRef = React.useRef<HTMLInputElement>(null);
 
     const form = useFormContext();
     const control = form?.control;
@@ -47,7 +57,19 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
     const value: string[] = props.value ?? valueWatch ?? [];
     const error = form?.formState?.errors?.[name as string]?.message;
 
-    const isFloating = focused || (value && value.length > 0);
+    // Filter logic
+    const defaultFilterFunction = (option: MultiSelectOption, searchTerm: string) => {
+      const optionText = caseSensitive ? option.label : option.label.toLowerCase();
+      const search = caseSensitive ? searchTerm : searchTerm.toLowerCase();
+      return optionText.includes(search);
+    };
+
+    const applyFilter = filterFunction || defaultFilterFunction;
+    const filteredOptions = inputValue.trim() 
+      ? options.filter(option => applyFilter(option, inputValue.trim()))
+      : options;
+
+    const isFloating = focused || (value && value.length > 0) || (searchable && !!inputValue);
 
     // Calculate dropdown position
     const updateDropdownPosition = React.useCallback(() => {
@@ -139,6 +161,10 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
       setFocused(false);
     };
 
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(event.target.value);
+    };
+
     return (
       <div className={cn("relative", containerClassName)} ref={componentRef}>
         <div
@@ -151,9 +177,9 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
             "peer flex items-center h-12 w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 py-3 text-sm transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
             className
           )}
-          onClick={handleContainerClick}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          onClick={!searchable ? handleContainerClick : undefined}
+          onFocus={!searchable ? handleFocus : undefined}
+          onBlur={!searchable ? handleBlur : undefined}
           ref={ref}
         >
           <div
@@ -205,9 +231,27 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                       </button>
                     </span>
                   ))
-              : !label && (
+              : !label && !searchable && (
                   <span className="text-gray-400 text-sm">Selecione...</span>
                 )}
+            {searchable && (
+              <input
+                ref={inputRef}
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                onFocus={(e) => {
+                  setFocused(true);
+                  setOpen(true);
+                  if (onFocus) onFocus(e as unknown as React.FocusEvent<HTMLDivElement>);
+                }}
+                onBlur={(e) => {
+                  if (onBlur) onBlur(e as unknown as React.FocusEvent<HTMLDivElement>);
+                }}
+                placeholder={!label ? (filterPlaceholder || "Selecione...") : (value && value.length > 0 ? "" : filterPlaceholder)}
+                className="flex-1 bg-transparent border-none outline-none text-sm min-w-[100px]"
+              />
+            )}
           </div>
           {isClearable && value && value.length > 0 && (
             <button
@@ -254,25 +298,31 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
             boxShadow: open ? "var(--select-dropdown-shadow)" : "none",
           }}
         >
-          {options.map((opt) => (
-            <div
-              key={opt.value}
-              className={cn(
-                "px-3 py-2 cursor-pointer text-sm flex items-center gap-2 transition-colors duration-150",
-                "hover:bg-[var(--select-dropdown-hover)]",
-                value.includes(opt.value) && "bg-[var(--select-dropdown-selected)] font-semibold"
-              )}
-              onMouseDown={() => handleOptionClick(opt.value)}
-            >
-              <input
-                type="checkbox"
-                checked={value.includes(opt.value)}
-                readOnly
-                className="accent-blue-500"
-              />
-              {opt.label}
+          {filteredOptions.length === 0 ? (
+            <div className="px-3 py-2 text-sm text-gray-500 text-center">
+              Nenhuma opção encontrada
             </div>
-          ))}
+          ) : (
+            filteredOptions.map((opt) => (
+              <div
+                key={opt.value}
+                className={cn(
+                  "px-3 py-2 cursor-pointer text-sm flex items-center gap-2 transition-colors duration-150",
+                  "hover:bg-[var(--select-dropdown-hover)]",
+                  value.includes(opt.value) && "bg-[var(--select-dropdown-selected)] font-semibold"
+                )}
+                onMouseDown={() => handleOptionClick(opt.value)}
+              >
+                <input
+                  type="checkbox"
+                  checked={value.includes(opt.value)}
+                  readOnly
+                  className="accent-blue-500"
+                />
+                {opt.label}
+              </div>
+            ))
+          )}
         </div>
         {error && (
           <span className="text-red-500 text-xs mt-1 block">

@@ -2,7 +2,42 @@
 
 [![NPM Version](https://img.shields.io/npm/v/rharuow-ds)](https://www.npmjs.com/package/rharuow-ds)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/Rharuow/rharuow-ds-docs/workflows/CI/badge.svg)](https://github.com/Rharuow/rharuow-ds-docs/actions)
+[![Build Status](https://github.com/Rharuow/rharuow-ds-docs/workflows/CI### 📋 **Select**
+
+Seletor customizado com opções estáticas e suporte a busca:
+
+- ✅ Opções estáticas predefinidas
+- ✅ **Filtro digitável** (`searchable`) - Digite para encontrar opções
+- ✅ Filtro case-sensitive configurável
+- ✅ Função de filtro customizável
+- ✅ Placeholder personalizado para busca
+- ✅ Validação de valores (só aceita opções válidas)
+- ✅ Botão de limpeza (`isClearable`)
+- ✅ Integração completa com React Hook Form
+
+```tsx
+// Select básico
+<Select
+  name="fruit"
+  label="Escolha uma fruta"
+  options={[
+    { label: "Maçã", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Manga", value: "mango" }
+  ]}
+/>
+
+// Select com filtro
+<Select
+  name="fruit"
+  label="Escolha uma fruta"
+  searchable
+  filterPlaceholder="Digite para filtrar frutas..."
+  caseSensitive={false}
+  isClearable
+  options={fruitOptions}
+/>
+```dge.svg)](https://github.com/Rharuow/rharuow-ds-docs/actions)
 
 Um Design System moderno em React com integração completa ao React Hook Form, estilizado com Tailwind CSS e baseado em shadcn/ui.
 
@@ -10,7 +45,8 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 
 - ⚛️ **React 18+** com TypeScript
 - 🧩 **10 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table)
-- 🔗 **Integração nativa** com React Hook Form
+- � **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
+- �🔗 **Integração nativa** com React Hook Form
 - 🎨 **Customização via CSS Variables** - Mude o tema facilmente
 - 🎯 **Componentes acessíveis** (ARIA)
 - 📱 **Responsivo** por padrão
@@ -308,7 +344,36 @@ Seletor com carregamento assíncrono de opções:
 
 ### 🎛️ **MultiSelect**
 
-Seletor múltiplo para escolha de várias opções.
+Seletor múltiplo para escolha de várias opções:
+
+- ✅ Seleção múltipla com checkboxes
+- ✅ **Filtro digitável** (`searchable`) - Digite para encontrar opções
+- ✅ Tags visuais para itens selecionados
+- ✅ Remoção individual de itens
+- ✅ Filtro case-sensitive configurável
+- ✅ Função de filtro customizável
+- ✅ Botão de limpeza geral (`isClearable`)
+- ✅ Integração completa com React Hook Form
+
+```tsx
+// MultiSelect básico
+<MultiSelect
+  name="fruits"
+  label="Escolha suas frutas favoritas"
+  options={fruitOptions}
+/>
+
+// MultiSelect com filtro
+<MultiSelect
+  name="fruits"
+  label="Escolha suas frutas favoritas"
+  searchable
+  filterPlaceholder="Digite para filtrar frutas..."
+  caseSensitive={false}
+  isClearable
+  options={fruitOptions}
+/>
+```
 
 ### 🔄🎛️ **MultiAsyncSelect**
 

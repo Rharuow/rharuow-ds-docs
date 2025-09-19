@@ -14,6 +14,21 @@ export default {
       description: "Exibe botão para limpar a seleção",
       defaultValue: false,
     },
+    searchable: {
+      control: "boolean",
+      description: "Permite filtrar opções digitando",
+      defaultValue: false,
+    },
+    caseSensitive: {
+      control: "boolean",
+      description: "Filtro case-sensitive",
+      defaultValue: false,
+    },
+    filterPlaceholder: {
+      control: "text",
+      description: "Placeholder do input de filtro",
+      defaultValue: "Digite para filtrar...",
+    },
     label: {
       control: "text",
       defaultValue: "Selecione uma ou mais opções",
@@ -170,3 +185,91 @@ export const ThemeVariations: StoryFn = () => {
     </FormProvider>
   );
 };
+
+const fruitOptions = [
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Cherry", value: "cherry" },
+  { label: "Date", value: "date" },
+  { label: "Elderberry", value: "elderberry" },
+  { label: "Fig", value: "fig" },
+  { label: "Grape", value: "grape" },
+  { label: "Honeydew", value: "honeydew" },
+  { label: "Kiwi", value: "kiwi" },
+  { label: "Lemon", value: "lemon" },
+  { label: "Mango", value: "mango" },
+  { label: "Orange", value: "orange" },
+  { label: "Papaya", value: "papaya" },
+  { label: "Quince", value: "quince" },
+  { label: "Raspberry", value: "raspberry" },
+];
+
+export const WithFilter: StoryFn<DefaultStoryProps> = (args) => {
+  const methods: UseFormReturn<FormValues> = useForm<FormValues>({
+    defaultValues: { multiSelect: [] },
+  });
+  
+  return (
+    <FormProvider {...methods}>
+      <form style={{ maxWidth: 320 }}>
+        <MultiSelect
+          label={args.label || "Selecione frutas"}
+          searchable={args.searchable ?? true}
+          isClearable={args.isClearable ?? true}
+          filterPlaceholder={args.filterPlaceholder || "Digite para filtrar frutas..."}
+          caseSensitive={args.caseSensitive ?? false}
+          {...args}
+          name={args.name || "multiSelect"}
+          options={args.options || fruitOptions}
+        />
+      </form>
+    </FormProvider>
+  );
+};
+
+WithFilter.args = {
+  name: "multiSelect",
+  options: fruitOptions,
+  label: "Selecione frutas",
+  searchable: true,
+  isClearable: true,
+  filterPlaceholder: "Digite para filtrar frutas...",
+  caseSensitive: false,
+};
+
+WithFilter.storyName = "Com Filtro";
+
+export const MultiSelectCaseSensitive: StoryFn<DefaultStoryProps> = (args) => {
+  const methods: UseFormReturn<FormValues> = useForm<FormValues>({
+    defaultValues: { multiSelect: [] },
+  });
+  
+  return (
+    <FormProvider {...methods}>
+      <form style={{ maxWidth: 320 }}>
+        <MultiSelect
+          label={args.label || "Filtro Case-Sensitive"}
+          searchable={args.searchable ?? true}
+          isClearable={args.isClearable ?? true}
+          filterPlaceholder={args.filterPlaceholder || "Digite 'Apple' ou 'apple'"}
+          caseSensitive={args.caseSensitive ?? true}
+          {...args}
+          name={args.name || "multiSelect"}
+          options={args.options || fruitOptions}
+        />
+      </form>
+    </FormProvider>
+  );
+};
+
+MultiSelectCaseSensitive.args = {
+  name: "multiSelect",
+  options: fruitOptions,
+  label: "Filtro Case-Sensitive",
+  searchable: true,
+  isClearable: true,
+  filterPlaceholder: "Digite 'Apple' ou 'apple'",
+  caseSensitive: true,
+};
+
+MultiSelectCaseSensitive.storyName = "Filtro Case-Sensitive";

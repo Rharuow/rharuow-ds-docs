@@ -14,15 +14,40 @@ export default {
       description: "Exibe botão para limpar a seleção",
       defaultValue: false,
     },
+    searchable: {
+      control: "boolean",
+      description: "Permite filtrar opções digitando",
+      defaultValue: false,
+    },
+    caseSensitive: {
+      control: "boolean",
+      description: "Filtro case-sensitive",
+      defaultValue: false,
+    },
+    filterPlaceholder: {
+      control: "text",
+      description: "Placeholder do input de filtro",
+      defaultValue: "Digite para filtrar...",
+    },
   },
 };
 
 const options = [
-  { label: "Opção 1", value: "1" },
-  { label: "Opção 2", value: "2" },
-  { label: "Opção 3", value: "3" },
-  { label: "Opção 4", value: "4" },
-  { label: "Opção 5", value: "5" },
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Cherry", value: "cherry" },
+  { label: "Date", value: "date" },
+  { label: "Elderberry", value: "elderberry" },
+  { label: "Fig", value: "fig" },
+  { label: "Grape", value: "grape" },
+  { label: "Honeydew", value: "honeydew" },
+  { label: "Kiwi", value: "kiwi" },
+  { label: "Lemon", value: "lemon" },
+  { label: "Mango", value: "mango" },
+  { label: "Orange", value: "orange" },
+  { label: "Papaya", value: "papaya" },
+  { label: "Quince", value: "quince" },
+  { label: "Raspberry", value: "raspberry" },
 ];
 
 interface FormValues {
@@ -56,3 +81,71 @@ Default.args = {
   label: "Selecione uma opção",
   isClearable: false,
 };
+
+export const WithFilter: StoryFn<DefaultStoryProps> = (args) => {
+  const methods: UseFormReturn<FormValues> = useForm<FormValues>({
+    defaultValues: { select: "" },
+  });
+  return (
+    <FormProvider {...methods}>
+      <form style={{ maxWidth: 320 }}>
+        <Select
+          label={args.label || "Selecione uma fruta"}
+          searchable={args.searchable ?? true}
+          isClearable={args.isClearable ?? true}
+          filterPlaceholder={args.filterPlaceholder || "Digite para filtrar frutas..."}
+          caseSensitive={args.caseSensitive ?? false}
+          {...args}
+          name={args.name || "select"}
+          options={args.options || options}
+        />
+      </form>
+    </FormProvider>
+  );
+};
+
+WithFilter.args = {
+  name: "select",
+  options,
+  label: "Selecione uma fruta",
+  searchable: true,
+  isClearable: true,
+  filterPlaceholder: "Digite para filtrar frutas...",
+  caseSensitive: false,
+};
+
+WithFilter.storyName = "Com Filtro";
+
+export const CaseSensitiveFilter: StoryFn<DefaultStoryProps> = (args) => {
+  const methods: UseFormReturn<FormValues> = useForm<FormValues>({
+    defaultValues: { select: "" },
+  });
+  return (
+    <FormProvider {...methods}>
+      <form style={{ maxWidth: 320 }}>
+        <Select
+          label={args.label || "Filtro Case-Sensitive"}
+          searchable={args.searchable ?? true}
+          isClearable={args.isClearable ?? true}
+          filterPlaceholder={args.filterPlaceholder || "Digite 'Apple' ou 'apple'"}
+          caseSensitive={args.caseSensitive ?? true}
+          {...args}
+          name={args.name || "select"}
+          options={args.options || options}
+        />
+      </form>
+    </FormProvider>
+  );
+};
+
+CaseSensitiveFilter.args = {
+  name: "select",
+  options,
+  label: "Filtro Case-Sensitive",
+  searchable: true,
+  isClearable: true,
+  filterPlaceholder: "Digite 'Apple' ou 'apple'",
+  caseSensitive: true,
+};
+
+CaseSensitiveFilter.storyName = "Filtro Case-Sensitive";
