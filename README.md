@@ -1,40 +1,6 @@
-# rharuo## 🌟 Características
+# rharuow-ds
 
-- ⚛️ **React 18+** com TypeScript
-- 🧩 **10 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table)
-- 🔗 **Integração n### 🃏 **Card**
-
-Componente flexível para exibir conteúdo organizado em seções:
-
-- ✅ **Estrutura modular**: Header, Body e Footer independentes
-- ✅ **Múltiplas variantes**: default, outlined, elevated, flat
-- ✅ **Tamanhos configuráveis**: sm, md, lg
-- ✅ **Suporte ao tema dark**: Variáveis CSS para light/dark mode
-- ✅ **Elementos semânticos**: Props `as` para acessibilidade (header, main, footer)
-- ✅ **Flexibilidade total**: Use apenas as seções necessárias
-- ✅ **Customização completa**: Padding, bordas arredondadas e estilos
-
-### 📊 **Table**
-
-Componente completo para exibição de dados tabulares:
-
-- ✅ **Estrutura modular**: Table, Header, Body, Footer, Row, Cell
-- ✅ **Múltiplas variantes**: default, striped, bordered
-- ✅ **Tamanhos configuráveis**: sm, md, lg  
-- ✅ **Responsividade**: Scroll horizontal automático
-- ✅ **Header fixo**: Para tabelas com muitos dados
-- ✅ **Suporte ao tema dark**: Variáveis CSS para light/dark mode
-- ✅ **Alinhamento de células**: left, center, right
-- ✅ **Colspan e rowspan**: Células que ocupam múltiplas colunas/linhas
-- ✅ **Elementos semânticos**: Props `as` para acessibilidade (th/td, thead/tbody/tfoot)
-- ✅ **Linhas interativas**: Hover e estados de seleção
-
-### 🎯 **Button**eact Hook Form
-- 🎨 **Customização via CSS Variables** - Mude o tema facilmente
-- 🎯 **Componentes acessíveis** (ARIA)
-- 📱 **Responsivo** por padrão
-- 🎭 **Animações suaves** e modernas
-- 📚 **Documentação interativa** com StorybookNPM Version](https://img.shields.io/npm/v/rharuow-ds)](https://www.npmjs.com/package/rharuow-ds)
+[![NPM Version](https://img.shields.io/npm/v/rharuow-ds)](https://www.npmjs.com/package/rharuow-ds)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/Rharuow/rharuow-ds-docs/workflows/CI/badge.svg)](https://github.com/Rharuow/rharuow-ds-docs/actions)
 
@@ -43,7 +9,8 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- � **Integração nativa** com React Hook Form
+- 🧩 **10 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table)
+- 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Customização via CSS Variables** - Mude o tema facilmente
 - 🎯 **Componentes acessíveis** (ARIA)
 - 📱 **Responsivo** por padrão
@@ -273,11 +240,30 @@ Componente flexível para exibir conteúdo organizado em seções:
 
 - ✅ **Estrutura modular**: Header, Body e Footer independentes
 - ✅ **Múltiplas variantes**: default, outlined, elevated, flat
-- ✅ **Tamanhos configuráveis**: sm, md, lg
+- ✅ **Largura flexível**: Por padrão, cresce para ocupar largura disponível
+- ✅ **Controle de largura**: Use `constrainWidth=true` para aplicar limitações por tamanho
+- ✅ **Tamanhos configuráveis**: sm, md, lg (aplicados apenas com `constrainWidth`)
 - ✅ **Suporte ao tema dark**: Variáveis CSS para light/dark mode
 - ✅ **Elementos semânticos**: Props `as` para acessibilidade (header, main, footer)
 - ✅ **Flexibilidade total**: Use apenas as seções necessárias
 - ✅ **Customização completa**: Padding, bordas arredondadas e estilos
+
+### 📊 **Table**
+
+Componente completo para exibição de dados tabulares:
+
+- ✅ **Estrutura modular**: Table, Header, Body, Footer, Row, Cell
+- ✅ **Múltiplas variantes**: default, striped, bordered
+- ✅ **Tamanhos configuráveis**: sm, md, lg  
+- ✅ **Responsividade**: Scroll horizontal automático
+- ✅ **Header fixo**: Para tabelas com muitos dados
+- ✅ **Suporte ao tema dark**: Variáveis CSS para light/dark mode
+- ✅ **Alinhamento de células**: left, center, right
+- ✅ **Colspan e rowspan**: Células que ocupam múltiplas colunas/linhas
+- ✅ **Elementos semânticos**: Props `as` para acessibilidade (th/td, thead/tbody/tfoot)
+- ✅ **Linhas interativas**: Hover e estados de seleção
+
+### �
 
 ### �🎯 **Button**
 
