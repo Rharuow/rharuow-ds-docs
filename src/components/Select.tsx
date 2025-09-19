@@ -29,6 +29,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ) => {
     const [focused, setFocused] = React.useState(false);
     const [open, setOpen] = React.useState(false);
+    const [dropdownPosition, setDropdownPosition] = React.useState({
+      top: 0,
+      left: 0,
+      width: 0,
+    });
     const componentRef = React.useRef<HTMLDivElement>(null);
 
     const form = useFormContext();
@@ -40,6 +45,36 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
     // Floating label: label sobe se select está focado ou tem valor
     const isFloating = focused || !!value;
+
+    // Calculate dropdown position
+    const updateDropdownPosition = React.useCallback(() => {
+      if (componentRef.current && open) {
+        const rect = componentRef.current.getBoundingClientRect();
+        setDropdownPosition({
+          top: rect.bottom + window.scrollY + 4,
+          left: rect.left + window.scrollX,
+          width: rect.width,
+        });
+      }
+    }, [open]);
+
+    // Update position when dropdown opens or window resizes
+    React.useEffect(() => {
+      updateDropdownPosition();
+      
+      if (open) {
+        const handleResize = () => updateDropdownPosition();
+        const handleScroll = () => updateDropdownPosition();
+        
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('scroll', handleScroll, true);
+        
+        return () => {
+          window.removeEventListener('resize', handleResize);
+          window.removeEventListener('scroll', handleScroll, true);
+        };
+      }
+    }, [open, updateDropdownPosition]);
 
     // Handle clicks outside component
     React.useEffect(() => {
@@ -137,7 +172,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         {/* Dropdown custom UI */}
         <div
           className={cn(
-            "absolute left-0 w-full mt-1 rounded-md shadow-lg bg-white z-20 transition-all duration-200 overflow-hidden",
+            "absolute left-0 w-full mt-1 rounded-md shadow-lg bg-white z-[9999] transition-all duration-200 overflow-hidden",
             open
               ? "border border-[var(--primary,#2563eb)] max-h-36 opacity-100 scale-100"
               : "max-h-0 opacity-0 scale-95 pointer-events-none"
@@ -145,6 +180,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           style={{
             maxHeight: open ? "9.5rem" : "0", // 3 options * 2.5rem + padding
             overflowY: options.length > 3 ? "auto" : "hidden",
+            position: "fixed", // Use fixed positioning to escape container overflow
+            top: open ? dropdownPosition.top : "auto",
+            left: open ? dropdownPosition.left : "auto",
+            width: open ? dropdownPosition.width : "auto",
+            zIndex: 9999,
           }}
         >
           {options.map((opt) => (
