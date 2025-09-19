@@ -1,4 +1,4 @@
-import{B as i}from"./Button-BKrMPgLu.js";import"./iframe-QiuHjIw5.js";import"./utils-CuF-iVWQ.js";const p={title:"Components/Button",component:i,tags:["autodocs"]},t={args:{children:"Botão padrão",variant:"default"}},o={args:{children:"Botão outline",variant:"outline"}};var r,e,a;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`{
+import{B as i}from"./Button-B1YTaNIa.js";import"./iframe-CllnT1cI.js";import"./utils-CuF-iVWQ.js";const p={title:"Components/Button",component:i,tags:["autodocs"]},t={args:{children:"Botão padrão",variant:"default"}},o={args:{children:"Botão outline",variant:"outline"}};var r,e,a;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`{
   args: {
     children: "Botão padrão",
     variant: "default"
