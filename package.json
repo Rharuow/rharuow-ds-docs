@@ -1,6 +1,6 @@
 {
   "name": "rharuow-ds",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Modern React Design System with 10 components: Table (Header, Body, Footer, Row, Cell), Card (Header, Body, Footer), Button, Input (with password support), Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, and RadioGroup. Full React Hook Form integration, Tailwind CSS styling, CSS Variables for theme customization and dark mode support.",
   "main": "dist/rharuow-ds.cjs.js",
   "module": "dist/rharuow-ds.es.js",
