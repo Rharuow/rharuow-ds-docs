@@ -45,8 +45,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
 
     const error = form?.formState?.errors?.[name as string]?.message;
 
-    // Floating label: label sobe se input está focado ou tem valor
-    const isFloating = focused || !!value;
+    // Tipos de input que possuem placeholders nativos que conflitam com o label flutuante
+    const dateTimeTypes = ["date", "datetime-local", "time", "month", "week"];
+    const isDateTimeInput = dateTimeTypes.includes(type);
+
+    // Floating label: label sobe se input está focado, tem valor OU é um input de data/hora
+    const isFloating = focused || !!value || isDateTimeInput;
 
     // Para inputs de password, o type real depende do estado showPassword
     const inputType = type === "password" ? (showPassword ? "text" : "password") : type;
