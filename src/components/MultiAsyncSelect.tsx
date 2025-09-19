@@ -332,9 +332,10 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
         {/* Dropdown custom UI */}
         <div
           className={cn(
-            "absolute left-0 w-full mt-1 rounded-md shadow-lg bg-white z-[9999] transition-all duration-200 overflow-hidden",
+            "absolute left-0 w-full mt-1 rounded-md transition-all duration-200 overflow-hidden",
+            "bg-[var(--select-dropdown-bg)] border-[var(--select-dropdown-border)] text-[var(--select-dropdown-text)]",
             open
-              ? "border border-[var(--primary,#2563eb)] max-h-36 opacity-100 scale-100"
+              ? "border max-h-36 opacity-100 scale-100"
               : "max-h-0 opacity-0 scale-95 pointer-events-none"
           )}
           style={{
@@ -345,6 +346,7 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
             left: open ? dropdownPosition.left : "auto",
             width: open ? dropdownPosition.width : "auto",
             zIndex: 9999,
+            boxShadow: open ? "var(--select-dropdown-shadow)" : "none",
           }}
         >
           {loading ? (
@@ -360,8 +362,9 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
               <div
                 key={opt.value}
                 className={cn(
-                  "px-3 py-2 cursor-pointer hover:bg-blue-50 text-sm flex items-center gap-2",
-                  value.includes(opt.value) && "bg-blue-100 font-semibold"
+                  "px-3 py-2 cursor-pointer text-sm flex items-center gap-2 transition-colors duration-150",
+                  "hover:bg-[var(--select-dropdown-hover)]",
+                  value.includes(opt.value) && "bg-[var(--select-dropdown-selected)] font-semibold"
                 )}
                 onMouseDown={() => handleOptionClick(opt.value)}
               >

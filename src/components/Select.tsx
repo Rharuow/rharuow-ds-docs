@@ -172,9 +172,10 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         {/* Dropdown custom UI */}
         <div
           className={cn(
-            "absolute left-0 w-full mt-1 rounded-md shadow-lg bg-white z-[9999] transition-all duration-200 overflow-hidden",
+            "absolute left-0 w-full mt-1 rounded-md transition-all duration-200 overflow-hidden",
+            "bg-[var(--select-dropdown-bg)] border-[var(--select-dropdown-border)] text-[var(--select-dropdown-text)]",
             open
-              ? "border border-[var(--primary,#2563eb)] max-h-36 opacity-100 scale-100"
+              ? "border max-h-36 opacity-100 scale-100"
               : "max-h-0 opacity-0 scale-95 pointer-events-none"
           )}
           style={{
@@ -185,14 +186,16 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             left: open ? dropdownPosition.left : "auto",
             width: open ? dropdownPosition.width : "auto",
             zIndex: 9999,
+            boxShadow: open ? "var(--select-dropdown-shadow)" : "none",
           }}
         >
           {options.map((opt) => (
             <div
               key={opt.value}
               className={cn(
-                "px-3 py-2 cursor-pointer hover:bg-blue-50 text-sm",
-                value === opt.value && "bg-blue-100"
+                "px-3 py-2 cursor-pointer text-sm transition-colors duration-150",
+                "hover:bg-[var(--select-dropdown-hover)]",
+                value === opt.value && "bg-[var(--select-dropdown-selected)]"
               )}
               onMouseDown={() => {
                 if (form && name) form.setValue(name, opt.value);

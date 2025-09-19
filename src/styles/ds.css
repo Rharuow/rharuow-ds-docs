@@ -24,6 +24,14 @@
   --table-row-hover: #f3f4f6;
   --table-row-selected: #dbeafe;
   
+  /* Select Dropdown Variables - Light Theme */
+  --select-dropdown-bg: #ffffff;
+  --select-dropdown-border: #e5e7eb;
+  --select-dropdown-text: #111827;
+  --select-dropdown-hover: #f3f4f6;
+  --select-dropdown-selected: #dbeafe;
+  --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
   /* Shadow Variables */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -50,6 +58,14 @@
   --table-row-even: #111827;
   --table-row-hover: #374151;
   --table-row-selected: #1e40af;
+  
+  /* Select Dropdown Variables - Dark Theme */
+  --select-dropdown-bg: #1f2937;
+  --select-dropdown-border: #374151;
+  --select-dropdown-text: #f9fafb;
+  --select-dropdown-hover: #374151;
+  --select-dropdown-selected: #1e40af;
+  --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
   
   /* Shadow Variables - Dark */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
@@ -79,6 +95,14 @@
     --table-row-hover: #374151;
     --table-row-selected: #1e40af;
     
+    /* Select Dropdown Variables - Dark Theme (Auto) */
+    --select-dropdown-bg: #1f2937;
+    --select-dropdown-border: #374151;
+    --select-dropdown-text: #f9fafb;
+    --select-dropdown-hover: #374151;
+    --select-dropdown-selected: #1e40af;
+    --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    
     /* Shadow Variables - Dark (Auto) */
     --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
     --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
@@ -106,6 +130,14 @@
   --table-row-even: #f9fafb;
   --table-row-hover: #f3f4f6;
   --table-row-selected: #dbeafe;
+  
+  /* Select Dropdown Variables - Light Theme (Forced) */
+  --select-dropdown-bg: #ffffff;
+  --select-dropdown-border: #e5e7eb;
+  --select-dropdown-text: #111827;
+  --select-dropdown-hover: #f3f4f6;
+  --select-dropdown-selected: #dbeafe;
+  --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   
   /* Shadow Variables - Light (Forced) */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
