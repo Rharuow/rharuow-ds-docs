@@ -37,6 +37,27 @@
   --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
+/* Mobile-specific optimizations for select dropdowns */
+@media (max-width: 768px) {
+  /* Ensure dropdowns have proper z-index on mobile */
+  [style*="position: fixed"][style*="z-index: 9999"] {
+    z-index: 99999 !important;
+  }
+  
+  /* Additional mobile dropdown styles for better visibility */
+  .select-dropdown-mobile {
+    max-height: 50vh !important;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 10px 10px -5px rgb(0 0 0 / 0.1) !important;
+  }
+}
+
+/* Ensure dropdowns work well with mobile viewport */
+@media screen and (max-height: 600px) {
+  [style*="position: fixed"][style*="max-height: 9.5rem"] {
+    max-height: 30vh !important;
+  }
+}
+
 /* Dark Theme Variables */
 [data-theme="dark"], .dark {
   /* Card Variables - Dark Theme */

@@ -62,17 +62,54 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
 
     const isFloating = focused || (value && value.length > 0);
 
+    // Utility to detect mobile devices
+    const isMobileDevice = React.useCallback(() => {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+             window.innerWidth <= 768;
+    }, []);
+
     // Calculate dropdown position
     const updateDropdownPosition = React.useCallback(() => {
       if (componentRef.current && open) {
         const rect = componentRef.current.getBoundingClientRect();
+        const isMobile = isMobileDevice();
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+        const dropdownHeight = 152; // ~9.5rem
+        
+        let top = rect.bottom + 4;
+        let left = rect.left;
+        
+        // Mobile-specific adjustments
+        if (isMobile) {
+          // Check available space below and above
+          const spaceBelow = viewportHeight - rect.bottom;
+          const spaceAbove = rect.top;
+          
+          // Show above if not enough space below
+          if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+            top = rect.top - dropdownHeight - 4;
+          }
+          
+          // Ensure dropdown doesn't go off screen horizontally
+          const margin = 16;
+          const maxLeft = viewportWidth - rect.width - margin;
+          left = Math.min(Math.max(left, margin), maxLeft);
+        } else {
+          // Desktop: Check if dropdown would go below viewport
+          const spaceBelow = viewportHeight - rect.bottom;
+          if (spaceBelow < dropdownHeight) {
+            top = rect.top - dropdownHeight - 4;
+          }
+        }
+        
         setDropdownPosition({
-          top: rect.bottom + window.scrollY + 4,
-          left: rect.left + window.scrollX,
+          top,
+          left,
           width: rect.width,
         });
       }
-    }, [open]);
+    }, [open, isMobileDevice]);
 
     // Update position when dropdown opens or window resizes
     React.useEffect(() => {
@@ -342,9 +379,9 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
             maxHeight: open ? "9.5rem" : "0",
             overflowY: options.length > 3 ? "auto" : "hidden",
             position: "fixed", // Use fixed positioning to escape container overflow
-            top: open ? dropdownPosition.top : "auto",
-            left: open ? dropdownPosition.left : "auto",
-            width: open ? dropdownPosition.width : "auto",
+            top: open ? `${dropdownPosition.top}px` : "auto",
+            left: open ? `${dropdownPosition.left}px` : "auto",
+            width: open ? `${dropdownPosition.width}px` : "auto",
             zIndex: 9999,
             boxShadow: open ? "var(--select-dropdown-shadow)" : "none",
           }}
