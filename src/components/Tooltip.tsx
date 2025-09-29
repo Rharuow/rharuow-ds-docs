@@ -128,6 +128,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             "transition-opacity duration-200 ease-in-out",
             className
           )}
+          style={{ zIndex: 999999 }}
           role="tooltip"
           aria-hidden={!isVisible}
         >
