@@ -44,9 +44,9 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **10 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table)
-- � **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
-- �🔗 **Integração nativa** com React Hook Form
+- 🧩 **11 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip)
+- 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
+- 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Customização via CSS Variables** - Mude o tema facilmente
 - 🎯 **Componentes acessíveis** (ARIA)
 - 📱 **Responsivo** por padrão
@@ -109,6 +109,7 @@ npm install react-hook-form
      AsyncSelect,
      MultiSelect,
      RadioGroup,
+     Tooltip,
    } from "rharuow-ds";
 
    function App() {
@@ -169,7 +170,10 @@ npm install react-hook-form
              { label: "Grande", value: "lg" },
            ]}
          />
-         <Button variant="default">Enviar</Button>
+         
+         <Tooltip content="Clique para enviar o formulário" position="top">
+           <Button variant="default">Enviar</Button>
+         </Tooltip>
        </div>
      );
    }
@@ -189,6 +193,7 @@ npm install react-hook-form
      MultiAsyncSelect,
      RadioGroup,
      Button,
+     Tooltip,
    } from "rharuow-ds";
 
    function FormExample() {
@@ -394,6 +399,47 @@ Radio buttons modernos e criativos:
 - ✅ Layout horizontal ou vertical
 - ✅ Diferentes tamanhos (sm, md, lg)
 - ✅ Animações ao selecionar
+
+### 💡 **Tooltip**
+
+Componente de tooltip inteligente e acessível:
+
+- ✅ **Posicionamento automático**: top, bottom, left, right
+- ✅ **Detecção de bordas**: Ajusta posição automaticamente se não couber na tela
+- ✅ **Acessibilidade completa**: Suporte a navegação por teclado e screen readers
+- ✅ **Animações suaves**: Transições de entrada e saída elegantes
+- ✅ **Seta indicativa**: Aponta para o elemento que ativou o tooltip
+- ✅ **Suporte a temas**: Variáveis CSS para light/dark mode
+- ✅ **Flexível**: Funciona com qualquer elemento como trigger
+- ✅ **Controle de estado**: Pode ser desabilitado conforme necessário
+
+```tsx
+// Tooltip básico
+<Tooltip content="Informação útil" position="top">
+  <Button>Passe o mouse aqui</Button>
+</Tooltip>
+
+// Tooltip com texto
+<Tooltip content="Clique para mais detalhes" position="right">
+  <span className="underline cursor-help">
+    Texto com tooltip
+  </span>
+</Tooltip>
+
+// Tooltip personalizado
+<Tooltip 
+  content="Tooltip customizado" 
+  position="bottom"
+  className="bg-red-500 text-white"
+>
+  <Button variant="outline">Hover aqui</Button>
+</Tooltip>
+
+// Tooltip desabilitado
+<Tooltip content="Este não aparece" disabled>
+  <Button>Tooltip desabilitado</Button>
+</Tooltip>
+```
 
 ---
 
