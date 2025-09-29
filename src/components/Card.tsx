@@ -148,7 +148,6 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         className={cn(
           "flex flex-col", // Flex column para organizar header, body, footer
-          "overflow-hidden", // Para manter os borders radius das seções
           variantClasses[variant],
           constrainWidth && sizeClasses[size], // Aplicar max-width apenas se constrainWidth for true
           paddingClasses[padding],
