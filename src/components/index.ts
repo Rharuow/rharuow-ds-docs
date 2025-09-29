@@ -9,3 +9,4 @@ export * from "./MultiAsyncSelect";
 export * from "./RadioGroup";
 export * from "./Card";
 export * from "./Table";
+export * from "./Tooltip";
