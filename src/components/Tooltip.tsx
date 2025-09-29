@@ -69,7 +69,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   };
 
   const getPositionClasses = () => {
-    const base = "absolute z-50 pointer-events-none";
+    const base = "absolute z-[9999] pointer-events-none";
     
     switch (actualPosition) {
       case "top":
