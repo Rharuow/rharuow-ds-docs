@@ -2,6 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
+import { Tooltip } from "../components/Tooltip";
 
 const meta: Meta<typeof Card> = {
   title: "Components/Card",
@@ -39,6 +40,10 @@ const meta: Meta<typeof Card> = {
       description: "Bordas arredondadas",
       control: "select",
       options: ["none", "sm", "md", "lg", "xl"],
+    },
+    allowOverflow: {
+      description: "Permitir que elementos filhos transbordem do card (útil para tooltips legados)",
+      control: "boolean",
     },
   },
 };

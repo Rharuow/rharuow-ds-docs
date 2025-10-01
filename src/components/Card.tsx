@@ -31,6 +31,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   padding?: 'none' | 'sm' | 'md' | 'lg';
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   constrainWidth?: boolean; // Nova prop para controlar se deve aplicar max-width
+  allowOverflow?: boolean; // Nova prop para permitir overflow quando necessário (ex: tooltips legados)
 }
 
 // Card Header Component
@@ -112,6 +113,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     padding = 'none', // none pois cada seção tem seu próprio padding
     rounded = 'lg',
     constrainWidth = false, // Por padrão, não aplicar max-width
+    allowOverflow = false, // Por padrão, aplicar overflow hidden para interface limpa
     ...props 
   }, ref) => {
     
@@ -148,6 +150,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         className={cn(
           "flex flex-col", // Flex column para organizar header, body, footer
+          !allowOverflow && "overflow-hidden", // Overflow hidden por padrão para bordas limpas
           variantClasses[variant],
           constrainWidth && sizeClasses[size], // Aplicar max-width apenas se constrainWidth for true
           paddingClasses[padding],

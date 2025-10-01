@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "../lib/utils";
 
 interface TooltipProps {
@@ -18,34 +19,69 @@ export const Tooltip: React.FC<TooltipProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [actualPosition, setActualPosition] = useState(position);
+  const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties>({});
   const tooltipRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isVisible || !tooltipRef.current || !triggerRef.current) return;
+    if (!isVisible || !triggerRef.current) return;
 
-    const tooltip = tooltipRef.current;
     const trigger = triggerRef.current;
     const rect = trigger.getBoundingClientRect();
-    const tooltipRect = tooltip.getBoundingClientRect();
-
+    
     let newPosition = position;
+    let top = 0;
+    let left = 0;
 
-    // Check if tooltip fits in viewport and adjust position if needed
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+    // Calculate base position
+    switch (position) {
+      case "top":
+        top = rect.top - 8; // 8px gap
+        left = rect.left + rect.width / 2;
+        break;
+      case "bottom":
+        top = rect.bottom + 8; // 8px gap
+        left = rect.left + rect.width / 2;
+        break;
+      case "left":
+        top = rect.top + rect.height / 2;
+        left = rect.left - 8; // 8px gap
+        break;
+      case "right":
+        top = rect.top + rect.height / 2;
+        left = rect.right + 8; // 8px gap
+        break;
+    }
 
-    if (position === "top" && rect.top < tooltipRect.height + 10) {
-      newPosition = "bottom";
-    } else if (position === "bottom" && rect.bottom + tooltipRect.height + 10 > viewportHeight) {
-      newPosition = "top";
-    } else if (position === "left" && rect.left < tooltipRect.width + 10) {
-      newPosition = "right";
-    } else if (position === "right" && rect.right + tooltipRect.width + 10 > viewportWidth) {
-      newPosition = "left";
+    // After first render, check if we need to adjust position
+    if (tooltipRef.current) {
+      const tooltipRect = tooltipRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      // Check if tooltip fits in viewport and adjust position if needed
+      if (position === "top" && rect.top < tooltipRect.height + 16) {
+        newPosition = "bottom";
+        top = rect.bottom + 8;
+      } else if (position === "bottom" && rect.bottom + tooltipRect.height + 16 > viewportHeight) {
+        newPosition = "top";
+        top = rect.top - 8;
+      } else if (position === "left" && rect.left < tooltipRect.width + 16) {
+        newPosition = "right";
+        left = rect.right + 8;
+      } else if (position === "right" && rect.right + tooltipRect.width + 16 > viewportWidth) {
+        newPosition = "left";
+        left = rect.left - 8;
+      }
     }
 
     setActualPosition(newPosition);
+    setTooltipStyle({ 
+      position: 'fixed',
+      top: `${top}px`, 
+      left: `${left}px`,
+      zIndex: 9999
+    });
   }, [isVisible, position]);
 
   const handleMouseEnter = () => {
@@ -69,19 +105,19 @@ export const Tooltip: React.FC<TooltipProps> = ({
   };
 
   const getPositionClasses = () => {
-    const base = "absolute z-[9999] pointer-events-none";
+    const base = "pointer-events-none";
     
     switch (actualPosition) {
       case "top":
-        return `${base} bottom-full left-1/2 transform -translate-x-1/2 mb-2`;
+        return `${base} transform -translate-x-1/2 -translate-y-full`;
       case "bottom":
-        return `${base} top-full left-1/2 transform -translate-x-1/2 mt-2`;
+        return `${base} transform -translate-x-1/2`;
       case "left":
-        return `${base} right-full top-1/2 transform -translate-y-1/2 mr-2`;
+        return `${base} transform -translate-x-full -translate-y-1/2`;
       case "right":
-        return `${base} left-full top-1/2 transform -translate-y-1/2 ml-2`;
+        return `${base} transform -translate-y-1/2`;
       default:
-        return `${base} bottom-full left-1/2 transform -translate-x-1/2 mb-2`;
+        return `${base} transform -translate-x-1/2 -translate-y-full`;
     }
   };
 
@@ -90,15 +126,15 @@ export const Tooltip: React.FC<TooltipProps> = ({
     
     switch (actualPosition) {
       case "top":
-        return `${arrowBase} top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2`;
+        return `${arrowBase} top-full left-1/2 -translate-x-1/2 -translate-y-1/2`;
       case "bottom":
-        return `${arrowBase} bottom-full left-1/2 transform -translate-x-1/2 translate-y-1/2`;
+        return `${arrowBase} bottom-full left-1/2 -translate-x-1/2 translate-y-1/2`;
       case "left":
-        return `${arrowBase} left-full top-1/2 transform -translate-y-1/2 -translate-x-1/2`;
+        return `${arrowBase} left-full top-1/2 -translate-y-1/2 -translate-x-1/2`;
       case "right":
-        return `${arrowBase} right-full top-1/2 transform -translate-y-1/2 translate-x-1/2`;
+        return `${arrowBase} right-full top-1/2 -translate-y-1/2 translate-x-1/2`;
       default:
-        return `${arrowBase} top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2`;
+        return `${arrowBase} top-full left-1/2 -translate-x-1/2 -translate-y-1/2`;
     }
   };
 
@@ -107,19 +143,22 @@ export const Tooltip: React.FC<TooltipProps> = ({
   }
 
   return (
-    <div 
-      className="relative inline-block"
-      ref={triggerRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-    >
-      {children}
+    <>
+      <div 
+        className="relative inline-block"
+        ref={triggerRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      >
+        {children}
+      </div>
       
-      {isVisible && (
+      {isVisible && typeof document !== 'undefined' && createPortal(
         <div
           ref={tooltipRef}
+          style={tooltipStyle}
           className={cn(
             getPositionClasses(),
             "px-2 py-1 text-sm rounded whitespace-nowrap",
@@ -128,14 +167,14 @@ export const Tooltip: React.FC<TooltipProps> = ({
             "transition-opacity duration-200 ease-in-out",
             className
           )}
-          style={{ zIndex: 999999 }}
           role="tooltip"
           aria-hidden={!isVisible}
         >
           {content}
           <div className={getArrowClasses()} />
-        </div>
+        </div>,
+        document.body
       )}
-    </div>
+    </>
   );
 };
