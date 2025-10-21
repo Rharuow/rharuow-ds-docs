@@ -439,6 +439,67 @@ Componente de tooltip inteligente e acessível:
 <Tooltip content="Este não aparece" disabled>
   <Button>Tooltip desabilitado</Button>
 </Tooltip>
+
+### 🪟 AsideSheet
+
+Componente tipo painel deslizante (sheet) que abre a partir das bordas da tela.
+
+- ✅ Suporta controle programático (controlled) e estado interno (uncontrolled)
+- ✅ Abre da direita para a esquerda ou da esquerda para a direita (`side: 'left' | 'right'`)
+- ✅ Largura configurável via `size` ou `className`
+- ✅ Acessível: foco gerenciado e comportamento esperado ao fechar (Esc)
+
+Props principais:
+
+- `isOpen?: boolean` — controla visibilidade (quando usado como controlled)
+- `defaultOpen?: boolean` — estado inicial (uncontrolled)
+- `onClose?: () => void` — callback chamado ao fechar
+- `side?: 'left' | 'right'` — lado de abertura (padrão: 'right')
+- `size?: 'sm' | 'md' | 'lg' | 'full'` — tamanho pré-definido do sheet
+- `className?: string` — classes adicionais para o container
+- `title?: string | React.ReactNode` — título opcional do painel
+
+Exemplo de uso (controlado):
+
+```tsx
+import React from 'react';
+import { AsideSheet, Button } from 'rharuow-ds';
+
+function Example() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div>
+      <Button onClick={() => setOpen(true)}>Abrir Aside</Button>
+
+      <AsideSheet
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        side="right"
+        size="md"
+      >
+        <AsideSheet.Header>
+          <h3>Detalhes</h3>
+        </AsideSheet.Header>
+
+        <AsideSheet.Body>
+          <p>Conteúdo do painel.</p>
+        </AsideSheet.Body>
+
+        <AsideSheet.Footer>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Fechar
+          </Button>
+        </AsideSheet.Footer>
+      </AsideSheet>
+    </div>
+  );
+}
+```
+
+Veja a story do componente no Storybook para demonstrações e variações (left/right, controlled/uncontrolled):
+
+[Storybook — AsideSheet](https://rharuow.github.io/rharuow-ds-docs/?path=/story/asidesheet--default)
 ```
 
 ---
