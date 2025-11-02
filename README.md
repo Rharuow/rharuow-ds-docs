@@ -500,6 +500,111 @@ function Example() {
 Veja a story do componente no Storybook para demonstrações e variações (left/right, controlled/uncontrolled):
 
 [Storybook — AsideSheet](https://rharuow.github.io/rharuow-ds-docs/?path=/story/asidesheet--default)
+
+### 📷 **ImageInput**
+
+Componente para seleção e upload de imagens com preview e ações de confirmação/remoção:
+
+- ✅ **Seleção via explorador** - Clique para abrir o explorador de arquivos (apenas imagens)
+- ✅ **Preview da imagem** - Visualização imediata após seleção
+- ✅ **Modo avatar** (`avatar={true}`) - Formato circular para fotos de perfil
+- ✅ **Ações de confirmação** - Botões para confirmar upload ou cancelar
+- ✅ **Remoção de imagem** - Botão para excluir imagem já salva
+- ✅ **Suporte a URLs externas** - Exibe imagens já salvas via `value` prop
+- ✅ **Validação de arquivos** - Controle de tipo e tamanho máximo
+- ✅ **Estados de loading** - Indicação visual durante upload/remoção
+- ✅ **Flexível** - Funciona com qualquer serviço (Cloudinary, Firebase, S3, etc.)
+- ✅ **Integração com React Hook Form** - Nome do campo e validação
+
+Props principais:
+
+- `avatar?: boolean` — formato circular (ideal para avatars)
+- `value?: string` — URL da imagem atual (já salva)
+- `onUpload?: (file: File) => Promise<string>` — callback para upload (retorna URL)
+- `onRemove?: (imageUrl?: string) => Promise<void>` — callback para remoção
+- `accept?: string` — tipos aceitos (padrão: "image/*")
+- `maxSize?: number` — tamanho máximo em bytes
+- `size?: 'sm' | 'md' | 'lg'` — tamanho do componente
+- `loading?: boolean` — estado de carregamento
+- `disabled?: boolean` — desabilitar interações
+
+Exemplo básico:
+
+```tsx
+import React from 'react';
+import { ImageInput } from 'rharuow-ds';
+
+function ProfileForm() {
+  const [avatarUrl, setAvatarUrl] = React.useState('');
+
+  const handleUpload = async (file: File): Promise<string> => {
+    // Upload para seu serviço preferido (Cloudinary, Firebase, etc.)
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    });
+    
+    const data = await response.json();
+    setAvatarUrl(data.url);
+    return data.url;
+  };
+
+  const handleRemove = async (url?: string) => {
+    // Remover do serviço se necessário
+    await fetch(`/api/delete?url=${encodeURIComponent(url || '')}`, {
+      method: 'DELETE'
+    });
+    setAvatarUrl('');
+  };
+
+  return (
+    <ImageInput
+      avatar
+      label="Foto do Perfil"
+      value={avatarUrl}
+      onUpload={handleUpload}
+      onRemove={handleRemove}
+      size="lg"
+      maxSize={2 * 1024 * 1024} // 2MB
+    />
+  );
+}
+```
+
+Exemplo com Cloudinary:
+
+```tsx
+const uploadToCloudinary = async (file: File): Promise<string> => {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'seu_preset');
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/seu_cloud_name/image/upload`,
+    {
+      method: 'POST',
+      body: formData
+    }
+  );
+
+  const data = await response.json();
+  return data.secure_url;
+};
+
+<ImageInput 
+  onUpload={uploadToCloudinary}
+  placeholder="Upload para Cloudinary"
+/>
+```
+
+Veja a story do componente no Storybook para demonstrações completas:
+
+[Storybook — ImageInput](https://rharuow.github.io/rharuow-ds-docs/?path=/story/imageinput--default)
+
+---
 ```
 
 ---
