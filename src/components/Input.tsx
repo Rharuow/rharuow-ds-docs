@@ -2,6 +2,7 @@ import * as React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { cn } from "../lib/utils";
+import { applyCpfMask, validateCpf } from "../lib/cpf.utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -13,6 +14,7 @@ export interface CustomProps {
   iconClassName?: string;
   containerClassName?: string;
   iconAction?: React.MouseEventHandler<HTMLDivElement>;
+  cpf?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
@@ -24,16 +26,19 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
       label,
       onFocus,
       onBlur,
+      onChange,
       Icon,
       iconClassName,
       iconAction,
       containerClassName,
+      cpf = false,
       ...props
     },
     ref
   ) => {
     const [focused, setFocused] = React.useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
+    const [cpfError, setCpfError] = React.useState<string | null>(null);
 
     const form = useFormContext();
     const control = form?.control;
@@ -43,7 +48,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
 
     const value = props.value ?? valueWatch ?? "";
 
-    const error = form?.formState?.errors?.[name as string]?.message;
+    const error = form?.formState?.errors?.[name as string]?.message || cpfError;
 
     // Tipos de input que possuem placeholders nativos que conflitam com o label flutuante
     const dateTimeTypes = ["date", "datetime-local", "time", "month", "week"];
@@ -78,6 +83,33 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
       setShowPassword(!showPassword);
     };
 
+    // Handler para aplicar máscara e validação de CPF
+    const handleCpfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (cpf) {
+        const rawValue = event.target.value;
+        const maskedValue = applyCpfMask(rawValue);
+        
+        // Atualiza o valor com a máscara
+        event.target.value = maskedValue;
+        
+        // Valida apenas se o campo estiver completo
+        if (maskedValue.length === 14) { // 000.000.000-00
+          if (!validateCpf(maskedValue)) {
+            setCpfError('CPF inválido');
+          } else {
+            setCpfError(null);
+          }
+        } else {
+          setCpfError(null);
+        }
+      }
+      
+      // Chama o onChange original se existir
+      if (onChange) {
+        onChange(event);
+      }
+    };
+
     return (
       <div className={cn("relative", containerClassName)}>
         <input
@@ -86,17 +118,28 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
           className={cn(
             "peer flex h-12 w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50",
             (type === "password" || Icon) ? "pr-12" : "", // espaço extra para qualquer ícone (password ou customizado)
+            error ? "border-red-500" : "",
             className
           )}
           onFocus={(event) => {
             setFocused(true);
             onFocus && onFocus(event);
           }}
+          maxLength={cpf ? 14 : props.maxLength}
+          inputMode={cpf ? "numeric" : props.inputMode}
           // Merge register's ref with custom ref to avoid duplication
           {...(form && name
             ? (() => {
-                const registered = register(name);
+                const registered = register(name, cpf ? {
+                  validate: (value: string) => {
+                    if (!value) return 'CPF é obrigatório';
+                    if (value.length < 14) return 'CPF incompleto';
+                    if (!validateCpf(value)) return 'CPF inválido';
+                    return true;
+                  }
+                } : undefined);
                 const originalOnBlur = registered.onBlur;
+                const originalOnChange = registered.onChange;
                 return {
                   ...registered,
                   ref: (node: HTMLInputElement) => {
@@ -112,6 +155,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
                     if (onBlur) onBlur(event);
                     if (originalOnBlur) originalOnBlur(event);
                   },
+                  onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
+                    handleCpfChange(event);
+                    if (originalOnChange) originalOnChange(event);
+                  },
                 };
               })()
             : {
@@ -120,6 +167,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
                   setFocused(false);
                   if (onBlur) onBlur(event);
                 },
+                onChange: handleCpfChange,
               })}
           {...props}
         />
