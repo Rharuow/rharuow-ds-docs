@@ -66,6 +66,10 @@ export const ImageInput: React.FC<ImageInputProps> = ({
     lg: avatar ? 'w-32 h-32' : 'w-40 h-32',
   };
 
+  // Placeholder padrão baseado no tipo
+  const defaultPlaceholder = avatar ? "Adicionar foto" : "Selecionar imagem";
+  const displayPlaceholder = placeholder || defaultPlaceholder;
+
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -150,7 +154,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
         </label>
       )}
       
-      <div className="relative">
+      <div className="relative flex flex-col items-center">
         {/* Input file oculto */}
         <input
           ref={fileInputRef}
@@ -199,20 +203,43 @@ export const ImageInput: React.FC<ImageInputProps> = ({
           ) : (
             // Estado vazio
             <div className="flex flex-col items-center justify-center h-full text-gray-500 text-sm">
-              <svg
-                className="w-6 h-6 mb-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-              <span className="text-center px-2">{placeholder}</span>
+              {avatar ? (
+                // Ícone de usuário para avatar
+                <>
+                  <svg
+                    className="w-8 h-8 mb-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                  <span className="text-center px-2 text-xs">{displayPlaceholder}</span>
+                </>
+              ) : (
+                // Ícone de adicionar imagem genérica
+                <>
+                  <svg
+                    className="w-6 h-6 mb-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  <span className="text-center px-2">{displayPlaceholder}</span>
+                </>
+              )}
             </div>
           )}
 
@@ -270,6 +297,13 @@ export const ImageInput: React.FC<ImageInputProps> = ({
       {maxSize && !showPreview && (
         <p className="text-xs text-gray-500">
           Tamanho máximo: {(maxSize / 1024 / 1024).toFixed(1)}MB
+        </p>
+      )}
+      
+      {/* Dica para avatars */}
+      {avatar && !showPreview && (
+        <p className="text-xs text-gray-500 text-center">
+          Use uma foto com seu rosto centralizado e bem visível
         </p>
       )}
     </div>
