@@ -44,7 +44,7 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **11 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip)
+- 🧩 **15 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip, Accordion, AsideSheet, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Customização via CSS Variables** - Mude o tema facilmente
@@ -110,6 +110,9 @@ npm install react-hook-form
      MultiSelect,
      RadioGroup,
      Tooltip,
+     Accordion,
+     AsideSheet,
+     ImageInput,
    } from "rharuow-ds";
 
    function App() {
@@ -194,6 +197,9 @@ npm install react-hook-form
      RadioGroup,
      Button,
      Tooltip,
+     Accordion,
+     AsideSheet,
+     ImageInput,
    } from "rharuow-ds";
 
    function FormExample() {
@@ -439,8 +445,83 @@ Componente de tooltip inteligente e acessível:
 <Tooltip content="Este não aparece" disabled>
   <Button>Tooltip desabilitado</Button>
 </Tooltip>
+```
 
-### 🪟 AsideSheet
+### 🪗 **Accordion**
+
+Componente de accordion (acordeão) flexível e acessível para expandir e colapsar seções de conteúdo:
+
+- ✅ **Modo single**: Apenas um item aberto por vez
+- ✅ **Modo multiple**: Vários itens podem estar abertos simultaneamente
+- ✅ **Animações suaves**: Transições de altura com ease-in-out
+- ✅ **Variantes visuais**: default, bordered, separated
+- ✅ **Acessibilidade completa**: ARIA labels e navegação por teclado
+- ✅ **Itens desabilitados**: Suporte para itens que não podem ser expandidos
+- ✅ **Ícones customizados**: Adicione ícones aos títulos
+- ✅ **Collapsible configurável**: Controle se todos os itens podem ser fechados
+- ✅ **DefaultOpen**: Items podem iniciar abertos
+- ✅ **Customização total**: Classes CSS para header e content
+
+```tsx
+// Accordion básico
+<Accordion>
+  <Accordion.Item title="O que é React?">
+    <p>React é uma biblioteca JavaScript para construir interfaces de usuário.</p>
+  </Accordion.Item>
+  <Accordion.Item title="O que é TypeScript?">
+    <p>TypeScript é um superset de JavaScript que adiciona tipagem estática.</p>
+  </Accordion.Item>
+</Accordion>
+
+// Accordion com múltiplos itens abertos
+<Accordion type="multiple">
+  <Accordion.Item title="Seção 1" defaultOpen>
+    <p>Esta seção inicia aberta.</p>
+  </Accordion.Item>
+  <Accordion.Item title="Seção 2" defaultOpen>
+    <p>Esta seção também inicia aberta.</p>
+  </Accordion.Item>
+</Accordion>
+
+// Accordion com variant bordered
+<Accordion variant="bordered">
+  <Accordion.Item title="Recursos do Produto">
+    <ul>
+      <li>Interface intuitiva</li>
+      <li>Integração com múltiplas plataformas</li>
+      <li>Suporte 24/7</li>
+    </ul>
+  </Accordion.Item>
+</Accordion>
+
+// Accordion com ícones customizados
+<Accordion variant="separated" type="multiple">
+  <Accordion.Item
+    title="Documentação"
+    icon={<DocumentIcon />}
+  >
+    <p>Acesse a documentação completa.</p>
+  </Accordion.Item>
+  <Accordion.Item
+    title="Suporte"
+    icon={<SupportIcon />}
+  >
+    <p>Entre em contato com nossa equipe.</p>
+  </Accordion.Item>
+</Accordion>
+
+// Accordion não collapsible (sempre mantém um aberto)
+<Accordion collapsible={false}>
+  <Accordion.Item title="Passo 1" defaultOpen>
+    <p>Configure seu ambiente.</p>
+  </Accordion.Item>
+  <Accordion.Item title="Passo 2">
+    <p>Desenvolva sua aplicação.</p>
+  </Accordion.Item>
+</Accordion>
+```
+
+### 🪟 **AsideSheet**
 
 Componente tipo painel deslizante (sheet) que abre a partir das bordas da tela.
 
