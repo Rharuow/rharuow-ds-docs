@@ -41,7 +41,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
       <Component
         ref={ref}
         className={cn(
-          "px-6 py-4 border-b",
+          "px-2 py-1 sm:px-4 sm:py-2 lg:px-6 lg:py-4 border-b",
           "bg-[var(--card-header-bg,rgba(249,250,251,0.5))]",
           "border-[var(--card-header-border,#e5e7eb)]",
           "text-[var(--card-text,#111827)]",
@@ -64,7 +64,7 @@ const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(
       <Component
         ref={ref}
         className={cn(
-          "px-6 py-4",
+          "px-2 py-1 sm:px-4 sm:py-2 lg:px-6 lg:py-4",
           "flex-1", // Para ocupar o espaço disponível
           "bg-[var(--card-bg,#ffffff)]",
           "text-[var(--card-text,#111827)]",

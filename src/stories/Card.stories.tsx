@@ -99,7 +99,7 @@ export const OnlyHeader: Story = {
   ),
   args: {
     variant: "default",
-    size: "md",
+    size: "lg",
   },
   parameters: {
     docs: {
