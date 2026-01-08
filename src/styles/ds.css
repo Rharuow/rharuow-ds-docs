@@ -4,36 +4,53 @@
 
 /* CSS Variables para tema claro e escuro */
 :root {
-  /* Card Variables - Light Theme */
+  /* Brand Colors - Customizable by consumer app */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+  --secondary: #64748b;
+  --secondary-hover: #475569;
+  --secondary-light: #f1f5f9;
+  
+  /* Neutral Colors - Light Theme */
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+  
+  /* Card Variables - Light Theme (using brand colors) */
   --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-  --card-text: #111827;
+  --card-border: var(--neutral-200);
+  --card-text: var(--neutral-900);
   --card-text-muted: #6b7280;
-  --card-header-bg: rgba(249, 250, 251, 0.5);
-  --card-footer-bg: rgba(249, 250, 251, 0.5);
-  --card-header-border: #e5e7eb;
-  --card-footer-border: #e5e7eb;
+  --card-header-bg: color-mix(in srgb, var(--primary) 5%, var(--neutral-50));
+  --card-footer-bg: var(--neutral-50);
+  --card-header-border: color-mix(in srgb, var(--primary) 20%, var(--neutral-200));
+  --card-footer-border: var(--neutral-200);
   
-  /* Table Variables - Light Theme */
+  /* Table Variables - Light Theme (using brand colors) */
   --table-bg: #ffffff;
-  --table-border: #e5e7eb;
-  --table-text: #111827;
-  --table-header-bg: #f9fafb;
+  --table-border: var(--neutral-200);
+  --table-text: var(--neutral-900);
+  --table-header-bg: color-mix(in srgb, var(--primary) 8%, var(--neutral-50));
   --table-row-odd: #ffffff;
-  --table-row-even: #f9fafb;
-  --table-row-hover: #f3f4f6;
-  --table-row-selected: #dbeafe;
+  --table-row-even: var(--neutral-50);
+  --table-row-hover: color-mix(in srgb, var(--primary) 10%, var(--neutral-100));
+  --table-row-selected: var(--primary-light);
   
-  /* Select Dropdown Variables - Light Theme */
+  /* Select Dropdown Variables - Light Theme (using brand colors) */
   --select-dropdown-bg: #ffffff;
-  --select-dropdown-border: #e5e7eb;
-  --select-dropdown-text: #111827;
-  --select-dropdown-hover: #f3f4f6;
-  --select-dropdown-selected: #dbeafe;
+  --select-dropdown-border: var(--neutral-200);
+  --select-dropdown-text: var(--neutral-900);
+  --select-dropdown-hover: color-mix(in srgb, var(--primary) 10%, var(--neutral-100));
+  --select-dropdown-selected: var(--primary-light);
   --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   
-  /* Tooltip Variables - Light Theme */
-  --tooltip-bg: #374151;
+  /* Tooltip Variables - Light Theme (using brand colors) */
+  --tooltip-bg: var(--neutral-700);
   --tooltip-text: #ffffff;
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   
@@ -65,37 +82,54 @@
 
 /* Dark Theme Variables */
 [data-theme="dark"], .dark {
-  /* Card Variables - Dark Theme */
-  --card-bg: #1f2937;
-  --card-border: #374151;
-  --card-text: #f9fafb;
+  /* Brand Colors - Dark Theme (slightly adjusted for better contrast) */
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: #1e3a8a;
+  --secondary: #94a3b8;
+  --secondary-hover: #cbd5e1;
+  --secondary-light: #334155;
+  
+  /* Neutral Colors - Dark Theme */
+  --neutral-50: #0f172a;
+  --neutral-100: #1e293b;
+  --neutral-200: #334155;
+  --neutral-300: #475569;
+  --neutral-700: #cbd5e1;
+  --neutral-800: #e2e8f0;
+  --neutral-900: #f1f5f9;
+  
+  /* Card Variables - Dark Theme (using brand colors) */
+  --card-bg: var(--neutral-100);
+  --card-border: var(--neutral-200);
+  --card-text: var(--neutral-900);
   --card-text-muted: #9ca3af;
-  --card-header-bg: rgba(31, 41, 55, 0.8);
-  --card-footer-bg: rgba(31, 41, 55, 0.8);
-  --card-header-border: #374151;
-  --card-footer-border: #374151;
+  --card-header-bg: color-mix(in srgb, var(--primary) 10%, var(--neutral-50));
+  --card-footer-bg: var(--neutral-50);
+  --card-header-border: color-mix(in srgb, var(--primary) 30%, var(--neutral-200));
+  --card-footer-border: var(--neutral-200);
   
-  /* Table Variables - Dark Theme */
-  --table-bg: #1f2937;
-  --table-border: #374151;
-  --table-text: #f9fafb;
-  --table-header-bg: #111827;
-  --table-row-odd: #1f2937;
-  --table-row-even: #111827;
-  --table-row-hover: #374151;
-  --table-row-selected: #1e40af;
+  /* Table Variables - Dark Theme (using brand colors) */
+  --table-bg: var(--neutral-100);
+  --table-border: var(--neutral-200);
+  --table-text: var(--neutral-900);
+  --table-header-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
+  --table-row-odd: var(--neutral-100);
+  --table-row-even: var(--neutral-50);
+  --table-row-hover: color-mix(in srgb, var(--primary) 15%, var(--neutral-200));
+  --table-row-selected: var(--primary-light);
   
-  /* Select Dropdown Variables - Dark Theme */
-  --select-dropdown-bg: #1f2937;
-  --select-dropdown-border: #374151;
-  --select-dropdown-text: #f9fafb;
-  --select-dropdown-hover: #374151;
-  --select-dropdown-selected: #1e40af;
+  /* Select Dropdown Variables - Dark Theme (using brand colors) */
+  --select-dropdown-bg: var(--neutral-100);
+  --select-dropdown-border: var(--neutral-200);
+  --select-dropdown-text: var(--neutral-900);
+  --select-dropdown-hover: color-mix(in srgb, var(--primary) 15%, var(--neutral-200));
+  --select-dropdown-selected: var(--primary-light);
   --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
   
-  /* Tooltip Variables - Dark Theme */
-  --tooltip-bg: #1f2937;
-  --tooltip-text: #f9fafb;
+  /* Tooltip Variables - Dark Theme (using brand colors) */
+  --tooltip-bg: var(--neutral-100);
+  --tooltip-text: var(--neutral-900);
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
   
   /* Shadow Variables - Dark */
@@ -106,37 +140,54 @@
 /* Automatic dark mode based on system preference */
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Brand Colors - Dark Theme (Auto) */
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --primary-light: #1e3a8a;
+    --secondary: #94a3b8;
+    --secondary-hover: #cbd5e1;
+    --secondary-light: #334155;
+    
+    /* Neutral Colors - Dark Theme (Auto) */
+    --neutral-50: #0f172a;
+    --neutral-100: #1e293b;
+    --neutral-200: #334155;
+    --neutral-300: #475569;
+    --neutral-700: #cbd5e1;
+    --neutral-800: #e2e8f0;
+    --neutral-900: #f1f5f9;
+    
     /* Card Variables - Dark Theme (Auto) */
-    --card-bg: #1f2937;
-    --card-border: #374151;
-    --card-text: #f9fafb;
+    --card-bg: var(--neutral-100);
+    --card-border: var(--neutral-200);
+    --card-text: var(--neutral-900);
     --card-text-muted: #9ca3af;
-    --card-header-bg: rgba(31, 41, 55, 0.8);
-    --card-footer-bg: rgba(31, 41, 55, 0.8);
-    --card-header-border: #374151;
-    --card-footer-border: #374151;
+    --card-header-bg: color-mix(in srgb, var(--primary) 10%, var(--neutral-50));
+    --card-footer-bg: var(--neutral-50);
+    --card-header-border: color-mix(in srgb, var(--primary) 30%, var(--neutral-200));
+    --card-footer-border: var(--neutral-200);
     
     /* Table Variables - Dark Theme (Auto) */
-    --table-bg: #1f2937;
-    --table-border: #374151;
-    --table-text: #f9fafb;
-    --table-header-bg: #111827;
-    --table-row-odd: #1f2937;
-    --table-row-even: #111827;
-    --table-row-hover: #374151;
-    --table-row-selected: #1e40af;
+    --table-bg: var(--neutral-100);
+    --table-border: var(--neutral-200);
+    --table-text: var(--neutral-900);
+    --table-header-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
+    --table-row-odd: var(--neutral-100);
+    --table-row-even: var(--neutral-50);
+    --table-row-hover: color-mix(in srgb, var(--primary) 15%, var(--neutral-200));
+    --table-row-selected: var(--primary-light);
     
     /* Select Dropdown Variables - Dark Theme (Auto) */
-    --select-dropdown-bg: #1f2937;
-    --select-dropdown-border: #374151;
-    --select-dropdown-text: #f9fafb;
-    --select-dropdown-hover: #374151;
-    --select-dropdown-selected: #1e40af;
+    --select-dropdown-bg: var(--neutral-100);
+    --select-dropdown-border: var(--neutral-200);
+    --select-dropdown-text: var(--neutral-900);
+    --select-dropdown-hover: color-mix(in srgb, var(--primary) 15%, var(--neutral-200));
+    --select-dropdown-selected: var(--primary-light);
     --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
     
     /* Tooltip Variables - Dark Theme (Auto) */
-    --tooltip-bg: #1f2937;
-    --tooltip-text: #f9fafb;
+    --tooltip-bg: var(--neutral-100);
+    --tooltip-text: var(--neutral-900);
     --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
     
     /* Shadow Variables - Dark (Auto) */
@@ -147,36 +198,53 @@
 
 /* Override automatic dark mode when light theme is explicitly set */
 [data-theme="light"] {
+  /* Brand Colors - Light Theme (Forced) */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+  --secondary: #64748b;
+  --secondary-hover: #475569;
+  --secondary-light: #f1f5f9;
+  
+  /* Neutral Colors - Light Theme (Forced) */
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+  
   /* Card Variables - Light Theme (Forced) */
   --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-  --card-text: #111827;
+  --card-border: var(--neutral-200);
+  --card-text: var(--neutral-900);
   --card-text-muted: #6b7280;
-  --card-header-bg: rgba(249, 250, 251, 0.5);
-  --card-footer-bg: rgba(249, 250, 251, 0.5);
-  --card-header-border: #e5e7eb;
-  --card-footer-border: #e5e7eb;
+  --card-header-bg: color-mix(in srgb, var(--primary) 5%, var(--neutral-50));
+  --card-footer-bg: var(--neutral-50);
+  --card-header-border: color-mix(in srgb, var(--primary) 20%, var(--neutral-200));
+  --card-footer-border: var(--neutral-200);
   
   /* Table Variables - Light Theme (Forced) */
   --table-bg: #ffffff;
-  --table-border: #e5e7eb;
-  --table-text: #111827;
-  --table-header-bg: #f9fafb;
+  --table-border: var(--neutral-200);
+  --table-text: var(--neutral-900);
+  --table-header-bg: color-mix(in srgb, var(--primary) 8%, var(--neutral-50));
   --table-row-odd: #ffffff;
-  --table-row-even: #f9fafb;
-  --table-row-hover: #f3f4f6;
-  --table-row-selected: #dbeafe;
+  --table-row-even: var(--neutral-50);
+  --table-row-hover: color-mix(in srgb, var(--primary) 10%, var(--neutral-100));
+  --table-row-selected: var(--primary-light);
   
   /* Select Dropdown Variables - Light Theme (Forced) */
   --select-dropdown-bg: #ffffff;
-  --select-dropdown-border: #e5e7eb;
-  --select-dropdown-text: #111827;
-  --select-dropdown-hover: #f3f4f6;
-  --select-dropdown-selected: #dbeafe;
+  --select-dropdown-border: var(--neutral-200);
+  --select-dropdown-text: var(--neutral-900);
+  --select-dropdown-hover: color-mix(in srgb, var(--primary) 10%, var(--neutral-100));
+  --select-dropdown-selected: var(--primary-light);
   --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   
   /* Tooltip Variables - Light Theme (Forced) */
-  --tooltip-bg: #374151;
+  --tooltip-bg: var(--neutral-700);
   --tooltip-text: #ffffff;
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   

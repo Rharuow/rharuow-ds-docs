@@ -692,51 +692,168 @@ Veja a story do componente no Storybook para demonstrações completas:
 
 ## 🎨 Customização de Tema
 
-O rharuow-ds utiliza **CSS Variables** para permitir customização fácil do tema. Você pode modificar as cores primárias do design system definindo as seguintes variáveis CSS:
+O rharuow-ds utiliza um **sistema de cores baseado em brand colors** (cores da marca) que permite criar uma experiência visual coesa em toda a sua aplicação. Todos os componentes (Card, Table, Select, Tooltip) derivam suas cores das variáveis primárias e secundárias que você define.
 
-### Variáveis Disponíveis
+### 🌈 Sistema de Cores
+
+#### Variáveis Principais
 
 ```css
 :root {
-  --primary: #2563eb; /* Cor primária principal */
-  --primary-hover: #dbeafe; /* Cor para hover/background */
-  --primary-text: #fff; /* Cor do texto em backgrounds primários */
-  --input-bg: #fff; /* Background dos inputs */
-  --input-text: #222; /* Cor do texto dos inputs */
+  /* Cores Primárias - Personalizáveis */
+  --primary: #2563eb;           /* Cor principal da marca */
+  --primary-hover: #1d4ed8;     /* Hover da cor principal */
+  --primary-light: #dbeafe;     /* Versão clara para fundos */
+  
+  /* Cores Secundárias - Personalizáveis */
+  --secondary: #64748b;         /* Cor secundária */
+  --secondary-hover: #475569;   /* Hover da cor secundária */
+  --secondary-light: #f1f5f9;   /* Versão clara para fundos */
 }
 ```
 
-### Exemplo de Customização
+#### Como os Componentes Usam as Cores
+
+Os componentes **derivam automaticamente** suas cores das variáveis primárias:
+
+- **Card Header**: Mescla 5% da cor primária com fundo neutro
+- **Table Header**: Mescla 8% da cor primária com fundo neutro
+- **Table Hover**: Mescla 10% da cor primária com fundo neutro
+- **Select Selected**: Usa diretamente `--primary-light`
+- **Elementos Selecionados**: Consistentemente usam a cor primária clara
+
+### 💡 Como Personalizar
+
+#### Método 1: CSS Global (Recomendado)
+
+No seu arquivo CSS principal (`index.css` ou `App.css`):
 
 ```css
-/* Tema vermelho */
+/* Importar o DS primeiro */
+@import 'rharuow-ds/dist/styles.css';
+
+/* Depois sobrescrever as cores da marca */
 :root {
-  --primary: #dc2626;
-  --primary-hover: #fecaca;
-  --primary-text: #fff;
+  --primary: #8b5cf6;           /* Roxo */
+  --primary-hover: #7c3aed;
+  --primary-light: #ede9fe;
+  
+  --secondary: #ec4899;         /* Rosa */
+  --secondary-hover: #db2777;
+  --secondary-light: #fce7f3;
 }
 
-/* Tema verde */
+/* Para dark mode, customize também */
+[data-theme="dark"], .dark {
+  --primary: #a78bfa;           /* Roxo mais claro para dark */
+  --primary-hover: #8b5cf6;
+  --primary-light: #4c1d95;
+  
+  --secondary: #f472b6;
+  --secondary-hover: #ec4899;
+  --secondary-light: #831843;
+}
+```
+
+#### Método 2: JavaScript/React
+
+```typescript
+// App.tsx ou main.tsx
+useEffect(() => {
+  const root = document.documentElement;
+  
+  root.style.setProperty('--primary', '#f59e0b');
+  root.style.setProperty('--primary-hover', '#d97706');
+  root.style.setProperty('--primary-light', '#fef3c7');
+}, []);
+```
+
+### 🎯 Exemplos de Paletas
+
+```css
+/* Paleta Corporativa (Azul) */
 :root {
-  --primary: #059669;
-  --primary-hover: #d1fae5;
-  --primary-text: #fff;
+  --primary: #0ea5e9;
+  --primary-hover: #0284c7;
+  --primary-light: #e0f2fe;
 }
 
-/* Tema roxo */
+/* Paleta Moderna (Roxo/Rosa) */
 :root {
-  --primary: #7c3aed;
-  --primary-hover: #e9d5ff;
-  --primary-text: #fff;
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --primary-light: #ede9fe;
+  --secondary: #ec4899;
 }
+
+/* Paleta Natureza (Verde) */
+:root {
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --primary-light: #d1fae5;
+}
+
+/* Paleta Minimalista (Cinza) */
+:root {
+  --primary: #6b7280;
+  --primary-hover: #4b5563;
+  --primary-light: #f3f4f6;
+}
+```
+
+### 🔧 Customização Avançada
+
+Para controle total, você pode sobrescrever variáveis específicas:
+
+```css
+:root {
+  /* Cores base da marca */
+  --primary: #8b5cf6;
+  
+  /* Customização específica de Card */
+  --card-header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card-header-border: #8b5cf6;
+  
+  /* Customização específica de Table */
+  --table-header-bg: #f3e8ff;
+  --table-row-selected: #ede9fe;
+}
+```
+
+### 📚 Variáveis Disponíveis por Componente
+
+#### Card
+- `--card-bg`, `--card-border`, `--card-text`
+- `--card-header-bg`, `--card-header-border`
+- `--card-footer-bg`, `--card-footer-border`
+
+#### Table
+- `--table-bg`, `--table-border`, `--table-text`
+- `--table-header-bg`, `--table-row-hover`, `--table-row-selected`
+
+#### Select/AsyncSelect/MultiSelect
+- `--select-dropdown-bg`, `--select-dropdown-border`
+- `--select-dropdown-hover`, `--select-dropdown-selected`
+
+#### Tooltip
+- `--tooltip-bg`, `--tooltip-text`
+
+### 🌓 Dark Mode
+
+O sistema ajusta automaticamente as cores no dark mode:
+
+```css
+/* Ative o dark mode adicionando o atributo */
+<html data-theme="dark">
+  <!-- ou -->
+<html class="dark">
 ```
 
 ### No Storybook
 
-Na documentação do Storybook, você pode testar diferentes temas usando os controles na toolbar:
+Na [documentação do Storybook](https://rharuow.github.io/rharuow-ds-docs/), você pode testar diferentes temas na story **"Theme Customization"**.
 
-- 🎨 **Primary Color**: Muda a cor principal
-- 🌈 **Primary Hover**: Muda a cor de hover/background
+Para mais detalhes, consulte [THEME_CUSTOMIZATION.md](./THEME_CUSTOMIZATION.md).
 
 ---
 
