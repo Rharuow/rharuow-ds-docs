@@ -44,7 +44,7 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **15 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip, Accordion, AsideSheet, ImageInput)
+- 🧩 **16 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip, Accordion, AsideSheet, Modal, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Customização via CSS Variables** - Mude o tema facilmente
@@ -112,6 +112,7 @@ npm install react-hook-form
      Tooltip,
      Accordion,
      AsideSheet,
+     Modal,
      ImageInput,
    } from "rharuow-ds";
 
@@ -199,6 +200,7 @@ npm install react-hook-form
      Tooltip,
      Accordion,
      AsideSheet,
+     Modal,
      ImageInput,
    } from "rharuow-ds";
 
@@ -581,6 +583,161 @@ function Example() {
 Veja a story do componente no Storybook para demonstrações e variações (left/right, controlled/uncontrolled):
 
 [Storybook — AsideSheet](https://rharuow.github.io/rharuow-ds-docs/?path=/story/asidesheet--default)
+
+### 🎭 **Modal**
+
+Componente de diálogo modal para exibir conteúdo sobreposto à página principal.
+
+- ✅ Overlay com transparência configurável
+- ✅ Múltiplos tamanhos: sm, md, lg, xl, full
+- ✅ Controle de fechamento via overlay, ESC ou botão X
+- ✅ Prevenção de scroll do body quando aberto
+- ✅ Animações suaves de entrada/saída
+- ✅ Sub-componentes para estruturação: Header, Body, Footer
+- ✅ Renderização via Portal (React Portal)
+- ✅ Acessível: role="dialog", aria-modal
+
+Props principais:
+
+- `open: boolean` — controla visibilidade do modal
+- `onClose: () => void` — callback chamado ao fechar
+- `size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'` — tamanho do modal (padrão: 'md')
+- `closeOnOverlayClick?: boolean` — fecha ao clicar fora (padrão: true)
+- `closeOnEscape?: boolean` — fecha ao pressionar ESC (padrão: true)
+- `showCloseButton?: boolean` — exibe botão X de fechar (padrão: true)
+- `className?: string` — classes adicionais para o container do modal
+
+Exemplo de uso básico:
+
+```tsx
+import React from 'react';
+import { Modal, Button } from 'rharuow-ds';
+
+function Example() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div>
+      <Button onClick={() => setOpen(true)}>Abrir Modal</Button>
+
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <h2>Título do Modal</h2>
+        <p>Conteúdo do modal aqui.</p>
+      </Modal>
+    </div>
+  );
+}
+```
+
+Exemplo com estrutura completa:
+
+```tsx
+import React from 'react';
+import { Modal, Button } from 'rharuow-ds';
+
+function Example() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div>
+      <Button onClick={() => setOpen(true)}>Confirmar Ação</Button>
+
+      <Modal 
+        open={open} 
+        onClose={() => setOpen(false)}
+        size="md"
+      >
+        <Modal.Header>
+          <h2 className="text-2xl font-bold">Confirmar Exclusão</h2>
+          <p className="text-sm text-gray-500">Esta ação não pode ser desfeita</p>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p className="text-gray-700">
+            Você tem certeza que deseja excluir este item? 
+            Todos os dados associados serão removidos permanentemente.
+          </p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Cancelar
+          </Button>
+          <Button onClick={() => {
+            // Executar ação
+            setOpen(false);
+          }}>
+            Confirmar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+}
+```
+
+Exemplo com formulário integrado:
+
+```tsx
+import React from 'react';
+import { Modal, Button, Input } from 'rharuow-ds';
+import { FormProvider, useForm } from 'react-hook-form';
+
+function FormModal() {
+  const [open, setOpen] = React.useState(false);
+  const methods = useForm();
+
+  const onSubmit = (data: any) => {
+    console.log('Form data:', data);
+    setOpen(false);
+    methods.reset();
+  };
+
+  return (
+    <div>
+      <Button onClick={() => setOpen(true)}>Novo Cadastro</Button>
+
+      <Modal 
+        open={open} 
+        onClose={() => setOpen(false)}
+        size="lg"
+        closeOnOverlayClick={false}
+      >
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Modal.Header>
+              <h2 className="text-2xl font-bold">Cadastrar Usuário</h2>
+            </Modal.Header>
+
+            <Modal.Body>
+              <div className="space-y-4">
+                <Input label="Nome completo" name="name" required />
+                <Input label="E-mail" name="email" type="email" required />
+                <Input label="Telefone" name="phone" />
+              </div>
+            </Modal.Body>
+
+            <Modal.Footer>
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => setOpen(false)}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit">Salvar</Button>
+            </Modal.Footer>
+          </form>
+        </FormProvider>
+      </Modal>
+    </div>
+  );
+}
+```
+
+Veja a story do componente no Storybook para mais exemplos e variações:
+
+[Storybook — Modal](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-modal--basic)
 
 ### 📷 **ImageInput**
 
