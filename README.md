@@ -44,7 +44,7 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **16 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip, Accordion, AsideSheet, Modal, ImageInput)
+- 🧩 **17 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip, Accordion, AsideSheet, Modal, Toaster, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Customização via CSS Variables** - Mude o tema facilmente
@@ -113,6 +113,7 @@ npm install react-hook-form
      Accordion,
      AsideSheet,
      Modal,
+     Toaster,
      ImageInput,
    } from "rharuow-ds";
 
@@ -201,6 +202,7 @@ npm install react-hook-form
      Accordion,
      AsideSheet,
      Modal,
+     Toaster,
      ImageInput,
    } from "rharuow-ds";
 
@@ -739,7 +741,218 @@ Veja a story do componente no Storybook para mais exemplos e variações:
 
 [Storybook — Modal](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-modal--basic)
 
-### 📷 **ImageInput**
+### � **Toaster**
+
+Sistema completo de notificações toast para feedback ao usuário com múltiplas variantes e posicionamento flexível.
+
+- ✅ 5 variantes de toast: success, error, warning, info, default
+- ✅ 6 posições configuráveis na tela
+- ✅ Auto-dismiss com duração customizável
+- ✅ Toast permanente (duration: 0)
+- ✅ Ícones automáticos por variante
+- ✅ Animações suaves de entrada e saída
+- ✅ Limite de toasts simultâneos (padrão: 5)
+- ✅ Callbacks ao fechar
+- ✅ Hook `useToast` para uso simplificado
+- ✅ Gerenciamento via Context API
+
+**Configuração inicial:**
+
+O Toaster precisa ser configurado uma única vez no nível superior da aplicação:
+
+```tsx
+import React from 'react';
+import { ToasterProvider } from 'rharuow-ds';
+
+function App() {
+  return (
+    <ToasterProvider position="top-right" maxToasts={5}>
+      {/* Sua aplicação aqui */}
+      <YourApp />
+    </ToasterProvider>
+  );
+}
+```
+
+Props do `ToasterProvider`:
+
+- `position?: ToastPosition` - Posição dos toasts na tela (padrão: 'top-right')
+  - Opções: 'top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'
+- `maxToasts?: number` - Número máximo de toasts simultâneos (padrão: 5)
+
+**Uso básico com hook `useToast`:**
+
+```tsx
+import React from 'react';
+import { useToast, Button } from 'rharuow-ds';
+
+function MyComponent() {
+  const toast = useToast();
+
+  return (
+    <div>
+      <Button onClick={() => toast.success('Operação realizada com sucesso!')}>
+        Success
+      </Button>
+
+      <Button onClick={() => toast.error('Erro ao processar requisição')}>
+        Error
+      </Button>
+
+      <Button onClick={() => toast.warning('Atenção: verifique os dados')}>
+        Warning
+      </Button>
+
+      <Button onClick={() => toast.info('Você tem 3 novas mensagens')}>
+        Info
+      </Button>
+    </div>
+  );
+}
+```
+
+**Toasts com duração customizada:**
+
+```tsx
+import React from 'react';
+import { useToast, Button } from 'rharuow-ds';
+
+function CustomDuration() {
+  const toast = useToast();
+
+  return (
+    <div>
+      {/* Toast rápido - 2 segundos */}
+      <Button onClick={() => toast.success('Toast rápido', 2000)}>
+        2 Segundos
+      </Button>
+
+      {/* Toast longo - 10 segundos */}
+      <Button onClick={() => toast.info('Toast longo', 10000)}>
+        10 Segundos
+      </Button>
+
+      {/* Toast permanente - não fecha automaticamente */}
+      <Button 
+        onClick={() => toast.toast('Toast permanente', { duration: 0 })}
+      >
+        Permanente
+      </Button>
+    </div>
+  );
+}
+```
+
+**Toast com callback ao fechar:**
+
+```tsx
+import React from 'react';
+import { useToaster, Button } from 'rharuow-ds';
+
+function WithCallback() {
+  const { addToast } = useToaster();
+
+  const handleAction = () => {
+    addToast({
+      message: 'Processando dados...',
+      variant: 'info',
+      duration: 3000,
+      onClose: () => {
+        console.log('Toast fechado!');
+        // Executar ação após fechamento
+        performNextAction();
+      },
+    });
+  };
+
+  return <Button onClick={handleAction}>Iniciar Processo</Button>;
+}
+```
+
+**Exemplo completo em um formulário:**
+
+```tsx
+import React from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+import { Input, Button, useToast } from 'rharuow-ds';
+
+function FormWithToast() {
+  const methods = useForm();
+  const toast = useToast();
+
+  const onSubmit = async (data: any) => {
+    try {
+      // Simular chamada à API
+      await saveData(data);
+      
+      toast.success('Dados salvos com sucesso!');
+      methods.reset();
+    } catch (error) {
+      toast.error('Erro ao salvar dados. Tente novamente.');
+      console.error(error);
+    }
+  };
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Input label="Nome" name="name" required />
+        <Input label="E-mail" name="email" type="email" required />
+        
+        <Button type="submit">Salvar</Button>
+      </form>
+    </FormProvider>
+  );
+}
+```
+
+**API do hook `useToast`:**
+
+```typescript
+const toast = useToast();
+
+// Métodos disponíveis:
+toast.success(message: string, duration?: number)
+toast.error(message: string, duration?: number)
+toast.warning(message: string, duration?: number)
+toast.info(message: string, duration?: number)
+toast.toast(message: string, options?: ToastOptions)
+```
+
+**API avançada com `useToaster`:**
+
+```typescript
+const { addToast, removeToast, clearAll, toasts } = useToaster();
+
+// Adicionar toast com controle total
+const id = addToast({
+  message: 'Mensagem personalizada',
+  variant: 'success',
+  duration: 5000,
+  onClose: () => console.log('Fechado'),
+});
+
+// Remover toast específico
+removeToast(id);
+
+// Limpar todos os toasts
+clearAll();
+```
+
+**Dicas de uso:**
+
+- Use `success` para operações bem-sucedidas (save, delete, update)
+- Use `error` para falhas e erros
+- Use `warning` para avisos que requerem atenção
+- Use `info` para informações gerais
+- Configure `duration: 0` para toasts que precisam de ação manual do usuário
+- Posicione toasts conforme o contexto: top para notificações gerais, bottom para ações específicas
+
+Veja a story do componente no Storybook para demonstrações interativas:
+
+[Storybook — Toaster](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-toaster--top-right)
+
+### �📷 **ImageInput**
 
 Componente para seleção e upload de imagens com preview e ações de confirmação/remoção:
 
