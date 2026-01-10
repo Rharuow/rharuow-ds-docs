@@ -592,6 +592,7 @@ Componente de diálogo modal para exibir conteúdo sobreposto à página princip
 
 - ✅ Overlay com transparência configurável
 - ✅ Múltiplos tamanhos: sm, md, lg, xl, full
+- ✅ Variantes de cor: default, primary, secondary (usando CSS Variables)
 - ✅ Controle de fechamento via overlay, ESC ou botão X
 - ✅ Prevenção de scroll do body quando aberto
 - ✅ Animações suaves de entrada/saída
@@ -604,6 +605,7 @@ Props principais:
 - `open: boolean` — controla visibilidade do modal
 - `onClose: () => void` — callback chamado ao fechar
 - `size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'` — tamanho do modal (padrão: 'md')
+- `variant?: 'default' | 'primary' | 'secondary'` — variante de cor (padrão: 'default')
 - `closeOnOverlayClick?: boolean` — fecha ao clicar fora (padrão: true)
 - `closeOnEscape?: boolean` — fecha ao pressionar ESC (padrão: true)
 - `showCloseButton?: boolean` — exibe botão X de fechar (padrão: true)
@@ -731,6 +733,74 @@ function FormModal() {
             </Modal.Footer>
           </form>
         </FormProvider>
+      </Modal>
+    </div>
+  );
+}
+```
+
+Exemplo com variantes de cor:
+
+```tsx
+import React from 'react';
+import { Modal, Button } from 'rharuow-ds';
+
+function ColorVariants() {
+  const [openPrimary, setOpenPrimary] = React.useState(false);
+  const [openSecondary, setOpenSecondary] = React.useState(false);
+
+  return (
+    <div>
+      {/* Modal com cor primária */}
+      <Button onClick={() => setOpenPrimary(true)}>
+        Modal Primary
+      </Button>
+      
+      <Modal 
+        open={openPrimary} 
+        onClose={() => setOpenPrimary(false)}
+        variant="primary"
+      >
+        <Modal.Header>
+          <h2 className="text-2xl font-bold">Ação Importante</h2>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="opacity-95">
+            Este modal usa as cores primárias da aplicação, 
+            ideal para destacar ações principais.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="outline" onClick={() => setOpenPrimary(false)}>
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal com cor secundária */}
+      <Button onClick={() => setOpenSecondary(true)} variant="secondary">
+        Modal Secondary
+      </Button>
+      
+      <Modal 
+        open={openSecondary} 
+        onClose={() => setOpenSecondary(false)}
+        variant="secondary"
+      >
+        <Modal.Header>
+          <h2 className="text-2xl font-bold">Aviso</h2>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="opacity-95">
+            Este modal usa as cores secundárias da aplicação,
+            ideal para avisos e ações alternativas.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setOpenSecondary(false)}>
+            Fechar
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

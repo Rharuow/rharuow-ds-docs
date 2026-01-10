@@ -6,6 +6,7 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   open: boolean;
   onClose: () => void;
   size?: "sm" | "md" | "lg" | "xl" | "full";
+  variant?: "default" | "primary" | "secondary";
   closeOnOverlayClick?: boolean;
   closeOnEscape?: boolean;
   showCloseButton?: boolean;
@@ -21,6 +22,7 @@ export const Modal = (({
   open,
   onClose,
   size = "md",
+  variant = "default",
   closeOnOverlayClick = true,
   closeOnEscape = true,
   showCloseButton = true,
@@ -64,6 +66,18 @@ export const Modal = (({
     full: "max-w-full mx-4",
   };
 
+  const variantClasses = {
+    default: "bg-white text-gray-900",
+    primary: "bg-[var(--primary,#2563eb)] text-[var(--primary-text,#fff)]",
+    secondary: "bg-[var(--secondary,#fbbf24)] text-[var(--secondary-text,#222)]",
+  };
+
+  const closeButtonClasses = {
+    default: "text-gray-400 hover:text-gray-600",
+    primary: "text-[var(--primary-text,#fff)] hover:opacity-80",
+    secondary: "text-[var(--secondary-text,#222)] hover:opacity-80",
+  };
+
   if (!portalRoot || !open) return null;
 
   const modal = (
@@ -90,8 +104,9 @@ export const Modal = (({
         role="dialog"
         aria-modal={true}
         className={cn(
-          "relative bg-white rounded-lg shadow-xl w-full transition-all duration-200",
+          "relative rounded-lg shadow-xl w-full transition-all duration-200",
           sizeClasses[size],
+          variantClasses[variant],
           open ? "scale-100 opacity-100" : "scale-95 opacity-0",
           className
         )}
@@ -101,7 +116,10 @@ export const Modal = (({
         {showCloseButton && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            className={cn(
+              "absolute top-4 right-4 transition-colors",
+              closeButtonClasses[variant]
+            )}
             aria-label="Fechar modal"
           >
             <svg
