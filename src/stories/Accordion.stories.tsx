@@ -485,6 +485,7 @@ export const WithForm: Story = {
                 <div>
                   <label className="block text-sm font-medium mb-1">Nome Completo</label>
                   <Input
+                    name="name"
                     value={formData.name}
                     onChange={handleChange("name")}
                     placeholder="Digite seu nome"
@@ -493,6 +494,7 @@ export const WithForm: Story = {
                 <div>
                   <label className="block text-sm font-medium mb-1">Email</label>
                   <Input
+                    name="email"
                     type="email"
                     value={formData.email}
                     onChange={handleChange("email")}
@@ -502,6 +504,7 @@ export const WithForm: Story = {
                 <div>
                   <label className="block text-sm font-medium mb-1">Telefone</label>
                   <Input
+                    name="phone"
                     value={formData.phone}
                     onChange={handleChange("phone")}
                     placeholder="(00) 00000-0000"
@@ -515,6 +518,7 @@ export const WithForm: Story = {
                 <div>
                   <label className="block text-sm font-medium mb-1">Endereço</label>
                   <Input
+                    name="address"
                     value={formData.address}
                     onChange={handleChange("address")}
                     placeholder="Rua, número"
@@ -523,6 +527,7 @@ export const WithForm: Story = {
                 <div>
                   <label className="block text-sm font-medium mb-1">Cidade</label>
                   <Input
+                    name="city"
                     value={formData.city}
                     onChange={handleChange("city")}
                     placeholder="Sua cidade"
