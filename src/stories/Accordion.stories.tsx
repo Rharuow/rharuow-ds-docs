@@ -2,6 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Accordion } from "../components/Accordion";
 import { Button } from "../components/Button";
+import { Input } from "../components/Input";
 
 const meta: Meta<typeof Accordion> = {
   title: "Components/Accordion",
@@ -456,4 +457,110 @@ export const NavigationExample: Story = {
       </Accordion>
     </div>
   ),
+};
+
+// Exemplo com formulário dentro do accordion (teste de re-render)
+export const WithForm: Story = {
+  render: () => {
+    const FormExample = () => {
+      const [formData, setFormData] = React.useState({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        comments: "",
+      });
+
+      const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [field]: e.target.value });
+      };
+
+      return (
+        <div className="max-w-2xl">
+          <h3 className="text-lg font-bold mb-4">Formulário de Cadastro</h3>
+          <Accordion variant="bordered" type="multiple">
+            <Accordion.Item title="Dados Pessoais" defaultOpen>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Nome Completo</label>
+                  <Input
+                    value={formData.name}
+                    onChange={handleChange("name")}
+                    placeholder="Digite seu nome"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <Input
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange("email")}
+                    placeholder="seu@email.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Telefone</label>
+                  <Input
+                    value={formData.phone}
+                    onChange={handleChange("phone")}
+                    placeholder="(00) 00000-0000"
+                  />
+                </div>
+              </div>
+            </Accordion.Item>
+
+            <Accordion.Item title="Endereço">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Endereço</label>
+                  <Input
+                    value={formData.address}
+                    onChange={handleChange("address")}
+                    placeholder="Rua, número"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Cidade</label>
+                  <Input
+                    value={formData.city}
+                    onChange={handleChange("city")}
+                    placeholder="Sua cidade"
+                  />
+                </div>
+              </div>
+            </Accordion.Item>
+
+            <Accordion.Item title="Observações">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Comentários</label>
+                  <textarea
+                    value={formData.comments}
+                    onChange={handleChange("comments")}
+                    placeholder="Alguma observação adicional?"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    rows={4}
+                  />
+                </div>
+              </div>
+            </Accordion.Item>
+          </Accordion>
+
+          <div className="mt-6">
+            <Button onClick={() => console.log(formData)}>Salvar Dados</Button>
+          </div>
+
+          <div className="mt-4 p-4 bg-gray-50 rounded text-sm">
+            <strong>Debug - Estado do formulário:</strong>
+            <pre className="mt-2 whitespace-pre-wrap break-words">
+              {JSON.stringify(formData, null, 2)}
+            </pre>
+          </div>
+        </div>
+      );
+    };
+
+    return <FormExample />;
+  },
 };

@@ -192,7 +192,8 @@ export const Accordion: React.FC<AccordionProps> & {
     } else {
       setOpenItems(defaultOpenIndices);
     }
-  }, [children, type]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const toggleItem = (index: number) => {
     setOpenItems((prev) => {
