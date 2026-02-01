@@ -47,7 +47,9 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 - 🧩 **17 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip, Accordion, AsideSheet, Modal, Toaster, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
-- 🎨 **Customização via CSS Variables** - Mude o tema facilmente
+- 🎨 **Sistema de cores automático** - Defina apenas 2 cores e todas as variações são calculadas automaticamente
+- 🎯 **Contraste automático** para textos (WCAG AA compliance)
+- 🌓 **Dark mode** com ajustes automáticos de cores
 - 🎯 **Componentes acessíveis** (ARIA)
 - 📱 **Responsivo** por padrão
 - 🎭 **Animações suaves** e modernas
@@ -1132,25 +1134,86 @@ Veja a story do componente no Storybook para demonstrações completas:
 
 ## 🎨 Customização de Tema
 
-O rharuow-ds utiliza um **sistema de cores baseado em brand colors** (cores da marca) que permite criar uma experiência visual coesa em toda a sua aplicação. Todos os componentes (Card, Table, Select, Tooltip) derivam suas cores das variáveis primárias e secundárias que você define.
+O rharuow-ds utiliza um **sistema de cores inteligente** que permite personalizar todo o design system definindo apenas **duas cores**: primária e secundária. Todas as variações (hover, light, dark) e cores de texto com contraste adequado são **calculadas automaticamente**.
 
-### 🌈 Sistema de Cores
+> ⚡ **NOVO**: Sistema de Cálculo Automático de Cores! Veja a [documentação completa](AUTO_COLOR_SYSTEM.md) para detalhes.
 
-#### Variáveis Principais
+### ✨ Modo Simplificado (Recomendado)
+
+**Defina apenas 2 variáveis** e o sistema calcula automaticamente todas as variações:
 
 ```css
+/* Importar o DS primeiro */
+@import 'rharuow-ds/dist/styles.css';
+
+/* Defina APENAS as cores base - o resto é automático! */
 :root {
-  /* Cores Primárias - Personalizáveis */
-  --primary: #2563eb;           /* Cor principal da marca */
-  --primary-hover: #1d4ed8;     /* Hover da cor principal */
-  --primary-light: #dbeafe;     /* Versão clara para fundos */
-  
-  /* Cores Secundárias - Personalizáveis */
-  --secondary: #64748b;         /* Cor secundária */
-  --secondary-hover: #475569;   /* Hover da cor secundária */
-  --secondary-light: #f1f5f9;   /* Versão clara para fundos */
+  --primary: #8b5cf6;    /* Roxo */
+  --secondary: #ec4899;  /* Rosa */
+}
+
+/* Para dark mode */
+[data-theme="dark"] {
+  --primary: #a78bfa;    /* Versão mais clara para melhor contraste */
+  --secondary: #f472b6;
 }
 ```
+
+O sistema automaticamente gera:
+- ✅ `--primary-hover`, `--primary-light`, `--primary-dark`, `--primary-text`
+- ✅ `--secondary-hover`, `--secondary-light`, `--secondary-dark`, `--secondary-text`
+- ✅ Contraste adequado para textos (WCAG AA compliance)
+- ✅ Ajustes automáticos para dark mode
+
+### 💻 Uso com JavaScript/TypeScript
+
+Para aplicações que precisam mudar cores dinamicamente:
+
+```typescript
+import { applyThemeColors } from 'rharuow-ds/lib/color.utils';
+import 'rharuow-ds/dist/styles.css';
+
+function App() {
+  useEffect(() => {
+    // Aplica cores e calcula automaticamente todas as variações
+    applyThemeColors('#8b5cf6', '#ec4899');
+  }, []);
+  
+  return <div>...</div>;
+}
+```
+
+### 🎨 Funções Utilitárias
+
+O DS exporta várias funções para cálculos de cor:
+
+```typescript
+import {
+  generateColorPalette,    // Gera paleta completa de uma cor
+  getContrastingTextColor, // Retorna branco ou preto com melhor contraste
+  isLightColor,            // Verifica se uma cor é clara ou escura
+  lightenColor,            // Clareia uma cor em X%
+  darkenColor,             // Escurece uma cor em X%
+  hexToRgb,                // Converte HEX para RGB
+  getLuminance,            // Calcula luminância relativa
+  getContrastRatio         // Calcula razão de contraste (WCAG)
+} from 'rharuow-ds/lib/color.utils';
+
+// Exemplo: Gerar paleta completa
+const palette = generateColorPalette('#8b5cf6');
+/*
+{
+  base: '#8b5cf6',
+  hover: '#7c3aed',
+  light: '#ede9fe',
+  dark: '#6d28d9',
+  text: '#ffffff',
+  textOnLight: '#1f2937'
+}
+*/
+```
+
+### 🌈 Sistema de Cores
 
 #### Como os Componentes Usam as Cores
 
@@ -1160,40 +1223,34 @@ Os componentes **derivam automaticamente** suas cores das variáveis primárias:
 - **Table Header**: Mescla 8% da cor primária com fundo neutro
 - **Table Hover**: Mescla 10% da cor primária com fundo neutro
 - **Select Selected**: Usa diretamente `--primary-light`
+- **Button/Modal**: Usam cores primária/secundária com texto de alto contraste
 - **Elementos Selecionados**: Consistentemente usam a cor primária clara
 
-### 💡 Como Personalizar
+### 💡 Modo Avançado (Controle Total)
 
-#### Método 1: CSS Global (Recomendado)
-
-No seu arquivo CSS principal (`index.css` ou `App.css`):
+Se você precisa de controle total sobre cada variação:
 
 ```css
-/* Importar o DS primeiro */
-@import 'rharuow-ds/dist/styles.css';
-
-/* Depois sobrescrever as cores da marca */
 :root {
-  --primary: #8b5cf6;           /* Roxo */
+  /* Defina todas as variações manualmente */
+  --primary: #8b5cf6;
   --primary-hover: #7c3aed;
   --primary-light: #ede9fe;
+  --primary-dark: #6d28d9;
+  --primary-text: #ffffff;
   
-  --secondary: #ec4899;         /* Rosa */
+  --secondary: #ec4899;
   --secondary-hover: #db2777;
   --secondary-light: #fce7f3;
-}
-
-/* Para dark mode, customize também */
-[data-theme="dark"], .dark {
-  --primary: #a78bfa;           /* Roxo mais claro para dark */
-  --primary-hover: #8b5cf6;
-  --primary-light: #4c1d95;
-  
-  --secondary: #f472b6;
-  --secondary-hover: #ec4899;
-  --secondary-light: #831843;
+  --secondary-dark: #be185d;
+  --secondary-text: #ffffff;
 }
 ```
+
+### 📖 Documentação Completa
+
+- **[AUTO_COLOR_SYSTEM.md](AUTO_COLOR_SYSTEM.md)** - Guia completo do sistema de cores automático
+- **[THEME_CUSTOMIZATION.md](THEME_CUSTOMIZATION.md)** - Customização detalhada de tema
 
 #### Método 2: JavaScript/React
 

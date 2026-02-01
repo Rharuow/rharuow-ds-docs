@@ -2,23 +2,47 @@
 
 O Design System agora utiliza um sistema de cores baseado em **brand colors** (cores da marca) que você pode personalizar para criar uma experiência visual coesa em toda a sua aplicação.
 
+> ⚡ **NOVO**: Sistema de Cálculo Automático de Cores! Agora você precisa definir apenas `--primary` e `--secondary`, e todas as variações são calculadas automaticamente. Veja [AUTO_COLOR_SYSTEM.md](AUTO_COLOR_SYSTEM.md) para detalhes completos.
+
 ## 🌈 Sistema de Cores
 
-### Variáveis Principais
+### ✨ Modo Simplificado (Recomendado)
 
-O DS agora expõe variáveis CSS que você pode personalizar:
+**Defina apenas 2 variáveis** e o sistema calcula automaticamente todas as variações:
 
 ```css
 :root {
-  /* Cores Primárias - Personalizáveis */
-  --primary: #2563eb;           /* Cor principal da marca */
-  --primary-hover: #1d4ed8;     /* Hover da cor principal */
-  --primary-light: #dbeafe;     /* Versão clara para fundos */
+  /* Defina APENAS estas duas cores - o resto é automático! */
+  --primary: #2563eb;    /* Cor principal da marca */
+  --secondary: #64748b;  /* Cor secundária */
+}
+```
+
+O sistema automaticamente gera:
+- ✅ `--primary-hover`, `--primary-light`, `--primary-dark`, `--primary-text`
+- ✅ `--secondary-hover`, `--secondary-light`, `--secondary-dark`, `--secondary-text`
+- ✅ Contraste adequado para textos (WCAG AA compliance)
+- ✅ Ajustes automáticos para dark mode
+
+### 🎛️ Modo Avançado (Controle Total)
+
+Se você precisa de controle total sobre cada variação:
+
+```css
+:root {
+  /* Cores Primárias - Totalmente Personalizáveis */
+  --primary: #2563eb;           
+  --primary-hover: #1d4ed8;     /* Sobrescrever cálculo automático */
+  --primary-light: #dbeafe;     
+  --primary-dark: #1e40af;
+  --primary-text: #ffffff;      /* Cor de texto sobre fundo primário */
   
-  /* Cores Secundárias - Personalizáveis */
-  --secondary: #64748b;         /* Cor secundária */
-  --secondary-hover: #475569;   /* Hover da cor secundária */
-  --secondary-light: #f1f5f9;   /* Versão clara para fundos */
+  /* Cores Secundárias - Totalmente Personalizáveis */
+  --secondary: #64748b;         
+  --secondary-hover: #475569;   
+  --secondary-light: #f1f5f9;   
+  --secondary-dark: #334155;
+  --secondary-text: #ffffff;
 }
 ```
 
@@ -34,7 +58,7 @@ Os componentes do DS agora **derivam suas cores** das variáveis `--primary` e `
 
 ## 💡 Como Personalizar
 
-### Método 1: CSS Global (Recomendado)
+### Método 1: CSS Global (Recomendado - Modo Simplificado)
 
 No seu arquivo CSS principal (geralmente `index.css` ou `App.css`):
 
@@ -42,12 +66,31 @@ No seu arquivo CSS principal (geralmente `index.css` ou `App.css`):
 /* Importar o DS primeiro */
 @import 'rharuow-ds/dist/styles.css';
 
-/* Depois sobrescrever as cores da marca */
+/* Depois defina APENAS as cores base - o resto é automático! */
 :root {
-  /* Defina suas cores da marca */
-  --primary: #8b5cf6;           /* Roxo */
+  --primary: #8b5cf6;    /* Roxo */
+  --secondary: #ec4899;  /* Rosa */
+}
+
+/* Para dark mode */
+[data-theme="dark"], .dark {
+  --primary: #a78bfa;    /* Roxo mais claro para melhor contraste */
+  --secondary: #f472b6;
+}
+```
+
+### Método 1.1: CSS Global (Modo Avançado - Controle Total)
+
+```css
+@import 'rharuow-ds/dist/styles.css';
+
+:root {
+  /* Defina todas as variações manualmente */
+  --primary: #8b5cf6;
   --primary-hover: #7c3aed;
   --primary-light: #ede9fe;
+  --primary-dark: #6d28d9;
+  --primary-text: #ffffff;
   
   --secondary: #ec4899;         /* Rosa */
   --secondary-hover: #db2777;
@@ -66,17 +109,30 @@ No seu arquivo CSS principal (geralmente `index.css` ou `App.css`):
 }
 ```
 
-### Método 2: Inline no HTML
+### Método 2: Inline no HTML (Modo Simplificado)
 
 ```html
-<html style="
-  --primary: #059669;
-  --primary-hover: #047857;
-  --primary-light: #d1fae5;
-">
+<html style="--primary: #059669; --secondary: #0891b2;">
 ```
 
-### Método 3: JavaScript/React
+### Método 3: JavaScript/React (Modo Automático com Funções)
+
+```typescript
+// App.tsx ou main.tsx
+import { applyThemeColors } from 'rharuow-ds/lib/color.utils';
+import 'rharuow-ds/dist/styles.css';
+
+function App() {
+  useEffect(() => {
+    // Aplica cores e calcula automaticamente todas as variações
+    applyThemeColors('#8b5cf6', '#ec4899');
+  }, []);
+  
+  return <div>...</div>;
+}
+```
+
+### Método 3.1: JavaScript/React (Modo Manual)
 
 ```typescript
 // App.tsx ou main.tsx

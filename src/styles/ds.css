@@ -4,13 +4,24 @@
 
 /* CSS Variables para tema claro e escuro */
 :root {
-  /* Brand Colors - Customizable by consumer app */
+  /* 
+    Brand Colors - Customizable by consumer app
+    Only define --primary and --secondary, all other variants are auto-calculated
+  */
   --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-light: #dbeafe;
   --secondary: #64748b;
-  --secondary-hover: #475569;
-  --secondary-light: #f1f5f9;
+  
+  /* Auto-calculated primary color variants using CSS color-mix() */
+  --primary-hover: color-mix(in srgb, var(--primary) 90%, black);
+  --primary-light: color-mix(in srgb, var(--primary) 15%, white);
+  --primary-dark: color-mix(in srgb, var(--primary) 70%, black);
+  --primary-text: #ffffff; /* Override in your app if primary is light */
+  
+  /* Auto-calculated secondary color variants */
+  --secondary-hover: color-mix(in srgb, var(--secondary) 90%, black);
+  --secondary-light: color-mix(in srgb, var(--secondary) 15%, white);
+  --secondary-dark: color-mix(in srgb, var(--secondary) 70%, black);
+  --secondary-text: #ffffff; /* Override in your app if secondary is light */
   
   /* Neutral Colors - Light Theme */
   --neutral-50: #f9fafb;
@@ -82,13 +93,22 @@
 
 /* Dark Theme Variables */
 [data-theme="dark"], .dark {
-  /* Brand Colors - Dark Theme (slightly adjusted for better contrast) */
+  /* Brand Colors - Dark Theme 
+     For dark mode, we slightly lighten colors for better contrast
+  */
   --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --primary-light: #1e3a8a;
   --secondary: #94a3b8;
-  --secondary-hover: #cbd5e1;
-  --secondary-light: #334155;
+  
+  /* Auto-calculated variants for dark mode */
+  --primary-hover: color-mix(in srgb, var(--primary) 80%, white);
+  --primary-light: color-mix(in srgb, var(--primary) 20%, black);
+  --primary-dark: color-mix(in srgb, var(--primary) 40%, white);
+  --primary-text: #ffffff;
+  
+  --secondary-hover: color-mix(in srgb, var(--secondary) 80%, white);
+  --secondary-light: color-mix(in srgb, var(--secondary) 20%, black);
+  --secondary-dark: color-mix(in srgb, var(--secondary) 40%, white);
+  --secondary-text: #111827;
   
   /* Neutral Colors - Dark Theme */
   --neutral-50: #0f172a;
@@ -139,14 +159,21 @@
 
 /* Automatic dark mode based on system preference */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     /* Brand Colors - Dark Theme (Auto) */
     --primary: #3b82f6;
-    --primary-hover: #2563eb;
-    --primary-light: #1e3a8a;
     --secondary: #94a3b8;
-    --secondary-hover: #cbd5e1;
-    --secondary-light: #334155;
+    
+    /* Auto-calculated variants */
+    --primary-hover: color-mix(in srgb, var(--primary) 80%, white);
+    --primary-light: color-mix(in srgb, var(--primary) 20%, black);
+    --primary-dark: color-mix(in srgb, var(--primary) 40%, white);
+    --primary-text: #ffffff;
+    
+    --secondary-hover: color-mix(in srgb, var(--secondary) 80%, white);
+    --secondary-light: color-mix(in srgb, var(--secondary) 20%, black);
+    --secondary-dark: color-mix(in srgb, var(--secondary) 40%, white);
+    --secondary-text: #111827;
     
     /* Neutral Colors - Dark Theme (Auto) */
     --neutral-50: #0f172a;
