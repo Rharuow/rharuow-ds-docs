@@ -54,6 +54,10 @@ type Story = StoryObj<typeof Accordion>;
 
 // História básica
 export const Default: Story = {
+  args: {
+    variant: "bordered"
+  },
+
   render: () => (
     <Accordion>
       <Accordion.Item title="O que é React?">
@@ -72,7 +76,7 @@ export const Default: Story = {
         </p>
       </Accordion.Item>
     </Accordion>
-  ),
+  )
 };
 
 // Accordion com um item aberto por padrão

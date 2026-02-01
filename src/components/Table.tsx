@@ -66,7 +66,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
   ) => {
     const tableClasses = cn(
       // Base styles
-      "w-full border-collapse bg-[var(--table-bg)] text-[var(--table-text)]",
+      "w-full border-collapse bg-[var(--table-bg)] text-[var(--text-primary)]",
       
       // Variant styles
       {

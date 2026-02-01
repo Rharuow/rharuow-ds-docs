@@ -26,7 +26,7 @@ export interface CardFooterProps extends BaseCardProps {
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
-  variant?: 'default' | 'outlined' | 'elevated' | 'flat';
+  variant?: 'default' | 'outlined' | 'elevated' | 'flat' | 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
   padding?: 'none' | 'sm' | 'md' | 'lg';
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
@@ -42,9 +42,9 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
         ref={ref}
         className={cn(
           "px-2 py-1 sm:px-4 sm:py-2 lg:px-6 lg:py-4 border-b",
-          "bg-[var(--card-header-bg,rgba(249,250,251,0.5))]",
+          "bg-[var(--card-header-bg)]",
           "border-[var(--card-header-border)]",
-          "text-[var(--card-text)]",
+          "text-[var(--text-primary)]",
           className
         )}
         {...props}
@@ -66,8 +66,8 @@ const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(
         className={cn(
           "px-2 py-1 sm:px-4 sm:py-2 lg:px-6 lg:py-4",
           "flex-1", // Para ocupar o espaço disponível
-          "bg-[var(--card-bg)]",
-          "text-[var(--card-text)]",
+          "bg-[var(--card-body-bg)]",
+          "text-[var(--text-primary)]",
           className
         )}
         {...props}
@@ -88,9 +88,9 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
         ref={ref}
         className={cn(
           "px-6 py-4 border-t",
-          "bg-[var(--card-footer-bg,rgba(249,250,251,0.5))]",
+          "bg-[var(--card-footer-bg)]",
           "border-[var(--card-footer-border)]",
-          "text-[var(--card-text)]",
+          "text-[var(--text-primary)]",
           className
         )}
         {...props}
@@ -121,7 +121,9 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       default: "bg-[var(--card-bg)] border border-[var(--card-border)] shadow-[var(--card-shadow-sm)]",
       outlined: "bg-[var(--card-bg)] border-2 border-[var(--primary)]",
       elevated: "bg-[var(--card-bg)] border border-[var(--card-border)] shadow-[var(--card-shadow-lg)]",
-      flat: "bg-[var(--card-bg)] border-0"
+      flat: "bg-[var(--card-bg)] border-0",
+      primary: "bg-[var(--primary-light)] border-2 border-[var(--primary)] shadow-[var(--card-shadow-sm)]",
+      secondary: "bg-[var(--secondary-light)] border-2 border-[var(--secondary)] shadow-[var(--card-shadow-sm)]"
     };
 
     const sizeClasses = {

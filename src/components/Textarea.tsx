@@ -56,7 +56,7 @@ const Textarea = React.forwardRef<
           id={props.id || name}
           rows={rows}
           className={cn(
-            "peer flex min-h-[80px] w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--input-text)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50 resize-vertical",
+            "peer flex min-h-[80px] w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--text-primary)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50 resize-vertical",
             Icon ? "pr-12" : "", // espaço extra para ícone customizado
             className
           )}

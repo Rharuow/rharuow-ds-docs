@@ -116,7 +116,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
           id={props.id || name}
           type={inputType}
           className={cn(
-            "peer flex h-12 w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--input-text)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50",
+            "peer flex h-12 w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--text-primary)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50",
             (type === "password" || Icon) ? "pr-12" : "", // espaço extra para qualquer ícone (password ou customizado)
             error ? "border-red-500" : "",
             className

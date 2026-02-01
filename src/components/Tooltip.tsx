@@ -162,7 +162,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           className={cn(
             getPositionClasses(),
             "px-2 py-1 text-sm rounded whitespace-nowrap",
-            "bg-[var(--tooltip-bg)] text-[var(--tooltip-text)]",
+            "bg-[var(--tooltip-bg)] text-white",
             "shadow-[var(--tooltip-shadow,0_10px_15px_-3px_rgb(0_0_0_/_0.1),_0_4px_6px_-4px_rgb(0_0_0_/_0.1))]",
             "transition-opacity duration-200 ease-in-out",
             className

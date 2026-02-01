@@ -72,7 +72,7 @@ export const AsideSheet: React.FC<AsideSheetProps> = ({
           role="dialog"
           aria-modal={true}
           className={cn(
-            "h-full bg-white shadow-xl border-l border-gray-100 overflow-auto transition-transform duration-300",
+            "h-full bg-[var(--aside-bg)] shadow-xl border-l border-gray-100 overflow-auto transition-transform duration-300",
             side === "right"
               ? open
                 ? "translate-x-0"

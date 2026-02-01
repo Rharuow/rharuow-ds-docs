@@ -9,7 +9,7 @@
     Only define --primary and --secondary, all other variants are auto-calculated
   */
   --primary: #2563eb;
-  --secondary: #64748b;
+  --secondary: red;
   
   /* Auto-calculated primary color variants using CSS color-mix() */
   --primary-hover: color-mix(in srgb, var(--primary) 90%, black);
@@ -32,42 +32,96 @@
   --neutral-800: #1f2937;
   --neutral-900: #111827;
   
+  /* Global Text Colors */
+  --text-primary: var(--neutral-50);
+  --text-muted: #6b7280;
+  
   /* Card Variables - Light Theme (using brand colors) */
   --card-bg: #ffffff;
   --card-border: var(--neutral-200);
-  --card-text: var(--neutral-900);
-  --card-text-muted: #6b7280;
-  --card-header-bg: color-mix(in srgb, var(--primary) 5%, var(--neutral-50));
-  --card-footer-bg: var(--neutral-50);
-  --card-header-border: color-mix(in srgb, var(--primary) 20%, var(--neutral-200));
-  --card-footer-border: var(--neutral-200);
+  
+  /* Card Header - More prominent brand color (15% instead of 5%) */
+  --card-header-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
+  --card-header-border: color-mix(in srgb, var(--primary) 30%, var(--neutral-200));
+  
+  /* Card Body - Subtle primary color tint (5% instead of pure white) */
+  --card-body-bg: color-mix(in srgb, var(--primary) 25%, #ffffff);
+  
+  /* Card Footer - More prominent primary color (15% instead of 10%) */
+  --card-footer-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
+  --card-footer-border: color-mix(in srgb, var(--primary) 30%, var(--neutral-200));
+  
+  /* Input Variables - Light Theme (using brand colors) */
+  --input-bg: color-mix(in srgb, var(--primary) 45%, var(--neutral-50));
+  --input-border: color-mix(in srgb, var(--primary) 85%, var(--neutral-50));
+  --input-border-focus: var(--primary);
+  --input-placeholder: var(--neutral-400);
+  
+  /* Accordion Variables - Light Theme */
+  --accordion-border: var(--neutral-200);
+  --accordion-header-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
+  --accordion-header-hover: color-mix(in srgb, var(--primary) 5%, var(--neutral-200));
+  --accordion-icon: #6b7280;
+  --accordion-content-bg: color-mix(in srgb, var(--primary) 65%, var(--neutral-50));
+
+  --aside-bg: color-mix(in srgb, var(--primary) 65%, var(--neutral-50));
   
   /* Table Variables - Light Theme (using brand colors) */
-  --table-bg: #ffffff;
+  --table-bg: color-mix(in srgb, var(--primary) 65%, var(--neutral-50));
   --table-border: var(--neutral-200);
-  --table-text: var(--neutral-900);
   --table-header-bg: color-mix(in srgb, var(--primary) 8%, var(--neutral-50));
-  --table-row-odd: #ffffff;
-  --table-row-even: var(--neutral-50);
+  --table-row-odd: color-mix(in srgb, var(--primary) 70%, var(--neutral-50));
+  --table-row-even: color-mix(in srgb, var(--primary) 30%, var(--neutral-50));
   --table-row-hover: color-mix(in srgb, var(--primary) 10%, var(--neutral-100));
   --table-row-selected: var(--primary-light);
   
   /* Select Dropdown Variables - Light Theme (using brand colors) */
-  --select-dropdown-bg: #ffffff;
+  --select-dropdown-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
   --select-dropdown-border: var(--neutral-200);
-  --select-dropdown-text: var(--neutral-900);
   --select-dropdown-hover: color-mix(in srgb, var(--primary) 10%, var(--neutral-100));
   --select-dropdown-selected: var(--primary-light);
   --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   
   /* Tooltip Variables - Light Theme (using brand colors) */
   --tooltip-bg: var(--neutral-700);
-  --tooltip-text: #ffffff;
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   
   /* Shadow Variables */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  /* Scrollbar Variables - Light Theme */
+  --scrollbar-track: var(--neutral-100);
+  --scrollbar-thumb: color-mix(in srgb, var(--primary) 50%, var(--neutral-300));
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--primary) 70%, var(--neutral-400));
+}
+
+/* Custom Scrollbar Styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 10px;
+  border: 2px solid var(--scrollbar-track);
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* Mobile-specific optimizations for select dropdowns */
@@ -119,42 +173,53 @@
   --neutral-800: #e2e8f0;
   --neutral-900: #f1f5f9;
   
+  /* Global Text Colors */
+  --text-primary: var(--neutral-900);
+  --text-muted: #9ca3af;
+  
   /* Card Variables - Dark Theme (using brand colors) */
   --card-bg: var(--neutral-100);
   --card-border: var(--neutral-200);
-  --card-text: var(--neutral-900);
-  --card-text-muted: #9ca3af;
-  --card-header-bg: color-mix(in srgb, var(--primary) 10%, var(--neutral-50));
-  --card-footer-bg: var(--neutral-50);
-  --card-header-border: color-mix(in srgb, var(--primary) 30%, var(--neutral-200));
-  --card-footer-border: var(--neutral-200);
+  
+  /* Card Header - More prominent brand color for dark mode (20% instead of 10%) */
+  --card-header-bg: color-mix(in srgb, var(--primary) 20%, var(--neutral-50));
+  --card-header-border: color-mix(in srgb, var(--primary) 40%, var(--neutral-200));
+  
+  /* Card Body - More visible primary color tint for dark mode (12%) */
+  --card-body-bg: color-mix(in srgb, var(--primary) 40%, var(--neutral-100));
+  
+  /* Card Footer - More prominent secondary color for dark mode (25% instead of 20%) */
+  --card-footer-bg: color-mix(in srgb, var(--primary) 20%, var(--neutral-50));
+  --card-footer-border: color-mix(in srgb, var(--primary) 40%, var(--neutral-200));
   
   /* Table Variables - Dark Theme (using brand colors) */
-  --table-bg: var(--neutral-100);
+  --table-bg: color-mix(in srgb, var(--primary) 85%, var(--neutral-50));
   --table-border: var(--neutral-200);
-  --table-text: var(--neutral-900);
   --table-header-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
-  --table-row-odd: var(--neutral-100);
-  --table-row-even: var(--neutral-50);
+  --table-row-odd: color-mix(in srgb, var(--primary) 70%, var(--neutral-50));
+  --table-row-even: color-mix(in srgb, var(--primary) 30%, var(--neutral-50));
   --table-row-hover: color-mix(in srgb, var(--primary) 15%, var(--neutral-200));
   --table-row-selected: var(--primary-light);
   
   /* Select Dropdown Variables - Dark Theme (using brand colors) */
-  --select-dropdown-bg: var(--neutral-100);
+  --select-dropdown-bg: color-mix(in srgb, var(--primary) 85%, var(--neutral-50));
   --select-dropdown-border: var(--neutral-200);
-  --select-dropdown-text: var(--neutral-900);
   --select-dropdown-hover: color-mix(in srgb, var(--primary) 15%, var(--neutral-200));
   --select-dropdown-selected: var(--primary-light);
   --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
   
   /* Tooltip Variables - Dark Theme (using brand colors) */
   --tooltip-bg: var(--neutral-100);
-  --tooltip-text: var(--neutral-900);
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
   
   /* Shadow Variables - Dark */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
   --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  
+  /* Scrollbar Variables - Dark Theme */
+  --scrollbar-track: var(--neutral-50);
+  --scrollbar-thumb: color-mix(in srgb, var(--primary) 60%, var(--neutral-300));
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--primary) 80%, var(--neutral-400));
 }
 
 /* Automatic dark mode based on system preference */
@@ -184,42 +249,53 @@
     --neutral-800: #e2e8f0;
     --neutral-900: #f1f5f9;
     
+    /* Global Text Colors */
+    --text-primary: var(--neutral-900);
+    --text-muted: #9ca3af;
+    
     /* Card Variables - Dark Theme (Auto) */
     --card-bg: var(--neutral-100);
     --card-border: var(--neutral-200);
-    --card-text: var(--neutral-900);
-    --card-text-muted: #9ca3af;
-    --card-header-bg: color-mix(in srgb, var(--primary) 10%, var(--neutral-50));
-    --card-footer-bg: var(--neutral-50);
-    --card-header-border: color-mix(in srgb, var(--primary) 30%, var(--neutral-200));
-    --card-footer-border: var(--neutral-200);
+    
+    /* Card Header - More prominent brand color for dark mode auto */
+    --card-header-bg: color-mix(in srgb, var(--primary) 20%, var(--neutral-50));
+    --card-header-border: color-mix(in srgb, var(--primary) 40%, var(--neutral-200));
+    
+    /* Card Body - More visible primary color tint for dark mode auto (12%) */
+    --card-body-bg: color-mix(in srgb, var(--primary) 40%, var(--neutral-100));
+    
+    /* Card Footer - More prominent secondary color for dark mode auto (25%) */
+    --card-footer-bg: color-mix(in srgb, var(--primary) 25%, var(--neutral-50));
+    --card-footer-border: color-mix(in srgb, var(--primary) 40%, var(--neutral-200));
     
     /* Table Variables - Dark Theme (Auto) */
-    --table-bg: var(--neutral-100);
+    --table-bg: color-mix(in srgb, var(--primary) 85%, var(--neutral-50));
     --table-border: var(--neutral-200);
-    --table-text: var(--neutral-900);
     --table-header-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
-    --table-row-odd: var(--neutral-100);
-    --table-row-even: var(--neutral-50);
+    --table-row-odd: color-mix(in srgb, var(--primary) 70%, var(--neutral-50));
+    --table-row-even: color-mix(in srgb, var(--primary) 30%, var(--neutral-50));
     --table-row-hover: color-mix(in srgb, var(--primary) 15%, var(--neutral-200));
     --table-row-selected: var(--primary-light);
     
     /* Select Dropdown Variables - Dark Theme (Auto) */
-    --select-dropdown-bg: var(--neutral-100);
+    --select-dropdown-bg: color-mix(in srgb, var(--primary) 85%, var(--neutral-50));
     --select-dropdown-border: var(--neutral-200);
-    --select-dropdown-text: var(--neutral-900);
     --select-dropdown-hover: color-mix(in srgb, var(--primary) 15%, var(--neutral-200));
     --select-dropdown-selected: var(--primary-light);
     --select-dropdown-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
     
     /* Tooltip Variables - Dark Theme (Auto) */
     --tooltip-bg: var(--neutral-100);
-    --tooltip-text: var(--neutral-900);
     --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
     
     /* Shadow Variables - Dark (Auto) */
     --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
     --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    
+    /* Scrollbar Variables - Dark Theme (Auto) */
+    --scrollbar-track: var(--neutral-50);
+    --scrollbar-thumb: color-mix(in srgb, var(--primary) 60%, var(--neutral-300));
+    --scrollbar-thumb-hover: color-mix(in srgb, var(--primary) 80%, var(--neutral-400));
   }
 }
 
@@ -247,23 +323,33 @@
   --card-border: var(--neutral-200);
   --card-text: var(--neutral-900);
   --card-text-muted: #6b7280;
-  --card-header-bg: color-mix(in srgb, var(--primary) 5%, var(--neutral-50));
-  --card-footer-bg: var(--neutral-50);
-  --card-header-border: color-mix(in srgb, var(--primary) 20%, var(--neutral-200));
-  --card-footer-border: var(--neutral-200);
+  
+  /* Card Header - More prominent brand color */
+  --card-header-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
+  --card-header-border: color-mix(in srgb, var(--primary) 30%, var(--neutral-200));
+  --card-header-text: color-mix(in srgb, var(--primary) 80%, var(--neutral-900));
+  
+  /* Card Body - Subtle primary color tint (5%) */
+  --card-body-bg: color-mix(in srgb, var(--primary) 5%, #ffffff);
+  --card-body-text: var(--neutral-900);
+  
+  /* Card Footer - More prominent primary color (15%) */
+  --card-footer-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
+  --card-footer-border: color-mix(in srgb, var(--primary) 25%, var(--neutral-200));
+  --card-footer-text: color-mix(in srgb, var(--primary) 75%, var(--neutral-900));
   
   /* Table Variables - Light Theme (Forced) */
-  --table-bg: #ffffff;
+  --table-bg: color-mix(in srgb, var(--primary) 65%, var(--neutral-50));
   --table-border: var(--neutral-200);
   --table-text: var(--neutral-900);
   --table-header-bg: color-mix(in srgb, var(--primary) 8%, var(--neutral-50));
-  --table-row-odd: #ffffff;
-  --table-row-even: var(--neutral-50);
+  --table-row-odd: color-mix(in srgb, var(--primary) 70%, var(--neutral-50));
+  --table-row-even: color-mix(in srgb, var(--primary) 30%, var(--neutral-50));
   --table-row-hover: color-mix(in srgb, var(--primary) 10%, var(--neutral-100));
   --table-row-selected: var(--primary-light);
   
   /* Select Dropdown Variables - Light Theme (Forced) */
-  --select-dropdown-bg: #ffffff;
+  --select-dropdown-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-50));
   --select-dropdown-border: var(--neutral-200);
   --select-dropdown-text: var(--neutral-900);
   --select-dropdown-hover: color-mix(in srgb, var(--primary) 10%, var(--neutral-100));

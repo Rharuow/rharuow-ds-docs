@@ -20,7 +20,7 @@ const meta: Meta<typeof Card> = {
     variant: {
       description: "Estilo visual do card",
       control: "select",
-      options: ["default", "outlined", "elevated", "flat"],
+      options: ["default", "outlined", "elevated", "flat", "primary", "secondary"],
     },
     size: {
       description: "Tamanho máximo do card (aplicado apenas quando constrainWidth for true)",
@@ -55,11 +55,11 @@ export const Default: Story = {
   render: (args) => (
     <Card {...args}>
       <Card.Header>
-        <h3 className="text-lg font-semibold text-gray-900">Título do Card</h3>
-        <p className="text-sm text-gray-500">Subtítulo ou descrição</p>
+        <h3 className="text-lg font-semibold">Título do Card</h3>
+        <p className="text-sm">Subtítulo ou descrição</p>
       </Card.Header>
       <Card.Body>
-        <p className="text-gray-700">
+        <p className="text-base">
           Este é o conteúdo principal do card. Aqui você pode colocar qualquer 
           conteúdo que desejar, como texto, imagens, formulários, etc.
         </p>
@@ -73,7 +73,7 @@ export const Default: Story = {
     </Card>
   ),
   args: {
-    variant: "default",
+    variant: "primary",
     size: "md",
     constrainWidth: false,
     padding: "none",
@@ -92,8 +92,8 @@ export const OnlyHeader: Story = {
   render: (args) => (
     <Card {...args}>
       <Card.Header>
-        <h3 className="text-lg font-semibold text-gray-900">Apenas Header</h3>
-        <p className="text-sm text-gray-500">Card com apenas a seção de cabeçalho</p>
+        <h3 className="text-lg font-semibold ">Apenas Header</h3>
+        <p className="text-sm">Card com apenas a seção de cabeçalho</p>
       </Card.Header>
     </Card>
   ),
@@ -114,8 +114,8 @@ export const OnlyBody: Story = {
   render: (args) => (
     <Card {...args}>
       <Card.Body>
-        <h4 className="font-medium text-gray-900 mb-2">Conteúdo Principal</h4>
-        <p className="text-gray-700">
+        <h4 className="font-medium  mb-2">Conteúdo Principal</h4>
+        <p className="">
           Card com apenas o body. Ideal para conteúdo simples sem necessidade 
           de header ou footer específicos.
         </p>
@@ -139,18 +139,18 @@ export const HeaderAndBody: Story = {
   render: (args) => (
     <Card {...args}>
       <Card.Header>
-        <h3 className="text-lg font-semibold text-gray-900">Produto Premium</h3>
+        <h3 className="text-lg font-semibold ">Produto Premium</h3>
         <span className="inline-block px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
           Destaque
         </span>
       </Card.Header>
       <Card.Body>
         <div className="space-y-3">
-          <p className="text-gray-700">
+          <p className="">
             Descrição detalhada do produto com suas principais características
             e benefícios para o usuário.
           </p>
-          <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+          <ul className="list-disc list-inside text-sm  space-y-1">
             <li>Característica 1</li>
             <li>Característica 2</li>
             <li>Característica 3</li>
@@ -180,7 +180,7 @@ export const BodyAndFooter: Story = {
           <div className="text-3xl font-bold text-[var(--primary,#2563eb)] mb-2">
             $99
           </div>
-          <p className="text-gray-700">
+          <p className="">
             Plano mensal com todos os recursos incluídos
           </p>
         </div>
@@ -206,6 +206,10 @@ export const BodyAndFooter: Story = {
 };
 
 export const Variants: Story = {
+  args: {
+    variant: "secondary"
+  },
+
   render: () => (
     <div className="grid grid-cols-2 gap-4 max-w-4xl">
       <Card variant="default">
@@ -213,7 +217,7 @@ export const Variants: Story = {
           <h4 className="font-medium">Default</h4>
         </Card.Header>
         <Card.Body>
-          <p className="text-sm text-gray-600">Card padrão com sombra sutil</p>
+          <p className="text-sm ">Card padrão com sombra sutil</p>
         </Card.Body>
       </Card>
       
@@ -222,7 +226,7 @@ export const Variants: Story = {
           <h4 className="font-medium">Outlined</h4>
         </Card.Header>
         <Card.Body>
-          <p className="text-sm text-gray-600">Card com borda colorida</p>
+          <p className="text-sm ">Card com borda colorida</p>
         </Card.Body>
       </Card>
       
@@ -231,7 +235,7 @@ export const Variants: Story = {
           <h4 className="font-medium">Elevated</h4>
         </Card.Header>
         <Card.Body>
-          <p className="text-sm text-gray-600">Card com sombra elevada</p>
+          <p className="text-sm ">Card com sombra elevada</p>
         </Card.Body>
       </Card>
       
@@ -240,18 +244,19 @@ export const Variants: Story = {
           <h4 className="font-medium">Flat</h4>
         </Card.Header>
         <Card.Body>
-          <p className="text-sm text-gray-600">Card sem sombra ou borda</p>
+          <p className="text-sm ">Card sem sombra ou borda</p>
         </Card.Body>
       </Card>
     </div>
   ),
+
   parameters: {
     docs: {
       description: {
         story: "Diferentes variantes visuais do Card: default, outlined, elevated e flat.",
       },
     },
-  },
+  }
 };
 
 export const Sizes: Story = {
@@ -265,7 +270,7 @@ export const Sizes: Story = {
               <h4 className="font-medium">Card sem limitação</h4>
             </Card.Header>
             <Card.Body>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm ">
                 Este card cresce livremente para se adaptar ao conteúdo ou container pai, 
                 independente do size definido. Esta é a configuração padrão.
               </p>
@@ -282,7 +287,7 @@ export const Sizes: Story = {
               <h4 className="font-medium">Small (sm) - max-width: 384px</h4>
             </Card.Header>
             <Card.Body>
-              <p className="text-sm text-gray-600">Card pequeno com largura limitada</p>
+              <p className="text-sm ">Card pequeno com largura limitada</p>
             </Card.Body>
           </Card>
           
@@ -291,7 +296,7 @@ export const Sizes: Story = {
               <h4 className="font-medium">Medium (md) - max-width: 448px</h4>
             </Card.Header>
             <Card.Body>
-              <p className="text-sm text-gray-600">Card médio com largura limitada</p>
+              <p className="text-sm ">Card médio com largura limitada</p>
             </Card.Body>
           </Card>
           
@@ -300,7 +305,7 @@ export const Sizes: Story = {
               <h4 className="font-medium">Large (lg) - max-width: 512px</h4>
             </Card.Header>
             <Card.Body>
-              <p className="text-sm text-gray-600">Card grande com largura limitada</p>
+              <p className="text-sm ">Card grande com largura limitada</p>
             </Card.Body>
           </Card>
         </div>
@@ -320,8 +325,8 @@ export const CustomSemantic: Story = {
   render: (args) => (
     <Card {...args}>
       <Card.Header as="header">
-        <h1 className="text-xl font-bold text-gray-900">Artigo Técnico</h1>
-        <time className="text-sm text-gray-500">18 de Setembro, 2025</time>
+        <h1 className="text-xl font-bold ">Artigo Técnico</h1>
+        <time className="text-sm">18 de Setembro, 2025</time>
       </Card.Header>
       <Card.Body as="main">
         <article className="prose prose-sm">
@@ -333,7 +338,7 @@ export const CustomSemantic: Story = {
       </Card.Body>
       <Card.Footer as="footer">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500">Por: Rharuow</span>
+          <span className="text-sm">Por: Rharuow</span>
           <div className="flex space-x-2">
             <Button variant="outline">Compartilhar</Button>
             <Button>Ler Mais</Button>
@@ -366,8 +371,8 @@ export const WithoutPadding: Story = {
         />
       </Card.Header>
       <Card.Body>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Card com Imagem</h3>
-        <p className="text-gray-700">
+        <h3 className="text-lg font-semibold  mb-2">Card com Imagem</h3>
+        <p className="">
           Exemplo de card onde o header não tem padding para acomodar uma imagem
           que ocupa toda a largura.
         </p>
@@ -406,7 +411,7 @@ export const InteractiveCard: Story = {
             <button
               onClick={() => setSaved(!saved)}
               className={`p-2 rounded-full transition-colors ${
-                saved ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600'
+                saved ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 '
               }`}
             >
               {saved ? '🔖' : '📄'}
@@ -429,7 +434,7 @@ export const InteractiveCard: Story = {
             <button
               onClick={() => setLiked(!liked)}
               className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
-                liked ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600'
+                liked ? 'bg-red-100 text-red-600' : 'bg-gray-100 '
               }`}
             >
               <span>{liked ? '❤️' : '🤍'}</span>
@@ -529,7 +534,7 @@ export const ThemeComparison: Story = {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Light Theme */}
       <div data-theme="light" className="p-6 bg-gray-50">
-        <h3 className="text-lg font-bold mb-4 text-gray-900">Light Theme</h3>
+        <h3 className="text-lg font-bold mb-4 ">Light Theme</h3>
         <Card {...args}>
           <Card.Header>
             <h4 className="font-medium">Tema Claro</h4>
@@ -557,7 +562,7 @@ export const ThemeComparison: Story = {
         <Card {...args}>
           <Card.Header>
             <h4 className="font-medium">Tema Escuro</h4>
-            <span className="text-xs bg-gray-700 text-gray-200 px-2 py-1 rounded">Dark</span>
+            <span className="text-xs bg-gray-700  px-2 py-1 rounded">Dark</span>
           </Card.Header>
           <Card.Body>
             <p className="text-sm mb-3">
@@ -601,7 +606,7 @@ export const FullWidthCards: Story = {
             <h4 className="font-medium">Card Responsivo 1</h4>
           </Card.Header>
           <Card.Body>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm ">
               Este card se adapta automaticamente ao seu container em layouts responsivos.
             </p>
           </Card.Body>
@@ -612,7 +617,7 @@ export const FullWidthCards: Story = {
             <h4 className="font-medium">Card Responsivo 2</h4>
           </Card.Header>
           <Card.Body>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm ">
               Sem limitações de max-width, ideal para dashboards e layouts flexíveis.
             </p>
           </Card.Body>
@@ -623,7 +628,7 @@ export const FullWidthCards: Story = {
             <h4 className="font-medium">Card Responsivo 3</h4>
           </Card.Header>
           <Card.Body>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm ">
               Perfeito para conteúdo que deve se expandir conforme necessário.
             </p>
           </Card.Body>
@@ -634,25 +639,25 @@ export const FullWidthCards: Story = {
         <Card variant="default">
           <Card.Header>
             <h4 className="font-medium">Card de largura total</h4>
-            <p className="text-sm text-gray-500">Ocupa 100% da largura do container pai</p>
+            <p className="text-sm">Ocupa 100% da largura do container pai</p>
           </Card.Header>
           <Card.Body>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
                 <h5 className="font-medium text-sm">Coluna 1</h5>
-                <p className="text-xs text-gray-600">
+                <p className="text-xs ">
                   Conteúdo da primeira coluna em um card que ocupa toda a largura disponível.
                 </p>
               </div>
               <div className="space-y-2">
                 <h5 className="font-medium text-sm">Coluna 2</h5>
-                <p className="text-xs text-gray-600">
+                <p className="text-xs ">
                   Conteúdo da segunda coluna, demonstrando como o card se expande.
                 </p>
               </div>
               <div className="space-y-2">
                 <h5 className="font-medium text-sm">Coluna 3</h5>
-                <p className="text-xs text-gray-600">
+                <p className="text-xs ">
                   Terceira coluna mostrando a flexibilidade do novo comportamento.
                 </p>
               </div>
@@ -660,7 +665,7 @@ export const FullWidthCards: Story = {
           </Card.Body>
           <Card.Footer>
             <div className="flex justify-between items-center w-full">
-              <span className="text-sm text-gray-500">Total de itens: 3</span>
+              <span className="text-sm">Total de itens: 3</span>
               <Button>Ação Principal</Button>
             </div>
           </Card.Footer>
@@ -672,6 +677,109 @@ export const FullWidthCards: Story = {
     docs: {
       description: {
         story: "Cards sem limitação de largura, ideais para layouts responsivos e dashboards. Os cards se adaptam automaticamente ao container pai.",
+      },
+    },
+  },
+};
+export const BrandColorVariants: Story = {
+  render: () => (
+    <div className="space-y-8 p-8">
+      <h2 className="text-2xl font-bold mb-4">Variantes com Cores da Marca</h2>
+      <p className=" mb-6">
+        O Card agora reflete melhor a identidade visual da aplicação através das cores primária e secundária.
+        O header usa tons da cor primária, o footer usa tons da cor secundária, e os textos possuem contraste adequado.
+      </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Card Default com cores intensificadas */}
+        <Card variant="default">
+          <Card.Header>
+            <h3 className="text-lg font-semibold">Card Default</h3>
+            <p className="text-sm opacity-80">Header com 15% da cor primária</p>
+          </Card.Header>
+          <Card.Body>
+            <p className="text-sm">
+              O header agora usa 15% da cor primária (antes era 5%), 
+              tornando a identidade visual mais evidente.
+            </p>
+          </Card.Body>
+          <Card.Footer>
+            <p className="text-sm">
+              Footer com 10% da cor secundária, substituindo o cinza neutro anterior.
+            </p>
+          </Card.Footer>
+        </Card>
+
+        {/* Card Primary - Background todo colorido */}
+        <Card variant="primary">
+          <Card.Header>
+            <h3 className="text-lg font-semibold">Card Primary</h3>
+            <p className="text-sm opacity-80">Fundo com cor primária clara</p>
+          </Card.Header>
+          <Card.Body>
+            <p className="text-sm">
+              Card com background baseado em --primary-light, 
+              ideal para destacar conteúdo importante.
+            </p>
+          </Card.Body>
+          <Card.Footer>
+            <Button variant="default">Ação Principal</Button>
+          </Card.Footer>
+        </Card>
+
+        {/* Card Secondary - Background todo colorido */}
+        <Card variant="secondary">
+          <Card.Header>
+            <h3 className="text-lg font-semibold">Card Secondary</h3>
+            <p className="text-sm opacity-80">Fundo com cor secundária clara</p>
+          </Card.Header>
+          <Card.Body>
+            <p className="text-sm">
+              Card com background baseado em --secondary-light, 
+              perfeito para informações complementares.
+            </p>
+          </Card.Body>
+          <Card.Footer>
+            <Button variant="secondary">Ação Secundária</Button>
+          </Card.Footer>
+        </Card>
+
+        {/* Card Outlined - Borda destaque */}
+        <Card variant="outlined">
+          <Card.Header>
+            <h3 className="text-lg font-semibold">Card Outlined</h3>
+            <p className="text-sm opacity-80">Borda primária destacada</p>
+          </Card.Header>
+          <Card.Body>
+            <p className="text-sm">
+              Borda de 2px com a cor primária, mantendo o fundo limpo 
+              mas com identidade visual evidente.
+            </p>
+          </Card.Body>
+          <Card.Footer>
+            <div className="flex gap-2">
+              <Button variant="outline">Cancelar</Button>
+              <Button variant="default">Confirmar</Button>
+            </div>
+          </Card.Footer>
+        </Card>
+      </div>
+
+      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <h4 className="font-semibold text-blue-900 mb-2">💡 Dica de Customização</h4>
+        <p className="text-sm text-blue-800">
+          Ao mudar as variáveis <code className="px-1 py-0.5 bg-blue-100 rounded">--primary</code> e{" "}
+          <code className="px-1 py-0.5 bg-blue-100 rounded">--secondary</code>, 
+          você verá mudanças mais evidentes nas cores do Card. O header agora mostra claramente 
+          a cor primária, e o footer a cor secundária, criando uma identidade visual consistente.
+        </p>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Demonstração das novas variantes de Card com cores da marca mais evidentes. O header usa tons da cor primária (15% no light mode, 20% no dark mode) e o footer usa tons da cor secundária, garantindo que a identidade visual da aplicação seja clara.",
       },
     },
   },

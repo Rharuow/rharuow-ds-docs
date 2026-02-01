@@ -250,7 +250,7 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
           aria-haspopup="listbox"
           aria-expanded={open}
           className={cn(
-            "peer flex items-center h-12 w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--input-text)] px-3 py-3 text-sm transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
+            "peer flex items-center h-12 w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--text-primary)] px-3 py-3 text-sm transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
             className
           )}
           onClick={handleContainerClick}
@@ -315,7 +315,7 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
         <div
           className={cn(
             "absolute left-0 w-full mt-1 rounded-md transition-all duration-200 overflow-hidden",
-            "bg-[var(--select-dropdown-bg)] border-[var(--select-dropdown-border)] text-[var(--select-dropdown-text)]",
+            "bg-[var(--select-dropdown-bg)] border-[var(--select-dropdown-border)] text-[var(--text-primary)]",
             open
               ? "border max-h-36 opacity-100 scale-100"
               : "max-h-0 opacity-0 scale-95 pointer-events-none"
