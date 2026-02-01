@@ -79,17 +79,17 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
 
   const variantStyles = {
     default: {
-      item: "border-b border-[var(--accordion-border,#e5e7eb)] last:border-b-0",
+      item: "border-b border-[var(--accordion-border)] last:border-b-0",
       header: "",
       content: "",
     },
     bordered: {
-      item: "border border-[var(--accordion-border,#e5e7eb)] rounded-md mb-2",
-      header: "border-b border-[var(--accordion-border,#e5e7eb)]",
+      item: "border border-[var(--accordion-border)] rounded-md mb-2",
+      header: "border-b border-[var(--accordion-border)]",
       content: "",
     },
     separated: {
-      item: "border border-[var(--accordion-border,#e5e7eb)] rounded-md mb-3 shadow-sm",
+      item: "border border-[var(--accordion-border)] rounded-md mb-3 shadow-sm",
       header: "",
       content: "",
     },
@@ -106,9 +106,9 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
         aria-expanded={isOpen}
         className={cn(
           "w-full flex items-center justify-between px-4 py-3 text-left transition-colors",
-          "bg-[var(--accordion-header-bg,transparent)]",
+          "bg-[var(--accordion-header-bg)]",
           "hover:bg-[var(--accordion-header-hover,rgba(0,0,0,0.05))]",
-          "text-[var(--accordion-text,#111827)]",
+          "text-[var(--accordion-text)]",
           "font-medium",
           disabled && "opacity-50 cursor-not-allowed",
           isOpen && variant !== "default" && currentVariant.header,
@@ -122,7 +122,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
         <svg
           className={cn(
             "w-5 h-5 transition-transform duration-200 flex-shrink-0",
-            "text-[var(--accordion-icon,#6b7280)]",
+            "text-[var(--accordion-icon)]",
             isOpen && "rotate-180"
           )}
           fill="none"
@@ -144,8 +144,8 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
           ref={contentRef}
           className={cn(
             "px-4 py-3",
-            "text-[var(--accordion-content-text,#374151)]",
-            "bg-[var(--accordion-content-bg,transparent)]",
+            "text-[var(--accordion-content-text)]",
+            "bg-[var(--accordion-content-bg)]",
             contentClassName
           )}
         >

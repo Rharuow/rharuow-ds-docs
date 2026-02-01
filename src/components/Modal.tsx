@@ -68,14 +68,14 @@ export const Modal = (({
 
   const variantClasses = {
     default: "bg-white text-gray-900",
-    primary: "bg-[var(--primary,#2563eb)] text-[var(--primary-text,#fff)]",
-    secondary: "bg-[var(--secondary,#fbbf24)] text-[var(--secondary-text,#222)]",
+    primary: "bg-[var(--primary)] text-[var(--primary-text)]",
+    secondary: "bg-[var(--secondary)] text-[var(--secondary-text)]",
   };
 
   const closeButtonClasses = {
     default: "text-gray-400 hover:text-gray-600",
-    primary: "text-[var(--primary-text,#fff)] hover:opacity-80",
-    secondary: "text-[var(--secondary-text,#222)] hover:opacity-80",
+    primary: "text-[var(--primary-text)] hover:opacity-80",
+    secondary: "text-[var(--secondary-text)] hover:opacity-80",
   };
 
   if (!portalRoot || !open) return null;

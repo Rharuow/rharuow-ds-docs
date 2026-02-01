@@ -67,7 +67,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
             htmlFor={name}
             className={cn(
               "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm transition-all duration-200",
-              "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary,#2563eb)] p-1 rounded-full bg-white"
+              "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary)] p-1 rounded-full bg-white"
             )}
           >
             {label}
@@ -89,11 +89,11 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
               key={opt.value}
               type="button"
               className={cn(
-                "relative flex items-center justify-center border rounded-lg transition-all duration-200 shadow-sm px-4 focus:outline-none focus:ring-2 focus:ring-[var(--primary-hover,#dbeafe)]",
+                "relative flex items-center justify-center border rounded-lg transition-all duration-200 shadow-sm px-4 focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)]",
                 sizeMap[size],
                 value === opt.value
-                  ? "border-[var(--primary,#2563eb)] bg-[var(--primary-hover,#dbeafe)] text-[var(--primary,#2563eb)] ring-2 ring-[var(--primary-hover,#dbeafe)] shadow-md transform scale-[1.02]"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-[var(--primary,#2563eb)] hover:bg-[var(--primary-hover,#dbeafe)] hover:text-[var(--primary,#2563eb)] hover:shadow-md",
+                  ? "border-[var(--primary)] bg-[var(--primary-light)] text-[var(--primary)] ring-2 ring-[var(--primary-light)] shadow-md transform scale-[1.02]"
+                  : "border-gray-200 bg-white text-gray-600 hover:border-[var(--primary)] hover:bg-[var(--primary-light)] hover:text-[var(--primary)] hover:shadow-md",
                 optionClassName
               )}
               aria-pressed={value === opt.value}

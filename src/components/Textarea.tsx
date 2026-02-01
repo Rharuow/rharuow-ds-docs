@@ -56,7 +56,7 @@ const Textarea = React.forwardRef<
           id={props.id || name}
           rows={rows}
           className={cn(
-            "peer flex min-h-[80px] w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50 resize-vertical",
+            "peer flex min-h-[80px] w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--input-text)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50 resize-vertical",
             Icon ? "pr-12" : "", // espaço extra para ícone customizado
             className
           )}
@@ -101,7 +101,7 @@ const Textarea = React.forwardRef<
             className={cn(
               "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm text-gray-400 transition-all duration-200",
               isFloating
-                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary,#2563eb)] p-1 rounded-full bg-white"
+                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary)] p-1 rounded-full bg-white"
                 : "top-3 scale-100 translate-y-0.5"
             )}
           >
@@ -113,7 +113,7 @@ const Textarea = React.forwardRef<
         {Icon && (
           <div
             className={cn(
-              "absolute top-3 right-3 text-gray-400 cursor-pointer hover:text-[var(--primary,#2563eb)] transition-colors duration-200",
+              "absolute top-3 right-3 text-gray-400 cursor-pointer hover:text-[var(--primary)] transition-colors duration-200",
               iconClassName
             )}
             onClick={iconAction}

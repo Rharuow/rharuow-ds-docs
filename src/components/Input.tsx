@@ -116,7 +116,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
           id={props.id || name}
           type={inputType}
           className={cn(
-            "peer flex h-12 w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50",
+            "peer flex h-12 w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--input-text)] px-3 pt-6 pb-2 text-sm placeholder-transparent transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50",
             (type === "password" || Icon) ? "pr-12" : "", // espaço extra para qualquer ícone (password ou customizado)
             error ? "border-red-500" : "",
             className
@@ -177,7 +177,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
             className={cn(
               "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm text-gray-400 transition-all duration-200",
               isFloating
-                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary,#2563eb)] p-1 rounded-full bg-white"
+                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary)] p-1 rounded-full bg-white"
                 : "top-3 scale-100 translate-y-0.5"
             )}
           >
@@ -189,7 +189,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
         {type === "password" && (
           <button
             type="button"
-            className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-[var(--primary,#2563eb)] transition-colors duration-200 focus:outline-none focus:text-[var(--primary,#2563eb)]"
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-[var(--primary)] transition-colors duration-200 focus:outline-none focus:text-[var(--primary)]"
             onClick={togglePasswordVisibility}
             aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
             tabIndex={-1}
@@ -202,7 +202,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
         {Icon && type !== "password" && (
           <div
             className={cn(
-              "absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-[var(--primary,#2563eb)] transition-colors duration-200",
+              "absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-[var(--primary)] transition-colors duration-200",
               iconClassName
             )}
             onClick={iconAction}

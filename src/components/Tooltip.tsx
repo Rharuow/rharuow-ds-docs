@@ -122,7 +122,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   };
 
   const getArrowClasses = () => {
-    const arrowBase = "absolute w-2 h-2 bg-[var(--tooltip-bg,#374151)] transform rotate-45";
+    const arrowBase = "absolute w-2 h-2 bg-[var(--tooltip-bg)] transform rotate-45";
     
     switch (actualPosition) {
       case "top":
@@ -162,7 +162,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           className={cn(
             getPositionClasses(),
             "px-2 py-1 text-sm rounded whitespace-nowrap",
-            "bg-[var(--tooltip-bg,#374151)] text-[var(--tooltip-text,#fff)]",
+            "bg-[var(--tooltip-bg)] text-[var(--tooltip-text)]",
             "shadow-[var(--tooltip-shadow,0_10px_15px_-3px_rgb(0_0_0_/_0.1),_0_4px_6px_-4px_rgb(0_0_0_/_0.1))]",
             "transition-opacity duration-200 ease-in-out",
             className

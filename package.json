@@ -1,6 +1,6 @@
 {
   "name": "rharuow-ds",
-  "version": "1.10.3",
+  "version": "1.10.4",
   "description": "Modern React Design System with 17 components and auto color system. Define only 2 colors (primary/secondary) and get automatic variations (hover, light, dark) with proper text contrast (WCAG AA). Includes: Table, Card, Button, Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Tooltip, Accordion, AsideSheet, Modal, Toaster, ImageInput. Full React Hook Form integration, Tailwind CSS styling, CSS Variables for theme customization and dark mode support.",
   "main": "dist/rharuow-ds.cjs.js",
   "module": "dist/rharuow-ds.es.js",

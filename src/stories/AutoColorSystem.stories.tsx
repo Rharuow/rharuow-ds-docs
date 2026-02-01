@@ -1,8 +1,8 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
-import { Input } from "../components/Input";
 import { applyThemeColors, generateColorPalette } from "../lib/color.utils";
 
 const meta = {
@@ -220,15 +220,18 @@ function AutoColorDemo() {
             </Card>
           </div>
 
-          {/* Input Example */}
+          {/* Simple Input Example (not form-dependent) */}
           <div>
-            <h4 className="text-md font-semibold mb-3">Input</h4>
+            <h4 className="text-md font-semibold mb-3">Input com Foco</h4>
             <div className="max-w-md">
-              <Input
-                name="example"
-                label="Campo de Texto"
-                placeholder="Digite algo..."
+              <input
+                type="text"
+                placeholder="Digite algo e veja a borda mudar..."
+                className="w-full px-3 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:border-[var(--primary)] transition-colors"
               />
+              <p className="text-xs text-gray-500 mt-1">
+                A borda muda para a cor primária quando focado
+              </p>
             </div>
           </div>
         </Card.Body>

@@ -250,7 +250,7 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
           aria-haspopup="listbox"
           aria-expanded={open}
           className={cn(
-            "peer flex items-center h-12 w-full border border-[var(--primary,#2563eb)] rounded-md bg-[var(--input-bg,#fff)] text-[var(--input-text,#222)] px-3 py-3 text-sm transition focus:outline-none focus:border-[var(--primary,#2563eb)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
+            "peer flex items-center h-12 w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--input-text)] px-3 py-3 text-sm transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
             className
           )}
           onClick={handleContainerClick}
@@ -280,7 +280,7 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
           
           {loading && (
             <div className="absolute right-8 top-1/2 -translate-y-1/2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[var(--primary,#2563eb)]"></div>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[var(--primary)]"></div>
             </div>
           )}
           
@@ -303,7 +303,7 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
             className={cn(
               "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm text-gray-400 transition-all duration-200",
               isFloating
-                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary,#2563eb)] p-1 rounded-full bg-white"
+                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary)] p-1 rounded-full bg-white"
                 : "top-3 scale-100 translate-y-0.5"
             )}
           >

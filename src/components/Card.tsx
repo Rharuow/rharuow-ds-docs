@@ -43,8 +43,8 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
         className={cn(
           "px-2 py-1 sm:px-4 sm:py-2 lg:px-6 lg:py-4 border-b",
           "bg-[var(--card-header-bg,rgba(249,250,251,0.5))]",
-          "border-[var(--card-header-border,#e5e7eb)]",
-          "text-[var(--card-text,#111827)]",
+          "border-[var(--card-header-border)]",
+          "text-[var(--card-text)]",
           className
         )}
         {...props}
@@ -66,8 +66,8 @@ const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(
         className={cn(
           "px-2 py-1 sm:px-4 sm:py-2 lg:px-6 lg:py-4",
           "flex-1", // Para ocupar o espaço disponível
-          "bg-[var(--card-bg,#ffffff)]",
-          "text-[var(--card-text,#111827)]",
+          "bg-[var(--card-bg)]",
+          "text-[var(--card-text)]",
           className
         )}
         {...props}
@@ -89,8 +89,8 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
         className={cn(
           "px-6 py-4 border-t",
           "bg-[var(--card-footer-bg,rgba(249,250,251,0.5))]",
-          "border-[var(--card-footer-border,#e5e7eb)]",
-          "text-[var(--card-text,#111827)]",
+          "border-[var(--card-footer-border)]",
+          "text-[var(--card-text)]",
           className
         )}
         {...props}
@@ -118,10 +118,10 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
   }, ref) => {
     
     const variantClasses = {
-      default: "bg-[var(--card-bg,#ffffff)] border border-[var(--card-border,#e5e7eb)] shadow-[var(--card-shadow-sm,0_1px_2px_0_rgb(0_0_0_/_0.05))]",
-      outlined: "bg-[var(--card-bg,#ffffff)] border-2 border-[var(--primary,#2563eb)]",
-      elevated: "bg-[var(--card-bg,#ffffff)] border border-[var(--card-border,#e5e7eb)] shadow-[var(--card-shadow-lg,0_10px_15px_-3px_rgb(0_0_0_/_0.1),_0_4px_6px_-4px_rgb(0_0_0_/_0.1))]",
-      flat: "bg-[var(--card-bg,#ffffff)] border-0"
+      default: "bg-[var(--card-bg)] border border-[var(--card-border)] shadow-[var(--card-shadow-sm)]",
+      outlined: "bg-[var(--card-bg)] border-2 border-[var(--primary)]",
+      elevated: "bg-[var(--card-bg)] border border-[var(--card-border)] shadow-[var(--card-shadow-lg)]",
+      flat: "bg-[var(--card-bg)] border-0"
     };
 
     const sizeClasses = {

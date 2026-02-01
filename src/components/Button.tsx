@@ -14,11 +14,11 @@ export const Button: React.FC<ButtonProps> = ({
   const base = "px-4 py-2 rounded font-medium transition";
   const variants = {
     default:
-      "bg-[var(--primary,#2563eb)] text-[var(--primary-text,#fff)] hover:bg-[var(--primary-hover,#1d4ed8)]",
+      "bg-[var(--primary)] text-[var(--primary-text)] hover:bg-[var(--primary-hover)]",
     outline:
-      "border border-[var(--primary,#2563eb)] text-[var(--primary,#2563eb)] bg-white hover:bg-[var(--primary-hover,#e0e7ff)]",
+      "border border-[var(--primary)] text-[var(--primary)] bg-white hover:bg-[var(--primary-light)]",
     secondary:
-      "bg-[var(--secondary,#fbbf24)] text-[var(--secondary-text,#222)] hover:bg-[var(--secondary-hover,#f59e42)]",
+      "bg-[var(--secondary)] text-[var(--secondary-text)] hover:bg-[var(--secondary-hover)]",
   };
   return (
     <button className={cn(base, variants[variant], className)} {...props}>
