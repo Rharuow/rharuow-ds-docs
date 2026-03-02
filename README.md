@@ -44,7 +44,7 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **17 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Card, Table, Tooltip, Accordion, AsideSheet, Modal, Toaster, ImageInput)
+- 🧩 **18 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Chip, Card, Table, Tooltip, Accordion, AsideSheet, Modal, Toaster, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Sistema de cores automático** - Defina apenas 2 cores e todas as variações são calculadas automaticamente
@@ -105,6 +105,7 @@ npm install react-hook-form
      Card,
      Table,
      Button,
+     Chip,
      Input,
      Textarea,
      Select,
@@ -321,6 +322,51 @@ Componente completo para exibição de dados tabulares:
 ### �🎯 **Button**
 
 Botão customizável com diferentes variantes e tamanhos.
+
+### 🏷️ **Chip**
+
+Elemento pill interativo para filtros, tags e seleções toggleáveis:
+
+- ✅ Estado ativo/inativo com visual distinto
+- ✅ Ícone opcional à esquerda
+- ✅ `onChange(active: boolean)` — callback de toggle
+- ✅ Estado `disabled` com visual reduzido
+- ✅ Acessível (`role="switch"`, `aria-checked`)
+- ✅ Totalmente estilizável via `className`
+
+```tsx
+import { Chip } from "rharuow-ds";
+
+// Toggle simples
+const [active, setActive] = useState(false);
+<Chip label="Filtro" active={active} onChange={setActive} />
+
+// Grupo de filtros
+const filters = ["React", "TypeScript", "Tailwind"];
+const [selected, setSelected] = useState<string[]>([]);
+
+const toggle = (filter: string) =>
+  setSelected(prev =>
+    prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]
+  );
+
+{filters.map(filter => (
+  <Chip
+    key={filter}
+    label={filter}
+    active={selected.includes(filter)}
+    onChange={() => toggle(filter)}
+  />
+))}
+
+// Com ícone
+<Chip
+  label="Favorito"
+  active={isFavorite}
+  onChange={setIsFavorite}
+  icon={<StarIcon />}
+/>
+```
 
 ### 📝 **Input**
 

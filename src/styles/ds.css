@@ -85,6 +85,13 @@
   /* Tooltip Variables - Light Theme (using brand colors) */
   --tooltip-bg: var(--neutral-700);
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Chip Variables - Light Theme */
+  --chip-active-text: var(--foreground);
+  --chip-inactive-bg: #ffffff;
+  --chip-inactive-text: color-mix(in srgb, var(--foreground) 8%, #ffffff);
+  --chip-inactive-border: var(--neutral-300);
+  --chip-inactive-hover-bg: color-mix(in srgb, var(--primary) 8%, #ffffff);
   
   /* Shadow Variables */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -211,6 +218,13 @@
   /* Tooltip Variables - Dark Theme (using brand colors) */
   --tooltip-bg: var(--neutral-100);
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+
+  /* Chip Variables - Dark Theme */
+  --chip-active-text: #ffffff;
+  --chip-inactive-bg: var(--neutral-100);
+  --chip-inactive-text: var(--foreground);
+  --chip-inactive-border: var(--neutral-300);
+  --chip-inactive-hover-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-100));
   
   /* Shadow Variables - Dark */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
@@ -287,6 +301,13 @@
     /* Tooltip Variables - Dark Theme (Auto) */
     --tooltip-bg: var(--neutral-100);
     --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+
+    /* Chip Variables - Dark Theme (Auto) */
+    --chip-active-text: #ffffff;
+    --chip-inactive-bg: var(--neutral-100);
+    --chip-inactive-text: var(--foreground);
+    --chip-inactive-border: var(--neutral-300);
+    --chip-inactive-hover-bg: color-mix(in srgb, var(--primary) 15%, var(--neutral-100));
     
     /* Shadow Variables - Dark (Auto) */
     --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
@@ -360,6 +381,13 @@
   --tooltip-bg: var(--neutral-700);
   --tooltip-text: #ffffff;
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Chip Variables - Light Theme (Forced) */
+  --chip-active-text: #ffffff;
+  --chip-inactive-bg: #ffffff;
+  --chip-inactive-text: var(--foreground);
+  --chip-inactive-border: var(--neutral-300);
+  --chip-inactive-hover-bg: color-mix(in srgb, var(--primary) 8%, #ffffff);
   
   /* Shadow Variables - Light (Forced) */
   --card-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
