@@ -44,7 +44,7 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **18 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Chip, Card, Table, Tooltip, Accordion, AsideSheet, Modal, Toaster, ImageInput)
+- 🧩 **19 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Chip, Pagination, Card, Table, Tooltip, Accordion, AsideSheet, Modal, Toaster, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Sistema de cores automático** - Defina apenas 2 cores e todas as variações são calculadas automaticamente
@@ -106,6 +106,7 @@ npm install react-hook-form
      Table,
      Button,
      Chip,
+     Pagination,
      Input,
      Textarea,
      Select,
@@ -368,7 +369,30 @@ const toggle = (filter: string) =>
 />
 ```
 
-### 📝 **Input**
+### � **Pagination**
+
+Componente de paginação com janela deslizante e ellipsis:
+
+- ✅ Exibe janela de **3 páginas** centrada na página atual
+- ✅ Ellipsis (`…`) + última página quando o total ultrapassa a janela visível
+- ✅ Seta esquerda (← anterior) oculta na primeira página
+- ✅ Seta direita (→ próxima) oculta na última página
+- ✅ Estado `disabled` para toda a navegação
+- ✅ Acessível (`role="navigation"`, `aria-label`, `aria-current`)
+
+```tsx
+import { Pagination } from "rharuow-ds";
+
+const [page, setPage] = useState(1);
+
+<Pagination
+  totalPages={20}
+  currentPage={page}
+  onPageChange={setPage}
+/>
+```
+
+### �📝 **Input**
 
 Campo de texto versátil com label flutuante e integração com React Hook Form:
 
