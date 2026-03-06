@@ -12,9 +12,16 @@ const meta: Meta<typeof Tooltip> = {
     position: {
       control: { type: "select" },
       options: ["top", "bottom", "left", "right"],
+      description: "Posição do tooltip em relação ao elemento filho.",
     },
     disabled: {
       control: { type: "boolean" },
+      description: "Desabilita o tooltip.",
+    },
+    maxWidth: {
+      control: { type: "text" },
+      description:
+        "Largura máxima do tooltip. Aceita número (convertido para `px`) ou string CSS (ex: `'200px'`, `'12rem'`, `'50%'`). Quando definido, o texto passa a quebrar em múltiplas linhas.",
     },
   },
 };
@@ -26,6 +33,7 @@ export const Default: Story = {
   args: {
     content: "Este é um tooltip padrão",
     position: "top",
+    maxWidth: undefined,
   },
   render: (args) => (
     <div className="p-8 flex justify-center">
@@ -76,6 +84,52 @@ export const LongContent: Story = {
       <Tooltip content="Este é um tooltip com conteúdo mais longo para demonstrar como ele se comporta">
         <Button>Tooltip com conteúdo longo</Button>
       </Tooltip>
+    </div>
+  ),
+};
+
+export const WithMaxWidth: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use a prop `maxWidth` para limitar a largura do tooltip e permitir que o texto quebre em múltiplas linhas. Aceita número (px) ou qualquer string CSS válida como `'12rem'` ou `'50%'`.",
+      },
+    },
+  },
+  render: () => (
+    <div className="p-16 flex flex-col items-center gap-12">
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-xs text-gray-500">Sem maxWidth (padrão)</span>
+        <Tooltip
+          content="Este tooltip não possui largura máxima e cresce conforme o conteúdo sem quebrar linha."
+          position="top"
+        >
+          <Button variant="outline">Sem maxWidth</Button>
+        </Tooltip>
+      </div>
+
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-xs text-gray-500">maxWidth={200} (número → 200px)</span>
+        <Tooltip
+          content="Este tooltip possui largura máxima de 200px e o texto quebra em múltiplas linhas quando necessário."
+          position="top"
+          maxWidth={200}
+        >
+          <Button variant="outline">maxWidth=&#123;200&#125;</Button>
+        </Tooltip>
+      </div>
+
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-xs text-gray-500">maxWidth="10rem"</span>
+        <Tooltip
+          content="Também é possível usar valores CSS como rem, em ou percentagem."
+          position="bottom"
+          maxWidth="10rem"
+        >
+          <Button variant="outline">maxWidth="10rem"</Button>
+        </Tooltip>
+      </div>
     </div>
   ),
 };

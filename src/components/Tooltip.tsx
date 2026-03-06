@@ -8,6 +8,7 @@ interface TooltipProps {
   position?: "top" | "bottom" | "left" | "right";
   className?: string;
   disabled?: boolean;
+  maxWidth?: string | number;
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
@@ -16,6 +17,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   position = "top",
   className = "",
   disabled = false,
+  maxWidth,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [actualPosition, setActualPosition] = useState(position);
@@ -80,9 +82,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
       position: 'fixed',
       top: `${top}px`, 
       left: `${left}px`,
-      zIndex: 9999
+      zIndex: 9999,
+      ...(maxWidth !== undefined ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth } : {})
     });
-  }, [isVisible, position]);
+  }, [isVisible, position, maxWidth]);
 
   const handleMouseEnter = () => {
     if (!disabled) {
@@ -161,7 +164,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
           style={tooltipStyle}
           className={cn(
             getPositionClasses(),
-            "px-2 py-1 text-sm rounded whitespace-nowrap",
+            `px-2 py-1 text-sm rounded ${maxWidth !== undefined ? 'whitespace-normal' : 'whitespace-nowrap'}`,
+
             "bg-[var(--tooltip-bg)] text-white",
             "shadow-[var(--tooltip-shadow,0_10px_15px_-3px_rgb(0_0_0_/_0.1),_0_4px_6px_-4px_rgb(0_0_0_/_0.1))]",
             "transition-opacity duration-200 ease-in-out",

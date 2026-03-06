@@ -494,6 +494,7 @@ Componente de tooltip inteligente e acessível:
 - ✅ **Suporte a temas**: Variáveis CSS para light/dark mode
 - ✅ **Flexível**: Funciona com qualquer elemento como trigger
 - ✅ **Controle de estado**: Pode ser desabilitado conforme necessário
+- ✅ **Largura configurável** (`maxWidth`): Limita a largura e permite quebra de linha no conteúdo
 
 ```tsx
 // Tooltip básico
@@ -521,7 +522,35 @@ Componente de tooltip inteligente e acessível:
 <Tooltip content="Este não aparece" disabled>
   <Button>Tooltip desabilitado</Button>
 </Tooltip>
+
+// Tooltip com largura máxima (texto longo quebra em múltiplas linhas)
+// Aceita número (convertido para px) ou qualquer string CSS válida
+<Tooltip
+  content="Este é um texto longo que vai quebrar em múltiplas linhas quando a largura for limitada."
+  position="top"
+  maxWidth={200}
+>
+  <Button>maxWidth numérico (200px)</Button>
+</Tooltip>
+
+<Tooltip
+  content="Também é possível usar valores CSS como rem, em ou percentagem."
+  position="bottom"
+  maxWidth="12rem"
+>
+  <Button>maxWidth string (12rem)</Button>
+</Tooltip>
 ```
+
+#### Props do Tooltip
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `content` | `string` | — | Texto exibido no tooltip |
+| `position` | `"top" \| "bottom" \| "left" \| "right"` | `"top"` | Posição preferencial do tooltip |
+| `disabled` | `boolean` | `false` | Desabilita o tooltip |
+| `maxWidth` | `string \| number` | `undefined` | Largura máxima. Número é convertido para `px`. Quando definido, o texto quebra em múltiplas linhas |
+| `className` | `string` | `""` | Classes CSS adicionais para o balão do tooltip |
 
 ### 🪗 **Accordion**
 
