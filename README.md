@@ -320,9 +320,47 @@ Componente completo para exibição de dados tabulares:
 
 ### �
 
-### �🎯 **Button**
+### 🎯 **Button**
 
-Botão customizável com diferentes variantes e tamanhos.
+Botão customizável com diferentes variantes, incluindo uma variante exclusiva para ícones.
+
+- ✅ Variante `default` — fundo primário com texto contrastante
+- ✅ Variante `outline` — borda primária com fundo transparente
+- ✅ Variante `secondary` — fundo secundário com texto contrastante
+- ✅ Variante `icon` — botão quadrado que centraliza um ícone filho
+
+```tsx
+import { Button } from "rharuow-ds";
+
+// Botão padrão
+<Button variant="default">Enviar</Button>
+
+// Botão outline
+<Button variant="outline">Cancelar</Button>
+
+// Botão secundário
+<Button variant="secondary">Mais opções</Button>
+
+// Botão apenas com ícone (ícone é passado como filho)
+<Button variant="icon" aria-label="Adicionar">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+</Button>
+```
+
+> **Dica:** Na variante `icon`, o ícone é passado como `children` do botão e fica automaticamente centralizado. Use sempre `aria-label` para descrever a ação do botão para acessibilidade.
 
 ### 🏷️ **Chip**
 
