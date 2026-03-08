@@ -6,6 +6,12 @@ const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["xl", "lg", "md", "sm", "xs"],
+    },
+  },
 };
 export default meta;
 
