@@ -17,3 +17,4 @@ export * from "./ImageInput";
 export * from "./Accordion";
 export * from "./Modal";
 export * from "./Toaster";
+export * from "./Switch";
