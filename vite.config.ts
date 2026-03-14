@@ -17,6 +17,7 @@ export default defineConfig({
     rollupOptions: {
       external: ["react", "react-dom", "react-hook-form"],
       output: {
+        banner: '"use client";\n',
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
