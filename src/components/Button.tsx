@@ -14,15 +14,15 @@ export const Button: React.FC<ButtonProps> = ({
   className = "",
   ...props
 }) => {
-  const base = "rounded font-medium transition";
+  const base = "rounded font-medium transition disabled:cursor-not-allowed disabled:opacity-50";
   const variants = {
     default:
-      "bg-[var(--primary)] text-[var(--primary-text)] hover:bg-[var(--primary-hover)]",
+      "bg-[var(--primary)] text-[var(--primary-text)] hover:bg-[var(--primary-hover)] disabled:hover:bg-[var(--primary)]",
     outline:
-      "border border-[var(--primary)] text-[var(--primary)] bg-white hover:bg-[var(--primary-light)]",
+      "border border-[var(--primary)] text-[var(--primary)] bg-white hover:bg-[var(--primary-light)] disabled:hover:bg-white",
     secondary:
-      "bg-[var(--secondary)] text-[var(--secondary-text)] hover:bg-[var(--secondary-hover)]",
-    icon: "inline-flex items-center justify-center bg-[var(--primary)] text-[var(--primary-text)] hover:bg-[var(--primary-hover)]",
+      "bg-[var(--secondary)] text-[var(--secondary-text)] hover:bg-[var(--secondary-hover)] disabled:hover:bg-[var(--secondary)]",
+    icon: "inline-flex items-center justify-center bg-[var(--primary)] text-[var(--primary-text)] hover:bg-[var(--primary-hover)] disabled:hover:bg-[var(--primary)]",
   };
   const sizes = {
     xl: "px-8 py-4 text-xl",

@@ -38,6 +38,30 @@ export const Secondary: Story = {
   },
 };
 
+export const DisabledDefault: Story = {
+  args: {
+    children: "Botão desabilitado",
+    variant: "default",
+    disabled: true,
+  },
+};
+
+export const DisabledOutline: Story = {
+  args: {
+    children: "Botão outline desabilitado",
+    variant: "outline",
+    disabled: true,
+  },
+};
+
+export const DisabledSecondary: Story = {
+  args: {
+    children: "Botão secundário desabilitado",
+    variant: "secondary",
+    disabled: true,
+  },
+};
+
 export const Icon: Story = {
   args: {
     variant: "icon",
