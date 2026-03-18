@@ -44,7 +44,7 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **19 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Chip, Pagination, Card, Table, Tooltip, Accordion, AsideSheet, Modal, Toaster, ImageInput)
+- 🧩 **20 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Chip, Pagination, Card, Table, Tooltip, Accordion, AsideSheet, Sidebar, Modal, Toaster, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Sistema de cores automático** - Defina apenas 2 cores e todas as variações são calculadas automaticamente
@@ -116,6 +116,7 @@ npm install react-hook-form
      Tooltip,
      Accordion,
      AsideSheet,
+     Sidebar,
      Modal,
      Toaster,
      ImageInput,
@@ -205,6 +206,7 @@ npm install react-hook-form
      Tooltip,
      Accordion,
      AsideSheet,
+     Sidebar,
      Modal,
      Toaster,
      ImageInput,
@@ -724,6 +726,80 @@ function Example() {
 Veja a story do componente no Storybook para demonstrações e variações (left/right, controlled/uncontrolled):
 
 [Storybook — AsideSheet](https://rharuow.github.io/rharuow-ds-docs/?path=/story/asidesheet--default)
+
+### 🗂️ **Sidebar**
+
+Painel lateral persistente para telas `md+` (≥ 768px). Diferente do `AsideSheet`, a Sidebar não usa overlay nem portal — é parte do layout fixo da página.
+
+- ✅ **Exclusivo para telas médias e grandes** — oculto automaticamente em mobile (`hidden md:flex`)
+- ✅ Lado configurável: `left` ou `right`
+- ✅ Larguras predefinidas: `sm` (256px), `md` (288px), `lg` (384px)
+- ✅ Largura customizada com qualquer valor CSS (ex: `"320px"`, `"20rem"`)
+- ✅ Animação suave de slide in/out
+- ✅ Sem overlay — não bloqueia o conteúdo principal
+- ✅ Variável CSS `--sidebar-bg` (fallback para `--aside-bg` e depois `#ffffff`)
+- ✅ Acessível: `role="navigation"`, `aria-expanded`
+
+Props principais:
+
+- `open: boolean` — controla visibilidade (slide in/out)
+- `side?: 'left' | 'right'` — lado de abertura (padrão: `'left'`)
+- `size?: 'sm' | 'md' | 'lg' | string` — tamanho pré-definido ou valor CSS customizado (padrão: `'md'`)
+- `className?: string` — classes adicionais para o container
+
+Exemplo de uso:
+
+```tsx
+import React from 'react';
+import { Sidebar, Button } from 'rharuow-ds';
+
+function Layout() {
+  const [sidebarOpen, setSidebarOpen] = React.useState(true);
+
+  return (
+    <div className="flex min-h-screen">
+      <Sidebar open={sidebarOpen} side="left" size="md">
+        <div className="p-6 flex flex-col gap-4">
+          <h3 className="text-lg font-semibold">Menu</h3>
+          <nav className="flex flex-col gap-2 text-sm">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/users">Usuários</a>
+            <a href="/settings">Configurações</a>
+          </nav>
+        </div>
+      </Sidebar>
+
+      {/* Conteúdo principal com margem para não ficar atrás da sidebar */}
+      <main className="flex-1 md:ml-72 p-6">
+        <Button onClick={() => setSidebarOpen((v) => !v)}>
+          {sidebarOpen ? 'Fechar Sidebar' : 'Abrir Sidebar'}
+        </Button>
+        <p>Conteúdo da página.</p>
+      </main>
+    </div>
+  );
+}
+```
+
+Exemplo com largura customizada:
+
+```tsx
+<Sidebar open={open} side="left" size="320px">
+  {/* conteúdo */}
+</Sidebar>
+```
+
+Variável CSS para customizar a cor de fundo:
+
+```css
+:root {
+  --sidebar-bg: #1e293b; /* escuro */
+}
+```
+
+Veja as stories do componente no Storybook:
+
+[Storybook — Sidebar](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-sidebar--left)
 
 ### 🎭 **Modal**
 
