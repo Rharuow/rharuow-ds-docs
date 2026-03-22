@@ -180,9 +180,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
               : { top: "14px", transform: "scale(1)", transformOrigin: "0 0" }
             }
             className={cn(
-              "absolute left-3 z-10 cursor-text select-none transition-all duration-200",
+              "absolute left-3 z-10 cursor-text select-none text-[var(--foreground)] transition-all duration-200",
               isFloating
-                ? "text-xs text-[var(--foreground)] p-1 rounded-full bg-white"
+                ? "text-xs p-1 rounded-full bg-white"
                 : "text-sm",
             )}
           >
