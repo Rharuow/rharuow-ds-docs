@@ -175,11 +175,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
         {label && (
           <label
             htmlFor={props.id || name}
+            style={isFloating
+              ? { top: "-14px", transform: "scale(0.9)", transformOrigin: "0 0" }
+              : { top: "14px", transform: "scale(1)", transformOrigin: "0 0" }
+            }
             className={cn(
-              "absolute left-3 z-10 origin-[0] cursor-text select-none text-sm text-gray-400 transition-all duration-200",
+              "absolute left-3 z-10 cursor-text select-none transition-all duration-200",
               isFloating
-                ? "top-0 scale-90 -translate-y-1 text-xs text-[var(--primary)] p-1 rounded-full bg-white"
-                : "top-3 scale-100 translate-y-0.5"
+                ? "text-xs text-[var(--foreground)] p-1 rounded-full bg-white"
+                : "text-sm",
             )}
           >
             {label}
