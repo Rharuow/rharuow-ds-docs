@@ -439,6 +439,8 @@ Campo de texto versátil com label flutuante e integração com React Hook Form:
 - ✅ Label flutuante animada
 - ✅ Suporte a múltiplos tipos (text, email, password, number, tel, url)
 - ✅ Funcionalidade de password com botão mostrar/ocultar
+- ✅ Variante de moeda com máscara e formatação automática (BRL por padrão)
+- ✅ Saída configurável no React Hook Form como string formatada ou number
 - ✅ Ícones customizados opcionais
 - ✅ Estados de erro integrados
 - ✅ Totalmente acessível (ARIA)

@@ -4,11 +4,17 @@ import { useFormContext, useWatch } from "react-hook-form";
 
 import { cn } from "../lib/utils";
 import { applyCpfMask, validateCpf } from "../lib/cpf.utils";
+import {
+  DEFAULT_CURRENCY_CODE,
+  DEFAULT_CURRENCY_LOCALE,
+  formatCurrencyValue,
+  parseCurrencyValue,
+  serializeCurrencyValue,
+  type CurrencyValueType,
+} from "../lib/currency.utils";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
-
-export interface CustomProps {
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label?: string;
   Icon?: React.ElementType;
@@ -16,9 +22,13 @@ export interface CustomProps {
   containerClassName?: string;
   iconAction?: React.MouseEventHandler<HTMLDivElement>;
   cpf?: boolean;
+  currency?: boolean;
+  currencyCode?: string;
+  currencyLocale?: string;
+  currencyValueType?: CurrencyValueType;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       name,
@@ -33,6 +43,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
       iconAction,
       containerClassName,
       cpf = false,
+      currency = false,
+      currencyCode = DEFAULT_CURRENCY_CODE,
+      currencyLocale = DEFAULT_CURRENCY_LOCALE,
+      currencyValueType = "string",
+      value: valueProp,
+      defaultValue: defaultValueProp,
       ...props
     },
     ref
@@ -47,7 +63,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
     const valueWatch =
       control && name ? useWatch({ control, name }) : undefined;
 
-    const value = props.value ?? valueWatch ?? "";
+    const value = valueProp ?? valueWatch ?? defaultValueProp ?? "";
+    const displayValue = currency
+      ? formatCurrencyValue(value as string | number | null | undefined, currencyCode, currencyLocale)
+      : value;
 
     const error = form?.formState?.errors?.[name as string]?.message || cpfError;
 
@@ -56,10 +75,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
     const isDateTimeInput = dateTimeTypes.includes(type);
 
     // Floating label: label sobe se input está focado, tem valor OU é um input de data/hora
-    const isFloating = focused || !!value || isDateTimeInput;
+    const isFloating = focused || !!displayValue || isDateTimeInput;
 
     // Para inputs de password, o type real depende do estado showPassword
-    const inputType = type === "password" ? (showPassword ? "text" : "password") : type;
+    const inputType = currency
+      ? "text"
+      : type === "password"
+        ? (showPassword ? "text" : "password")
+        : type;
 
     // Ícones de olho para password
     const EyeOpenIcon = () => (
@@ -82,6 +105,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
 
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
+    };
+
+    const handleCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (!currency) {
+        return;
+      }
+
+      event.target.value = formatCurrencyValue(
+        event.target.value,
+        currencyCode,
+        currencyLocale
+      );
     };
 
     // Handler para aplicar máscara e validação de CPF
@@ -111,6 +146,60 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
       }
     };
 
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (currency) {
+        handleCurrencyChange(event);
+      }
+
+      handleCpfChange(event);
+    };
+
+    const registerOptions = currency
+      ? {
+          setValueAs: (inputValue: string) =>
+            serializeCurrencyValue(
+              inputValue,
+              currencyValueType,
+              currencyCode,
+              currencyLocale
+            ),
+          validate: (inputValue: string | number | undefined) => {
+            if (
+              inputValue === undefined ||
+              inputValue === null ||
+              inputValue === ""
+            ) {
+              return true;
+            }
+
+            return parseCurrencyValue(inputValue) !== null || "Valor monetário inválido";
+          },
+        }
+      : cpf
+        ? {
+            validate: (inputValue: string) => {
+              if (!inputValue) return "CPF é obrigatório";
+              if (inputValue.length < 14) return "CPF incompleto";
+              if (!validateCpf(inputValue)) return "CPF inválido";
+              return true;
+            },
+          }
+        : undefined;
+
+    const controlledValue = currency && valueProp === undefined && form
+      ? displayValue
+      : currency && valueProp !== undefined
+        ? displayValue
+        : valueProp;
+
+    const resolvedDefaultValue = currency
+      ? formatCurrencyValue(
+          defaultValueProp as string | number | null | undefined,
+          currencyCode,
+          currencyLocale
+        )
+      : defaultValueProp;
+
     return (
       <div className={cn("relative", containerClassName)}>
         <input
@@ -127,18 +216,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
             onFocus && onFocus(event);
           }}
           maxLength={cpf ? 14 : props.maxLength}
-          inputMode={cpf ? "numeric" : props.inputMode}
+          inputMode={currency ? "decimal" : cpf ? "numeric" : props.inputMode}
           // Merge register's ref with custom ref to avoid duplication
           {...(form && name
             ? (() => {
-                const registered = register(name, cpf ? {
-                  validate: (value: string) => {
-                    if (!value) return 'CPF é obrigatório';
-                    if (value.length < 14) return 'CPF incompleto';
-                    if (!validateCpf(value)) return 'CPF inválido';
-                    return true;
-                  }
-                } : undefined);
+                const registered = register(name, registerOptions);
                 const originalOnBlur = registered.onBlur;
                 const originalOnChange = registered.onChange;
                 return {
@@ -157,7 +239,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
                     if (originalOnBlur) originalOnBlur(event);
                   },
                   onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
-                    handleCpfChange(event);
+                    handleInputChange(event);
                     if (originalOnChange) originalOnChange(event);
                   },
                 };
@@ -168,8 +250,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
                   setFocused(false);
                   if (onBlur) onBlur(event);
                 },
-                onChange: handleCpfChange,
+                onChange: handleInputChange,
               })}
+          value={controlledValue}
+          defaultValue={controlledValue === undefined ? resolvedDefaultValue : undefined}
           {...props}
         />
         {label && (
@@ -191,7 +275,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & CustomProps>(
         )}
         
         {/* Ícone de senha (tem prioridade sobre ícone customizado) */}
-        {type === "password" && (
+        {type === "password" && !currency && (
           <button
             type="button"
             className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-[var(--primary)] transition-colors duration-200 focus:outline-none focus:text-[var(--primary)]"
