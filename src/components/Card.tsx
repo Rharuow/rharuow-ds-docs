@@ -45,7 +45,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
           "px-2 py-1 sm:px-4 sm:py-2 lg:px-6 lg:py-4 border-b",
           "bg-[var(--card-header-bg)]",
           "border-[var(--card-header-border)]",
-          "text-[var(--text-primary)]",
+          "text-[var(--foreground)]",
           className
         )}
         {...props}
@@ -68,7 +68,7 @@ const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(
           "px-2 py-1 sm:px-4 sm:py-2 lg:px-6 lg:py-4",
           "flex-1", // Para ocupar o espaço disponível
           "bg-[var(--card-body-bg)]",
-          "text-[var(--text-primary)]",
+          "text-[var(--foreground)]",
           className
         )}
         {...props}
@@ -91,7 +91,7 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
           "px-6 py-4 border-t",
           "bg-[var(--card-footer-bg)]",
           "border-[var(--card-footer-border)]",
-          "text-[var(--text-primary)]",
+          "text-[var(--foreground)]",
           className
         )}
         {...props}

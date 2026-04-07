@@ -264,7 +264,7 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
           aria-haspopup="listbox"
           aria-expanded={open}
           className={cn(
-            "peer flex items-center min-h-12 w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--text-primary)] px-3 py-2 text-sm transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
+            "peer flex items-center min-h-12 w-full border border-[var(--primary)] rounded-md bg-[var(--input-bg)] text-[var(--foreground)] px-3 py-2 text-sm transition focus:outline-none focus:border-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer relative",
             className
           )}
           onClick={handleContainerClick}
@@ -375,7 +375,7 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
         <div
           className={cn(
             "absolute left-0 w-full mt-1 rounded-md transition-all duration-200 overflow-hidden",
-            "bg-[var(--select-dropdown-bg)] border-[var(--select-dropdown-border)] text-[var(--text-primary)]",
+            "bg-[var(--select-dropdown-bg)] border-[var(--select-dropdown-border)] text-[var(--foreground)]",
             open
               ? "border max-h-36 opacity-100 scale-100"
               : "max-h-0 opacity-0 scale-95 pointer-events-none"

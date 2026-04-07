@@ -109,7 +109,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
           "w-full flex items-center justify-between px-4 py-3 text-left transition-colors",
           "bg-[var(--accordion-header-bg)]",
           "hover:bg-[var(--accordion-header-hover,rgba(0,0,0,0.05))]",
-          "text-[var(--text-primary)]",
+          "text-[var(--foreground)]",
           "font-medium",
           disabled && "opacity-50 cursor-not-allowed",
           isOpen && variant !== "default" && currentVariant.header,
@@ -145,7 +145,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
           ref={contentRef}
           className={cn(
             "px-4 py-3",
-            "text-[var(--text-primary)]",
+            "text-[var(--foreground)]",
             "bg-[var(--accordion-content-bg)]",
             contentClassName
           )}
