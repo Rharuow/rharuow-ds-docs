@@ -20,3 +20,4 @@ export * from "./Modal";
 export * from "./Toaster";
 export * from "./Switch";
 export * from "./BottomTabNavigator";
+export * from "./BottomSheet";
