@@ -19,3 +19,4 @@ export * from "./Accordion";
 export * from "./Modal";
 export * from "./Toaster";
 export * from "./Switch";
+export * from "./BottomTabNavigator";
