@@ -2,49 +2,14 @@
 
 [![NPM Version](https://img.shields.io/npm/v/rharuow-ds)](https://www.npmjs.com/package/rharuow-ds)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/Rharuow/rharuow-ds-docs/workflows/CI### 📋 **Select**
-
-Seletor customizado com opções estáticas e suporte a busca:
-
-- ✅ Opções estáticas predefinidas
-- ✅ **Filtro digitável** (`searchable`) - Digite para encontrar opções
-- ✅ Filtro case-sensitive configurável
-- ✅ Função de filtro customizável
-- ✅ Placeholder personalizado para busca
-- ✅ Validação de valores (só aceita opções válidas)
-- ✅ Botão de limpeza (`isClearable`)
-- ✅ Integração completa com React Hook Form
-
-```tsx
-// Select básico
-<Select
-  name="fruit"
-  label="Escolha uma fruta"
-  options={[
-    { label: "Maçã", value: "apple" },
-    { label: "Banana", value: "banana" },
-    { label: "Manga", value: "mango" }
-  ]}
-/>
-
-// Select com filtro
-<Select
-  name="fruit"
-  label="Escolha uma fruta"
-  searchable
-  filterPlaceholder="Digite para filtrar frutas..."
-  caseSensitive={false}
-  isClearable
-  options={fruitOptions}
-/>
-```dge.svg)](https://github.com/Rharuow/rharuow-ds-docs/actions)
+[![Build Status](https://github.com/Rharuow/rharuow-ds-docs/workflows/CI/badge.svg)](https://github.com/Rharuow/rharuow-ds-docs/actions)
 
 Um Design System moderno em React com integração completa ao React Hook Form, estilizado com Tailwind CSS e baseado em shadcn/ui.
 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **20 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Chip, Pagination, Card, Table, Tooltip, Accordion, AsideSheet, Sidebar, Modal, Toaster, ImageInput)
+- 🧩 **23 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Switch, Chip, Pagination, Card, Table, Tooltip, Accordion, AsideSheet, Sidebar, BottomSheet, BottomTabNavigator, Modal, Toaster, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Sistema de cores automático** - Defina apenas 2 cores e todas as variações são calculadas automaticamente
@@ -117,6 +82,9 @@ npm install react-hook-form
      Accordion,
      AsideSheet,
      Sidebar,
+    BottomSheet,
+    BottomTabNavigator,
+    Switch,
      Modal,
      Toaster,
      ImageInput,
@@ -207,6 +175,9 @@ npm install react-hook-form
      Accordion,
      AsideSheet,
      Sidebar,
+    BottomSheet,
+    BottomTabNavigator,
+    Switch,
      Modal,
      Toaster,
      ImageInput,
@@ -802,6 +773,145 @@ Variável CSS para customizar a cor de fundo:
 Veja as stories do componente no Storybook:
 
 [Storybook — Sidebar](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-sidebar--left)
+
+### 🔀 **Switch**
+
+Componente de alternancia (on/off) com foco em acessibilidade e controle simples de estado.
+
+- ✅ Funciona em modo controlado com `checked` + `onChange`
+- ✅ Label opcional com posicao configuravel (`left` ou `right`)
+- ✅ Tamanhos predefinidos: `sm`, `md`, `lg`
+- ✅ Estado `disabled` com estilo e comportamento apropriados
+- ✅ Acessivel com `role="switch"` e `aria-checked`
+
+Props principais:
+
+- `checked?: boolean` - Estado atual do switch
+- `onChange?: (checked: boolean) => void` - Callback ao alternar
+- `label?: string` - Texto exibido ao lado do controle
+- `labelPosition?: 'left' | 'right'` - Posicao do label (padrao: `'right'`)
+- `size?: 'sm' | 'md' | 'lg'` - Tamanho visual (padrao: `'md'`)
+- `disabled?: boolean` - Desabilita interacao
+
+Exemplo de uso:
+
+```tsx
+import React from 'react';
+import { Switch } from 'rharuow-ds';
+
+function Settings() {
+  const [notifications, setNotifications] = React.useState(false);
+
+  return (
+    <Switch
+      checked={notifications}
+      onChange={setNotifications}
+      label={notifications ? 'Notificacoes ativas' : 'Notificacoes inativas'}
+      labelPosition="right"
+      size="md"
+    />
+  );
+}
+```
+
+Storybook:
+
+[Storybook — Switch](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-switch--default)
+
+### 📱 **BottomTabNavigator**
+
+Navegacao inferior fixa para mobile, ideal para areas principais do app.
+
+- ✅ Exibido somente em telas pequenas (`md:hidden`)
+- ✅ Suporte a modo controlado (`value`) e nao controlado (`defaultValue`)
+- ✅ Cada item pode ter icone, badge e estado desabilitado
+- ✅ Layout responsivo com colunas dinamicas conforme quantidade de tabs
+- ✅ Acessivel com `role="tablist"` e `role="tab"`
+
+Props principais:
+
+- `items: BottomTabItem[]` - Lista de abas
+- `value?: string` - Valor selecionado (modo controlado)
+- `defaultValue?: string` - Valor inicial (modo nao controlado)
+- `onValueChange?: (value: string) => void` - Callback de troca de aba
+
+Exemplo de uso:
+
+```tsx
+import React from 'react';
+import { BottomTabNavigator } from 'rharuow-ds';
+
+function MobileLayout() {
+  const [active, setActive] = React.useState('home');
+
+  return (
+    <BottomTabNavigator
+      value={active}
+      onValueChange={setActive}
+      items={[
+        { id: 'home', label: 'Inicio', icon: '🏠' },
+        { id: 'search', label: 'Buscar', icon: '🔎' },
+        { id: 'wallet', label: 'Carteira', icon: '💳', badge: '●' },
+        { id: 'profile', label: 'Perfil', icon: '👤' },
+      ]}
+    />
+  );
+}
+```
+
+Storybook:
+
+[Storybook — BottomTabNavigator](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-bottomtabnavigator--default)
+
+### 🧲 **BottomSheet**
+
+Painel deslizante que abre de baixo para cima em mobile, util para filtros, acoes e formularios curtos.
+
+- ✅ Exibido apenas em mobile (`md:hidden`)
+- ✅ Portal no `document.body` com overlay
+- ✅ Fechamento por overlay e tecla ESC (configuravel)
+- ✅ Bloqueio de scroll do body enquanto aberto (configuravel)
+- ✅ Suporte a arrastar para baixo para fechar (`closeOnDragDown`)
+- ✅ Tamanhos predefinidos (`sm`, `md`, `lg`, `full`) ou valor customizado
+
+Props principais:
+
+- `open: boolean` - Controla visibilidade do painel
+- `onClose: () => void` - Callback ao fechar
+- `size?: 'sm' | 'md' | 'lg' | 'full' | string` - Altura maxima do painel
+- `closeOnOverlayClick?: boolean` - Fecha ao clicar fora (padrao: `true`)
+- `closeOnEscape?: boolean` - Fecha ao pressionar ESC (padrao: `true`)
+- `lockBodyScroll?: boolean` - Bloqueia scroll da pagina (padrao: `true`)
+- `closeOnDragDown?: boolean` - Habilita gesto de arrastar para fechar (padrao: `true`)
+- `dragCloseThreshold?: number` - Distancia minima de arraste para fechar (padrao: `100`)
+
+Exemplo de uso:
+
+```tsx
+import React from 'react';
+import { BottomSheet, Button } from 'rharuow-ds';
+
+function Filters() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Abrir filtros</Button>
+
+      <BottomSheet open={open} onClose={() => setOpen(false)} size="md">
+        <div className="px-4 pb-6 pt-4">
+          <h3 className="text-lg font-semibold">Filtros rapidos</h3>
+          <p className="mt-2 text-sm">Escolha os filtros e aplique.</p>
+        </div>
+      </BottomSheet>
+    </>
+  );
+}
+```
+
+Storybook:
+
+[Storybook — BottomSheet](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-bottomsheet--default)
 
 ### 🎭 **Modal**
 
