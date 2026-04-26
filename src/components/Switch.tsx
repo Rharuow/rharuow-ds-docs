@@ -85,7 +85,7 @@ export const Switch: React.FC<SwitchProps> = ({
     >
       <span
         className={cn(
-          "inline-block rounded-full bg-white shadow transition-transform duration-200",
+          "inline-block rounded-full shadow transition-transform duration-200",
           thumbSizes[size],
           thumbTranslate[size]
         )}

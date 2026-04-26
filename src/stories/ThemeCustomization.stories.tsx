@@ -351,7 +351,7 @@ export const ThemePresets: Story = {
                 </div>
               </div>
 
-              <div className="mt-4 p-3 bg-white/80 rounded text-xs">
+              <div className="mt-4 p-3 rounded text-xs">
                 <pre className="text-gray-700 overflow-x-auto">
 {`:root {
   --primary: ${theme.colors.primary};

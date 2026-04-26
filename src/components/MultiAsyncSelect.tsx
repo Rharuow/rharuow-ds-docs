@@ -363,7 +363,7 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
             className={cn(
               "absolute left-3 z-10 cursor-text select-none transition-all duration-200 text-[var(--foreground)]",
               isFloating
-                ? "text-xs p-1 rounded-full bg-white"
+                ? "text-xs p-1 rounded-full"
                 : "text-sm"
             )}
           >

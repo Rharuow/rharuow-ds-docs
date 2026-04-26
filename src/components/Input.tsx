@@ -266,7 +266,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className={cn(
               "absolute left-3 z-10 cursor-text select-none text-[var(--foreground)] transition-all duration-200",
               isFloating
-                ? "text-xs p-1 rounded-full bg-white"
+                ? "text-xs p-1 rounded-full"
                 : "text-sm",
             )}
           >
