@@ -34,13 +34,13 @@ export const Default: Story = {
             </p>
 
             <div className="mt-4 flex flex-col gap-2">
-              <button className="rounded-lg border border-gray-200 px-3 py-2 text-left text-sm">
+              <button className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-left text-sm">
                 Últimos 7 dias
               </button>
-              <button className="rounded-lg border border-gray-200 px-3 py-2 text-left text-sm">
+              <button className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-left text-sm">
                 Entradas
               </button>
-              <button className="rounded-lg border border-gray-200 px-3 py-2 text-left text-sm">
+              <button className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-left text-sm">
                 Saídas
               </button>
             </div>
@@ -76,7 +76,7 @@ export const Large: Story = {
             </p>
             <div className="mt-4 space-y-2">
               {Array.from({ length: 10 }).map((_, index) => (
-                <div key={index} className="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+                <div key={index} className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm">
                   Item {index + 1}
                 </div>
               ))}

@@ -308,7 +308,7 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
             className={cn(
               "absolute left-3 z-10 cursor-text select-none text-[var(--foreground)] transition-all duration-200",
               isFloating
-                ? "text-xs p-1 rounded-full"
+                ? "text-xs p-1 rounded-full bg-white text-[var(--primary)]"
                 : "text-sm"
             )}
           >

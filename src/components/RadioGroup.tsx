@@ -94,7 +94,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
                 sizeMap[size],
                 value === opt.value
                   ? "border-[var(--primary)] bg-[var(--primary-light)] text-[var(--primary)] ring-2 ring-[var(--primary-light)] shadow-md transform scale-[1.02]"
-                  : "border-gray-200 text-gray-600 hover:border-[var(--primary)] hover:bg-[var(--primary-light)] hover:text-[var(--primary)] hover:shadow-md",
+                  : "border-gray-200 bg-white text-[var(--primary)] hover:border-[var(--primary)] hover:bg-[var(--primary-light)] hover:text-[var(--primary)] hover:shadow-md",
                 optionClassName
               )}
               aria-pressed={value === opt.value}
