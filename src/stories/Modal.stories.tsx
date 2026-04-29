@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Modal } from "../components/Modal";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
+import { Select } from "../components/Select";
 import { FormProvider, useForm } from "react-hook-form";
 
 const meta: Meta<typeof Modal> = {
@@ -421,6 +422,56 @@ export const CustomBackground: Story = {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={() => setOpen(false)}>Fechar</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  },
+};
+
+export const WithSelectInModal: Story = {
+  render: () => {
+    const [open, setOpen] = React.useState(false);
+    const [provider, setProvider] = React.useState("");
+
+    return (
+      <div className="p-8">
+        <Button onClick={() => setOpen(true)}>Abrir Modal com Select</Button>
+
+        <Modal open={open} onClose={() => setOpen(false)} size="md">
+          <Modal.Header>
+            <h2 className="text-2xl font-bold">Modal com Select</h2>
+            <p className="text-sm text-gray-500 mt-1">
+              Use esta story para validar o posicionamento do dropdown dentro do modal.
+            </p>
+          </Modal.Header>
+
+          <Modal.Body>
+            <div className="space-y-4">
+              <Select
+                name="provider"
+                label="Provedor"
+                searchable
+                value={provider}
+                onChange={(event) => setProvider(String(event.target.value || ""))}
+                options={[
+                  { value: "pagarme", label: "Pagar.me" },
+                  { value: "stripe", label: "Stripe" },
+                  { value: "mercadopago", label: "Mercado Pago" },
+                  { value: "adyen", label: "Adyen" },
+                ]}
+              />
+
+              <p className="text-sm text-gray-600">
+                Selecionado: <strong>{provider || "nenhum"}</strong>
+              </p>
+            </div>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              Fechar
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>

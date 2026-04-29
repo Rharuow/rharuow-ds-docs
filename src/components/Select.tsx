@@ -269,7 +269,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             className={cn(
               "absolute left-3 z-10 cursor-text select-none transition-all text-[var(--foreground)] duration-200",
               isFloating
-                ? "text-xs p-1 rounded-full bg-white text-[var(--primary)]"
+                ? "text-xs p-1 rounded-full bg-[var(--input-bg)] text-[var(--primary)]"
                 : "text-sm"
             )}
           >

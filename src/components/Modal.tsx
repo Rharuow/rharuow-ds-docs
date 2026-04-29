@@ -105,10 +105,10 @@ export const Modal = (({
         role="dialog"
         aria-modal={true}
         className={cn(
-          "relative rounded-lg shadow-xl w-full transition-all duration-200",
+          "relative rounded-lg shadow-xl w-full transition-opacity duration-200",
           sizeClasses[size],
           variantClasses[variant],
-          open ? "scale-100 opacity-100" : "scale-95 opacity-0",
+          open ? "opacity-100" : "opacity-0",
           className
         )}
         {...props}
