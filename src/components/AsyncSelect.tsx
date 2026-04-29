@@ -59,8 +59,11 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
     const value = props.value ?? valueWatch ?? "";
     const error = form?.formState?.errors?.[name as string]?.message;
 
-    // Floating label: label sobe se select está focado ou tem valor
-    const isFloating = focused || !!value;
+    const selectedOption = options.find(opt => opt.value === value);
+    const hasSelectedOption = !!selectedOption;
+
+    // Floating label: considera opcao selecionada mesmo com value vazio (""), evitando sobreposicao
+    const isFloating = focused || hasSelectedOption || open;
 
     // Utility to detect mobile devices
     const isMobileDevice = React.useCallback(() => {
@@ -239,7 +242,6 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
       setInputValue("");
     };
 
-    const selectedOption = options.find(opt => opt.value === value);
     const displayValue = searchable && open ? inputValue : (selectedOption?.label || "");
 
     return (
@@ -270,11 +272,11 @@ const AsyncSelect = React.forwardRef<HTMLSelectElement, AsyncSelectProps>(
               placeholder={!label ? "Selecione..." : ""}
               className={cn(
                 "w-full bg-transparent border-none outline-none text-sm",
-                !value && !inputValue && "text-gray-400"
+                !hasSelectedOption && !inputValue && "text-gray-400"
               )}
             />
           ) : (
-            <span className={cn("block truncate", !value && "text-gray-400")}>
+            <span className={cn("block truncate", !hasSelectedOption && "text-gray-400")}>
               {selectedOption?.label || (!label && "Selecione...")}
             </span>
           )}

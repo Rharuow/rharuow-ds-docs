@@ -61,7 +61,7 @@ const MultiAsyncSelect = React.forwardRef<HTMLDivElement, MultiAsyncSelectProps>
     const value: string[] = props.value ?? valueWatch ?? [];
     const error = form?.formState?.errors?.[name as string]?.message;
 
-    const isFloating = focused || (value && value.length > 0);
+    const isFloating = focused || (value && value.length > 0) || open;
 
     // Utility to detect mobile devices
     const isMobileDevice = React.useCallback(() => {

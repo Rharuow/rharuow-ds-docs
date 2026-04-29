@@ -33,6 +33,7 @@ export default {
 };
 
 const options = [
+  { label: "Todas as frutas", value: "" },
   { label: "Apple", value: "apple" },
   { label: "Banana", value: "banana" },
   { label: "Cherry", value: "cherry" },
@@ -149,3 +150,35 @@ CaseSensitiveFilter.args = {
 };
 
 CaseSensitiveFilter.storyName = "Filtro Case-Sensitive";
+
+export const EmptyValueWithLabel: StoryFn<DefaultStoryProps> = (args) => {
+  const methods: UseFormReturn<FormValues> = useForm<FormValues>({
+    defaultValues: { select: "" },
+  });
+  return (
+    <FormProvider {...methods}>
+      <form style={{ maxWidth: 320 }}>
+        <Select
+          label={args.label || "Escolha uma opção"}
+          isClearable={args.isClearable ?? true}
+          {...args}
+          name={args.name || "select"}
+          options={args.options || options}
+        />
+        <div style={{ marginTop: "24px", padding: "12px", backgroundColor: "#f3f4f6", borderRadius: "6px", fontSize: "12px" }}>
+          <p><strong>✅ Solução implementada:</strong></p>
+          <p>Ao abrir o dropdown, o label flutua para cima mesmo com valor vazio, evitando sobreposição.</p>
+        </div>
+      </form>
+    </FormProvider>
+  );
+};
+
+EmptyValueWithLabel.args = {
+  name: "select",
+  options,
+  label: "Escolha uma opção",
+  isClearable: true,
+};
+
+EmptyValueWithLabel.storyName = "Valor Vazio com Label";

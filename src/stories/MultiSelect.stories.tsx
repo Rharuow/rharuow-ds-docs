@@ -187,6 +187,7 @@ export const ThemeVariations: StoryFn = () => {
 };
 
 const fruitOptions = [
+  { label: "Todas as frutas", value: "" },
   { label: "Apple", value: "apple" },
   { label: "Banana", value: "banana" },
   { label: "Cherry", value: "cherry" },
@@ -273,3 +274,36 @@ MultiSelectCaseSensitive.args = {
 };
 
 MultiSelectCaseSensitive.storyName = "Filtro Case-Sensitive";
+
+export const EmptyValueWithLabel: StoryFn<DefaultStoryProps> = (args) => {
+  const methods: UseFormReturn<FormValues> = useForm<FormValues>({
+    defaultValues: { multiSelect: [] },
+  });
+  
+  return (
+    <FormProvider {...methods}>
+      <form style={{ maxWidth: 320 }}>
+        <MultiSelect
+          label={args.label || "Escolha uma ou mais opções"}
+          isClearable={args.isClearable ?? true}
+          {...args}
+          name={args.name || "multiSelect"}
+          options={args.options || fruitOptions}
+        />
+        <div style={{ marginTop: "24px", padding: "12px", backgroundColor: "#f3f4f6", borderRadius: "6px", fontSize: "12px" }}>
+          <p><strong>✅ Solução implementada:</strong></p>
+          <p>Ao abrir o dropdown, o label flutua para cima mesmo com valor vazio, evitando sobreposição.</p>
+        </div>
+      </form>
+    </FormProvider>
+  );
+};
+
+EmptyValueWithLabel.args = {
+  name: "multiSelect",
+  options: fruitOptions,
+  label: "Escolha uma ou mais opções",
+  isClearable: true,
+};
+
+EmptyValueWithLabel.storyName = "Valor Vazio com Label";

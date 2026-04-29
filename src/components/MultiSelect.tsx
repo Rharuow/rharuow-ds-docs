@@ -70,7 +70,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
       ? options.filter(option => applyFilter(option, inputValue.trim()))
       : options;
 
-    const isFloating = focused || (value && value.length > 0) || (searchable && !!inputValue);
+    const isFloating = focused || (value && value.length > 0) || open || (searchable && !!inputValue);
 
     // Utility to detect mobile devices
     const isMobileDevice = React.useCallback(() => {

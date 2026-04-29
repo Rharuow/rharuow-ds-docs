@@ -87,6 +87,7 @@ type Story = StoryObj<typeof meta>;
 
 // Mock data
 const mockOptions: SelectOption[] = [
+  { label: "Todos os países", value: "" },
   { label: "Brasil", value: "br" },
   { label: "Estados Unidos", value: "us" },
   { label: "Argentina", value: "ar" },
@@ -294,6 +295,23 @@ export const WithoutLabel: Story = {
     docs: {
       description: {
         story: "Exemplo sem label - útil quando o contexto já deixa claro o que é o campo.",
+      },
+    },
+  },
+};
+
+export const EmptyValueWithLabel: Story = {
+  args: {
+    name: "country-empty",
+    label: "Escolha um país",
+    loadOptions: loadCountries,
+    defaultOptions: true,
+    isClearable: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Demonstra a solução para o caso de valor vazio com label: o label flutua quando o dropdown abre, evitando sobreposição com as opções.",
       },
     },
   },

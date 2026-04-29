@@ -68,10 +68,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
     // Display value logic
     const selectedOption = options.find(opt => opt.value === value);
+    const hasSelectedOption = !!selectedOption;
     const displayValue = searchable && open ? inputValue : (selectedOption?.label || "");
 
-    // Floating label: label sobe se select está focado ou tem valor
-    const isFloating = focused || !!value || (searchable && !!inputValue);
+    // Floating label: considera opcao selecionada mesmo com value vazio (""), evitando sobreposicao
+    const isFloating = focused || hasSelectedOption || open || (searchable && !!inputValue);
 
     // Utility to detect mobile devices
     const isMobileDevice = React.useCallback(() => {
@@ -227,12 +228,12 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               placeholder={!label ? (filterPlaceholder || "Selecione...") : ""}
               className={cn(
                 "w-full bg-transparent border-none outline-none text-sm",
-                !value && !inputValue && "text-gray-400"
+                !hasSelectedOption && !inputValue && "text-gray-400"
               )}
             />
           ) : (
-            <span className={cn("block truncate", !value && "text-gray-400")}>
-              {options.find((opt) => opt.value === value)?.label ||
+            <span className={cn("block truncate", !hasSelectedOption && "text-gray-400")}>
+              {selectedOption?.label ||
                 (!label && "Selecione...")}
             </span>
           )}
