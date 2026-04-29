@@ -96,6 +96,9 @@ input[type="number"] {
   --tooltip-bg: var(--neutral-700);
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
+  /* Modal Variables - Light Theme */
+  --bg-modal: #ffffff;
+
   /* Chip Variables - Light Theme */
   --chip-active-text: var(--foreground);
   --chip-inactive-bg: #ffffff;
@@ -236,6 +239,9 @@ input[type="number"] {
   --tooltip-bg: var(--neutral-100);
   --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
 
+  /* Modal Variables - Dark Theme */
+  --bg-modal: #000000;
+
   /* Chip Variables - Dark Theme */
   --chip-active-text: #ffffff;
   --chip-inactive-bg: var(--neutral-100);
@@ -323,6 +329,9 @@ input[type="number"] {
     /* Tooltip Variables - Dark Theme (Auto) */
     --tooltip-bg: var(--neutral-100);
     --tooltip-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+
+    /* Modal Variables - Dark Theme (Auto) */
+    --bg-modal: #000000;
 
     /* Chip Variables - Dark Theme (Auto) */
     --chip-active-text: #ffffff;

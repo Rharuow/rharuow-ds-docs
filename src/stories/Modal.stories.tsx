@@ -389,3 +389,41 @@ export const AllVariants: Story = {
     );
   },
 };
+
+export const CustomBackground: Story = {
+  render: () => {
+    const [open, setOpen] = React.useState(false);
+    return (
+      <div
+        className="p-8"
+        style={{ "--bg-modal": "#1e3a5f" } as React.CSSProperties}
+      >
+        <p className="text-sm text-gray-600 mb-4">
+          Este exemplo define <code>--bg-modal: #1e3a5f</code> no elemento pai,
+          simulando a customização feita pelo app consumidor.
+        </p>
+        <Button onClick={() => setOpen(true)}>Abrir Modal Customizado</Button>
+        <Modal open={open} onClose={() => setOpen(false)}>
+          <Modal.Header>
+            <h2 className="text-2xl font-bold text-white">Background Customizado</h2>
+            <p className="text-sm text-blue-200 mt-1">
+              Cor definida via variável <code>--bg-modal</code>
+            </p>
+          </Modal.Header>
+          <Modal.Body>
+            <p className="text-gray-200">
+              O app consumidor pode definir <code>--bg-modal</code> no CSS global
+              para alterar o background do Modal. O design system define{" "}
+              <strong className="text-white">branco</strong> para o tema claro e{" "}
+              <strong className="text-white">preto</strong> para o tema escuro como
+              valores padrão.
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => setOpen(false)}>Fechar</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  },
+};

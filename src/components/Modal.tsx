@@ -68,7 +68,7 @@ export const Modal = (({
   };
 
   const variantClasses = {
-    default: "bg-white text-gray-900",
+    default: "bg-[var(--bg-modal)] text-gray-900",
     primary: "bg-[var(--primary)] text-[var(--primary-text)]",
     secondary: "bg-[var(--secondary)] text-[var(--secondary-text)]",
   };

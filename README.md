@@ -1134,6 +1134,41 @@ function ColorVariants() {
 }
 ```
 
+#### Customizando o background do Modal (`--bg-modal`)
+
+O background do Modal na variante `default` pode ser customizado via a variável CSS `--bg-modal`.
+
+| Tema | Valor padrão |
+|------|-------------|
+| Light | `#ffffff` (branco) |
+| Dark  | `#000000` (preto) |
+
+Para customizar no seu app consumidor, defina a variável no seu CSS global ou diretamente no elemento:
+
+```css
+/* CSS global da aplicação */
+:root {
+  --bg-modal: #1e3a5f; /* Azul escuro customizado */
+}
+
+/* Ou por tema */
+:root {
+  --bg-modal: #f0f4f8; /* Light */
+}
+[data-theme="dark"], .dark {
+  --bg-modal: #1a1a2e; /* Dark */
+}
+```
+
+```tsx
+// Ou inline via style (para casos específicos)
+<div style={{ "--bg-modal": "#1e3a5f" } as React.CSSProperties}>
+  <Modal open={open} onClose={onClose}>...</Modal>
+</div>
+```
+
+> **Nota:** A variável `--bg-modal` afeta apenas a variante `default`. As variantes `primary` e `secondary` usam `--primary` e `--secondary` respectivamente.
+
 Veja a story do componente no Storybook para mais exemplos e variações:
 
 [Storybook — Modal](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-modal--basic)
