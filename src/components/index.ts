@@ -3,6 +3,7 @@ export * from "./Button";
 export * from "./Chip";
 export * from "./Pagination";
 export * from "./Input";
+export * from "./ColorInput";
 export * from "./Select";
 export * from "./Textarea";
 export * from "./AsyncSelect";

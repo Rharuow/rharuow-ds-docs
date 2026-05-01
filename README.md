@@ -9,7 +9,7 @@ Um Design System moderno em React com integração completa ao React Hook Form, 
 ## 🌟 Características
 
 - ⚛️ **React 18+** com TypeScript
-- 🧩 **23 componentes** prontos para uso (Input, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Switch, Chip, Pagination, Card, Table, Tooltip, Accordion, AsideSheet, Sidebar, BottomSheet, BottomTabNavigator, Modal, Toaster, ImageInput)
+- 🧩 **24 componentes** prontos para uso (Input, ColorInput, Textarea, Select, AsyncSelect, MultiSelect, MultiAsyncSelect, RadioGroup, Button, Switch, Chip, Pagination, Card, Table, Tooltip, Accordion, AsideSheet, Sidebar, BottomSheet, BottomTabNavigator, Modal, Toaster, ImageInput)
 - 💡 **Filtro digitável** em componentes Select - Digite para encontrar opções rapidamente
 - 🔗 **Integração nativa** com React Hook Form
 - 🎨 **Sistema de cores automático** - Defina apenas 2 cores e todas as variações são calculadas automaticamente
@@ -88,6 +88,7 @@ npm install react-hook-form
      Modal,
      Toaster,
      ImageInput,
+     ColorInput,
    } from "rharuow-ds";
 
    function App() {
@@ -181,6 +182,7 @@ npm install react-hook-form
      Modal,
      Toaster,
      ImageInput,
+     ColorInput,
    } from "rharuow-ds";
 
    function FormExample() {
@@ -1486,6 +1488,74 @@ const uploadToCloudinary = async (file: File): Promise<string> => {
 Veja a story do componente no Storybook para demonstrações completas:
 
 [Storybook — ImageInput](https://rharuow.github.io/rharuow-ds-docs/?path=/story/imageinput--default)
+
+---
+
+### 🎨 **ColorInput**
+
+Componente de seleção de cor (color picker) com label flutuante e integração nativa com React Hook Form:
+
+- ✅ **Seletor nativo** - Usa `<input type="color">` do navegador para máxima compatibilidade
+- ✅ **Valor hexadecimal visível** - Exibe o código hex selecionado ao lado do swatch
+- ✅ **Label flutuante** - Mesmo comportamento do componente `Input`
+- ✅ **Integração com React Hook Form** - Registra automaticamente via `useFormContext`
+- ✅ **Controlado ou não-controlado** - Funciona com ou sem `FormProvider`
+- ✅ **Acessível** - Label associado ao input via `htmlFor`
+
+Props principais:
+
+- `name: string` — nome do campo (obrigatório, usado no React Hook Form)
+- `label?: string` — label flutuante
+- `containerClassName?: string` — classe extra no wrapper
+- `disabled?: boolean` — desabilita o campo
+
+Exemplo básico:
+
+```tsx
+import { ColorInput } from 'rharuow-ds';
+import { FormProvider, useForm } from 'react-hook-form';
+
+function ThemeForm() {
+  const methods = useForm({ defaultValues: { primaryColor: '#8b5cf6' } });
+
+  const onSubmit = (data: { primaryColor: string }) => {
+    console.log('Cor escolhida:', data.primaryColor);
+  };
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <ColorInput name="primaryColor" label="Cor primária" />
+        <button type="submit">Salvar</button>
+      </form>
+    </FormProvider>
+  );
+}
+```
+
+Exemplo controlado (sem React Hook Form):
+
+```tsx
+import React from 'react';
+import { ColorInput } from 'rharuow-ds';
+
+function ColorPicker() {
+  const [color, setColor] = React.useState('#ec4899');
+
+  return (
+    <ColorInput
+      name="cor"
+      label="Escolha uma cor"
+      value={color}
+      onChange={(e) => setColor(e.target.value)}
+    />
+  );
+}
+```
+
+Veja a story do componente no Storybook para demonstrações completas:
+
+[Storybook — ColorInput](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-colorinput--default)
 
 ---
 ```
