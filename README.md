@@ -411,12 +411,51 @@ Campo de texto versátil com label flutuante e integração com React Hook Form:
 
 - ✅ Label flutuante animada
 - ✅ Suporte a múltiplos tipos (text, email, password, number, tel, url)
+- ✅ Variante de CEP com máscara automática (`00000-000`) e validação de formato
 - ✅ Funcionalidade de password com botão mostrar/ocultar
 - ✅ Variante de moeda com máscara e formatação automática (BRL por padrão)
 - ✅ Saída configurável no React Hook Form como string formatada ou number
+- ✅ `onChange` exposto para integrações como busca de endereço por CEP
 - ✅ Ícones customizados opcionais
 - ✅ Estados de erro integrados
 - ✅ Totalmente acessível (ARIA)
+
+Exemplo com CEP e `onChange` para busca de endereço:
+
+```tsx
+import React from "react";
+import { Input } from "rharuow-ds";
+
+function AddressForm() {
+  const [cep, setCep] = React.useState("");
+
+  const handleCepChange: React.ChangeEventHandler<HTMLInputElement> = async (event) => {
+    const maskedCep = event.target.value;
+    setCep(maskedCep);
+
+    const normalizedCep = maskedCep.replace(/\D/g, "");
+    if (normalizedCep.length === 8) {
+      // Exemplo: chamar servico externo quando CEP estiver completo
+      // const endereco = await buscarEnderecoPorCep(normalizedCep);
+      // preencher campos do formulario...
+    }
+  };
+
+  return (
+    <Input
+      name="cep"
+      label="CEP"
+      cep
+      value={cep}
+      onChange={handleCepChange}
+    />
+  );
+}
+```
+
+Veja a story de CEP no Storybook para exemplos completos:
+
+[Storybook - Input CEP](https://rharuow.github.io/rharuow-ds-docs/?path=/story/components-input-cep--default)
 
 ### � **Textarea**
 

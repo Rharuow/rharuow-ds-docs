@@ -4,6 +4,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 
 import { cn } from "../lib/utils";
 import { applyCpfMask, validateCpf } from "../lib/cpf.utils";
+import { applyCepMask, validateCep } from "../lib/cep.utils";
 import {
   DEFAULT_CURRENCY_CODE,
   DEFAULT_CURRENCY_LOCALE,
@@ -22,6 +23,7 @@ export interface InputProps
   containerClassName?: string;
   iconAction?: React.MouseEventHandler<HTMLDivElement>;
   cpf?: boolean;
+  cep?: boolean;
   currency?: boolean;
   currencyCode?: string;
   currencyLocale?: string;
@@ -43,6 +45,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       iconAction,
       containerClassName,
       cpf = false,
+      cep = false,
       currency = false,
       currencyCode = DEFAULT_CURRENCY_CODE,
       currencyLocale = DEFAULT_CURRENCY_LOCALE,
@@ -56,6 +59,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const [focused, setFocused] = React.useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
     const [cpfError, setCpfError] = React.useState<string | null>(null);
+    const [cepError, setCepError] = React.useState<string | null>(null);
 
     const form = useFormContext();
     const control = form?.control;
@@ -68,7 +72,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       ? formatCurrencyValue(value as string | number | null | undefined, currencyCode, currencyLocale)
       : value;
 
-    const error = form?.formState?.errors?.[name as string]?.message || cpfError;
+    const error = form?.formState?.errors?.[name as string]?.message || cpfError || cepError;
 
     // Tipos de input que possuem placeholders nativos que conflitam com o label flutuante
     const dateTimeTypes = ["date", "datetime-local", "time", "month", "week"];
@@ -139,10 +143,26 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           setCpfError(null);
         }
       }
-      
-      // Chama o onChange original se existir
-      if (onChange) {
-        onChange(event);
+    };
+
+    const handleCepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (cep) {
+        const rawValue = event.target.value;
+        const maskedValue = applyCepMask(rawValue);
+
+        // Atualiza o valor com a máscara
+        event.target.value = maskedValue;
+
+        // Valida apenas se o campo estiver completo
+        if (maskedValue.length === 9) {
+          if (!validateCep(maskedValue)) {
+            setCepError("CEP inválido");
+          } else {
+            setCepError(null);
+          }
+        } else {
+          setCepError(null);
+        }
       }
     };
 
@@ -151,7 +171,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         handleCurrencyChange(event);
       }
 
-      handleCpfChange(event);
+      if (cpf) {
+        handleCpfChange(event);
+      }
+
+      if (cep) {
+        handleCepChange(event);
+      }
+
+      if (onChange) {
+        onChange(event);
+      }
     };
 
     const registerOptions = currency
@@ -184,6 +214,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               return true;
             },
           }
+        : cep
+          ? {
+              validate: (inputValue: string) => {
+                if (!inputValue) return "CEP é obrigatório";
+                if (inputValue.length < 9) return "CEP incompleto";
+                if (!validateCep(inputValue)) return "CEP inválido";
+                return true;
+              },
+            }
         : undefined;
 
     const controlledValue = currency && valueProp === undefined && form
@@ -215,8 +254,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             setFocused(true);
             onFocus && onFocus(event);
           }}
-          maxLength={cpf ? 14 : props.maxLength}
-          inputMode={currency ? "decimal" : cpf ? "numeric" : props.inputMode}
+          maxLength={cpf ? 14 : cep ? 9 : props.maxLength}
+          inputMode={currency ? "decimal" : cpf || cep ? "numeric" : props.inputMode}
           // Merge register's ref with custom ref to avoid duplication
           {...(form && name
             ? (() => {
